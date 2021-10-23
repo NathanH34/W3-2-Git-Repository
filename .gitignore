@@ -3,7 +3,7 @@
 *.tar.gz
 *.rar
 *.classpath
-.vscode/tasks.json
+.vscode
 
 ### Java ###
 *.class
@@ -22,5 +22,5 @@
 
 # Ignore Gradle GUI config
 gradle-app.setting
-# Dont ignore gradle-wrapper jar
+# Dont ignore gradle-wrapper
 !gradle-wrapper.jar
