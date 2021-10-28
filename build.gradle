@@ -9,6 +9,7 @@
 
 plugins {
    id 'java'
+   id 'application'
 }
 
 java {
@@ -21,10 +22,17 @@ repositories {
 }
 
 dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.0')
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
 }
 
 test {
-    ignoreFailures = true 
+    //ignoreFailures = true 
     useJUnitPlatform()
+}
+
+application {
+    mainClass = "edu.odu.cs.cs350.DupDetector"
+
+}
