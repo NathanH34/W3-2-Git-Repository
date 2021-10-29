@@ -48,4 +48,12 @@ public class Token {
     public Lexeme getLexeme() {
         return lex;
     }
+
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
+    }
 }
