@@ -3,7 +3,10 @@ public class Lexeme {
     private String name;
 
     public Lexeme() {
-        name = "fooLexeme";
+        name = "";
+    }
+    public Lexeme(String theName) {
+        name = theName;
     }
     public String getName() {
         return name;

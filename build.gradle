@@ -29,6 +29,17 @@ dependencies {
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
 }
 
+sourceSets {
+  main {
+     jflex {
+       srcDir "src/main/jflex"
+     }
+     java {
+       srcDir "$buildDir/my-generated-sources/jflex"
+     }
+  }
+}
+
 test {
     //ignoreFailures = true 
     useJUnitPlatform()

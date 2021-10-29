@@ -11,6 +11,10 @@ public class SourceCodeFile {
         numTokens = 0;
     }
 
+    /**
+     * 
+     * @param filePath
+     */
     public SourceCodeFile(String filePath) {
         path = filePath;
         numTokens = 0;
@@ -24,7 +28,8 @@ public class SourceCodeFile {
         return numTokens;
     }
     
-    public String reportNameAndTokens() {
+    @Override
+    public final String toString() {
         return (path + "   Tokens:" + numTokens + "\n");
     }
 
