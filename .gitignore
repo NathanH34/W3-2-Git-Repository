@@ -4,15 +4,7 @@
 *.tar.gz
 *.rar
 *.classpath
-
-# Directories to be ignored
-.vscode
-.project
-
-### Java ###
 *.class
-
-# Package Files #
 *.jar
 *.war
 *.ear
@@ -20,7 +12,11 @@
 *.tar.gz
 *.rar
 
-# Unnecessary gradle directories and files to be ignored
+# Directories to be ignored
+.vscode
+.project
+
+# Unnecessary gradle files and directories to be ignored
 .gradle
 /build/
 .settings/*
