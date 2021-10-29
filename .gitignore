@@ -1,8 +1,11 @@
+# File endings to be ignored
 *.log
 *.zip
 *.tar.gz
 *.rar
 *.classpath
+
+# Directories to be ignored
 .vscode
 .project
 
@@ -21,9 +24,10 @@
 .gradle
 /build/
 .settings/*
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
-# Do not ignore gradle-wrapper jar
+# Do not ignore gradle-wrapper.jar
 !gradle-wrapper.jar
 
