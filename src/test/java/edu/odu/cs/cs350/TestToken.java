@@ -32,4 +32,19 @@ public class TestToken {
         assertThat(token.getColumn(), is(0));
         assertThat(token, equalTo(blankToken));
     }
+    
+    @Test
+    public void testConstructorNoLexParameter() {
+        Token token = new Token(defaultName, defaultLine, defaultColumn);
+        assertThat(token.getName(), equalTo(defaultName));
+        assertThat(token.getLexeme(), equalTo(blankLexeme));
+        assertThat(token.getLine(), equalTo(defaultLine));
+        assertThat(token.getColumn(), equalTo(defaultColumn));
+        assertThat(token, not(equalTo(blankToken)));
+    }
+
+    @Test
+    public void testConstructorWithLexParameter() {
+        
+    }
 }
