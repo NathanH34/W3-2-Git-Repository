@@ -1,24 +1,21 @@
 # File endings to be ignored
-*.log
-*.zip
-*.tar.gz
-*.rar
-*.classpath
 *.class
-*.jar
-*.war
+*.classpath
 *.ear
-*.zip
-*.tar.gz
+*.jar
+*.log
 *.rar
+*.tar.gz
+*.war
+*.zip
 
 # Directories to be ignored
-.vscode
 .project
+.vscode
 
 # Unnecessary gradle files and directories to be ignored
-.gradle
 /build/
+.gradle
 .settings/*
 
 # Gradle GUI configuration to be ignored
