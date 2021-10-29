@@ -1,7 +1,7 @@
 package edu.odu.cs.cs350;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat; 
@@ -10,6 +10,13 @@ public class TestLexeme {
 
     Lexeme blank = new Lexeme();
     String defaultLexeme = "if";
+
+    /**
+    * @throws java.lang.Exception
+    */
+    @BeforeEach
+    public void setUp() throws Exception {
+    }
 
     @Test
     public void testConstructor() {
