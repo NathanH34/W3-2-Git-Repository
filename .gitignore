@@ -1,28 +1,26 @@
-*.log
-*.zip
-*.tar.gz
-*.rar
-*.classpath
-.vscode
-.project
-
-### Java ###
+# File endings to be ignored
 *.class
-
-# Package Files #
-*.jar
-*.war
+*.classpath
 *.ear
-*.zip
-*.tar.gz
+*.jar
+*.log
 *.rar
+*.tar.gz
+*.war
+*.zip
 
-### Gradle ###
-.gradle
+# Directories to be ignored
+.project
+.vscode
+
+# Unnecessary gradle files and directories to be ignored
 /build/
+.gradle
 .settings/*
-# Ignore Gradle GUI config
+
+# Gradle GUI configuration to be ignored
 gradle-app.setting
-# Dont ignore gradle-wrapper
+
+# Do not ignore gradle-wrapper.jar
 !gradle-wrapper.jar
 
