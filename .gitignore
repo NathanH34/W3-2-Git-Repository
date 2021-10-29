@@ -23,6 +23,7 @@
 .settings/*
 # Ignore Gradle GUI config
 gradle-app.setting
-# Dont ignore gradle-wrapper
+
+# Do not ignore gradle-wrapper jar
 !gradle-wrapper.jar
 
