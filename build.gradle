@@ -10,6 +10,8 @@
 plugins {
    id 'java'
    id 'application'
+   //JFlex plugin
+   id "org.xbib.gradle.plugin.jflex" version "1.5.0"
 }
 
 java {

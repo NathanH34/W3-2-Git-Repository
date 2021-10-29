@@ -9,5 +9,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class TestSourceCodeFile {
-    
+    @Test
+    public void testDefaultConstructor() {
+        SourceCodeFile src = new SourceCodeFile();
+        assertThat(src.getPath(), is(""));
+        assertThat(src.getNumTokens(), is(0));
+        assertThat(src.reportNameAndTokens(), is("   Tokens:0\n"));
+    }
+
+    @Test
+    public void testConstructorWithFilepath() {
+        SourceCodeFile src = new SourceCodeFile("TestDir/TestPath.cpp");
+        assertThat(src.getPath(), is("TestDir/TestPath.cpp"));
+        assertThat(src.getNumTokens(), is(0));
+        assertThat(src.reportNameAndTokens(), is("TestDir/TestPath.cpp   Tokens:0\n"));
+    }
 }
