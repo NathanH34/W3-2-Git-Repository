@@ -20,12 +20,12 @@
 *.tar.gz
 *.rar
 
-### Gradle ###
+# Unnecessary gradle directories and files to be ignored
 .gradle
 /build/
 .settings/*
 
-# Ignore Gradle GUI config
+# Gradle GUI configuration to be ignored
 gradle-app.setting
 
 # Do not ignore gradle-wrapper.jar
