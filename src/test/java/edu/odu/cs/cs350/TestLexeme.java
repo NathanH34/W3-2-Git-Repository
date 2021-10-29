@@ -10,6 +10,6 @@ public class TestLexeme {
     @Test
     public void testConstructor() {
         Lexeme lex = new Lexeme ();
-        assertThat(lex.getName(), is("fooLexeme"));
+        assertThat(lex.getName(), is(""));
     }
 }

@@ -1,13 +1,13 @@
 package edu.odu.cs.cs350;
-
+import java.io.File;
 
 public class SourceCodeFile {
-    private String path;
+    private File path;
     private int numTokens;
     private Token[] tokens;
     
     public SourceCodeFile() {
-        path = "";
+        path = new File("");
         numTokens = 0;
     }
 
@@ -16,12 +16,12 @@ public class SourceCodeFile {
      * @param filePath
      */
     public SourceCodeFile(String filePath) {
-        path = filePath;
+        path = new File(filePath);
         numTokens = 0;
     }
 
     public String getPath() {
-        return path;
+        return path.getAbsolutePath();
     }
 
     public int getNumTokens() {
@@ -30,7 +30,7 @@ public class SourceCodeFile {
     
     @Override
     public final String toString() {
-        return (path + "   Tokens:" + numTokens + "\n");
+        return (path.getAbsolutePath() + "   Tokens:" + numTokens + "\n");
     }
 
 }

@@ -2,7 +2,6 @@ package edu.odu.cs.cs350;
 import java.io.File;
 
 public class DupDetector {
-    private String PROPERTIES_EXTENSION = ".ini";
 
     public static void main(String [] args) {
         int nSuggestions = 0;
@@ -26,20 +25,16 @@ public class DupDetector {
 	            File file = new File(args[i]);
 	            searchFiles(file);
             }
-            
         } catch(Exception e) {
             System.out.println("The filepath must be entered");
         }
 
-        /*
-        src= new SourceCodeFile(filePath);
-        System.out.print(src.reportNameAndTokens());
-        */
+       
     }
     
     /**
      * Recursively search for files in a directory and its subdirectories
-     * @param dir directory to be searched
+     * @param file directory to be searched
      */
     public static void searchFiles(File file) {
     	if(file.isFile()) { //check if path argument represents a file
