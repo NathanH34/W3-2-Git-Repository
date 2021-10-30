@@ -6,17 +6,12 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/* Java 1.2 language lexer specification */
-
-/* Use together with unicode.flex for Unicode preprocesssing */
-/* and java12.cup for a Java 1.2 parser                      */
-
-/* Note that this lexer specification is not tuned for speed.
-   It is in fact quite slow on integer and floating point literals, 
-   because the input is read twice and the methods used to parse
-   the numbers are not very fast. 
-   For a production quality application (e.g. a Java compiler) 
-   this could be optimized */
+/**
+*  C++ lexer definition.
+*
+* TODO: add recognition for #include statements
+*
+*/
 
 package edu.odu.cs.cs350;
 
@@ -35,12 +30,12 @@ package edu.odu.cs.cs350;
 %{
   StringBuilder string = new StringBuilder();
   
-  private Token symbol(String type) {
-    return new token(type, yyline+1, yycolumn+1);
+  private Token symbol(TokenKinds type) {
+    return new Token(type, yyline+1, yycolumn+1);
   }
 
-  private Token symbol(String type, Object value) {
-    return new Token(type, yyline+1, yycolumn+1, value.toString);
+  private Token symbol(TokenKinds type, Object value) {
+    return new Token(type, value.toString(), yyline+1, yycolumn+1);
   }
 
   /** 
@@ -155,7 +150,7 @@ SingleCharacter = [^\r\n\'\\]
   "extern"                  { return symbol(TokenKinds.EXTERN); }
   "float"                   { return symbol(TokenKinds.FLOAT); }
   "for"                     { return symbol(TokenKinds.FOR); }
-  "friend"                  { return symbol(TokenKinds.FRIEND)); }
+  "friend"                  { return symbol(TokenKinds.FRIEND); }
   "goto"                    { return symbol(TokenKinds.GOTO); }
   "if"                      { return symbol(TokenKinds.IF); }
   "inline"                  { return symbol(TokenKinds.INLINE); }
@@ -261,7 +256,7 @@ SingleCharacter = [^\r\n\'\\]
   "|="                           { return symbol(TokenKinds.OR_EQ); }
   "^="                           { return symbol(TokenKinds.XOR_EQ); }
   "%="                           { return symbol(TokenKinds.MODEQ); }
-  "<<="                          { return symbol(TokenKindsLSHIFTEQ); }
+  "<<="                          { return symbol(TokenKinds.LSHIFTEQ); }
   ">>="                          { return symbol(TokenKinds.RSHIFTEQ); }
   ">>>="                         { return symbol(TokenKinds.URSHIFTEQ); }
   
@@ -336,7 +331,7 @@ SingleCharacter = [^\r\n\'\\]
   "\\\\"\'                       { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\\'); }
   \\[0-3]?{OctDigit}?{OctDigit}\' { yybegin(YYINITIAL); 
 			                              int val = Integer.parseInt(yytext().substring(1,yylength()-1),8);
-			                            return symbol(CHARACTER_LITERAL, (char)val); }
+			                            return symbol(TokenKinds.CHARACTER_LITERAL, (char)val); }
   
   /* error cases */
   \\.                            { throw new RuntimeException("Illegal escape sequence \""+yytext()+"\""); }

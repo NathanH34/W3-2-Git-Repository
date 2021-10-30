@@ -4,10 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.annotation.processing.Filer;
 
-public class SourceCodeFile {
+public class SourceCodeFile implements Iterable<Token> {
     private File path;
     private int numTokens;
     private ArrayList<Token> tokens;
@@ -63,6 +64,10 @@ public class SourceCodeFile {
            
         }
 
+    } 
+    @Override
+    public final Iterator<Token> iterator() {
+        return tokens.iterator();
     }
 
     @Override

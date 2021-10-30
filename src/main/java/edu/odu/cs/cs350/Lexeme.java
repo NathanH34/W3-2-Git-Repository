@@ -13,6 +13,10 @@ public class Lexeme {
     }
 
     @Override
+    public String toString() {
+        return name;
+    }
+    @Override
     public boolean equals(Object obj) {
         return (obj instanceof Lexeme) && (this.name == ((Lexeme) obj).getName());
     }

@@ -130,6 +130,8 @@ public enum TokenKinds {
     LSHIFT,
     RSHIFT,
     URSHIFT,
+    PLUSEQ,
+    MINUSEQ,
     MULTEQ,
     DIVEQ,
     MODEQ,

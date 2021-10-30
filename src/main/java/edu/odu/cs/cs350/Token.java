@@ -67,6 +67,10 @@ public class Token {
         return column;
     }
 
+    @Override 
+    public String toString() {
+        return ("Token type: "+ name + " Lexeme: " + lex.toString() + " Line: " + line + " Column: " + column + "\n");
+    }
     @Override
     public boolean equals(Object obj) {
         return (obj instanceof Token) && (this.name == ((Token) obj).getName()) && (this.lex.equals(((Token) obj).getLexeme()));

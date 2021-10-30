@@ -1318,12 +1318,12 @@ public class Scanner {
   /* user code: */
   StringBuilder string = new StringBuilder();
   
-  private Token symbol(String type) {
-    return new token(type, yyline+1, yycolumn+1);
+  private Token symbol(TokenKinds type) {
+    return new Token(type, yyline+1, yycolumn+1);
   }
 
-  private Token symbol(String type, Object value) {
-    return new Token(type, yyline+1, yycolumn+1, value.toString);
+  private Token symbol(TokenKinds type, Object value) {
+    return new Token(type, value.toString(), yyline+1, yycolumn+1);
   }
 
   /** 
@@ -2036,13 +2036,13 @@ public class Scanner {
             }
           case 251: break;
           case 80: 
-            { return symbol(TokenKindsLSHIFTEQ);
+            { return symbol(TokenKinds.LSHIFTEQ);
             }
           case 252: break;
           case 81: 
             { yybegin(YYINITIAL); 
 			                              int val = Integer.parseInt(yytext().substring(1,yylength()-1),8);
-			                            return symbol(CHARACTER_LITERAL, (char)val);
+			                            return symbol(TokenKinds.CHARACTER_LITERAL, (char)val);
             }
           case 253: break;
           case 82: 
@@ -2202,7 +2202,7 @@ public class Scanner {
             }
           case 292: break;
           case 121: 
-            { return symbol(TokenKinds.FRIEND));
+            { return symbol(TokenKinds.FRIEND);
             }
           case 293: break;
           case 122: 

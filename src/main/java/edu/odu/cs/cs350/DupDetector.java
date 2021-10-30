@@ -1,14 +1,12 @@
 package edu.odu.cs.cs350;
 import java.io.File;
+import java.util.Iterator;
 
 public class DupDetector {
 
     public static void main(String [] args) {
         int nSuggestions = 0;
         String propertiesPath = "";
-        String filePath = "";
-        SourceCodeFile src;
-
         /**
          * Not final logic, just placeholder to process filepath args.
          */
@@ -17,18 +15,20 @@ public class DupDetector {
         try {
             nSuggestions = Integer.parseInt(args[0]);
         } catch(Exception e) {
-            System.out.println("The nSuggestions argument must be entered");
+            System.out.print(e.toString());
         }
         try {
-            filePath = args[1];
-            for(int i=1; i<args.length; i++) { 
-	            File file = new File(args[i]);
-	            searchFiles(file);
+            File file = new File(args[1]);
+            SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
+            System.out.print(src.toString());
+            Iterator<Token> it =  src.iterator();
+            while(it.hasNext()) {
+                System.out.print(it.next().toString());
             }
         } catch(Exception e) {
-            System.out.println("The filepath must be entered");
+            System.out.print(e.toString());
         }
-
+        
        
     }
     
@@ -38,7 +38,8 @@ public class DupDetector {
      */
     public static void searchFiles(File file) {
     	if(file.isFile()) { //check if path argument represents a file
-        	System.out.println(file.getAbsolutePath()); //print the file's path 
+        	SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
+            System.out.print(src.toString());
         }
     	else if(file.isDirectory()) { //check if path argument represents a directory
     		File[] files = file.listFiles();
