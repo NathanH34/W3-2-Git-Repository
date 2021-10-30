@@ -13,6 +13,7 @@ public class TestSourceCodeFile {
    SourceCodeFile blankCodeFile = new SourceCodeFile();
    int noNumTokens = 0;
    String defaultFilePath = "/home/user/cs350";
+   File defaultFile = new File("");
 
    /**
    * @throws java.lang.Exception
@@ -24,9 +25,9 @@ public class TestSourceCodeFile {
    @Test
     public void testDefaultConstructor() {
       SourceCodeFile src = new SourceCodeFile();
-      assertThat(src.getPath(), is(""));
+      assertThat(src.getPath(), is(defaultFile.getAbsolutePath()));
       assertThat(src.getNumTokens(), is(0));
-      assertThat(src.toString(), is("   Tokens:0\n"));
+      assertThat(src.toString(), is(defaultFile.getAbsolutePath() + "   Tokens:0\n"));
       assertThat(src, equalTo(blankCodeFile));
     }
     

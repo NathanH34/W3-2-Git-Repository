@@ -20,31 +20,27 @@
 
 package edu.odu.cs.cs350;
 
-import java_cup.runtime.*;
 
 %%
 
 %public
 %class Scanner
-%implements sym
 
 %unicode
 
 %line
 %column
-
-%cup
-%cupdebug
+%type Token
 
 %{
   StringBuilder string = new StringBuilder();
   
-  private Token symbol(int type) {
-    return new Token(type, yyline+1, yycolumn+1);
+  private Token symbol(String type) {
+    return new token(type, yyline+1, yycolumn+1);
   }
 
-  private Token symbol(int type, Object value) {
-    return new Token(type, yyline+1, yycolumn+1, value);
+  private Token symbol(String type, Object value) {
+    return new Token(type, yyline+1, yycolumn+1, value.toString);
   }
 
   /** 
