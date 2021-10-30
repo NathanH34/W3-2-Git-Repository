@@ -11,4 +11,9 @@ public class Lexeme {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Lexeme) && (this.name == ((Lexeme) obj).getName());
+    }
 }

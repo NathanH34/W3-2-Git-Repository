@@ -48,12 +48,15 @@ public class Token {
     public Lexeme getLexeme() {
         return lex;
     }
-
     public int getLine() {
         return line;
     }
-
     public int getColumn() {
         return column;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Token) && (this.name == ((Token) obj).getName()) && (this.lex.equals(((Token) obj).getLexeme()));
     }
 }

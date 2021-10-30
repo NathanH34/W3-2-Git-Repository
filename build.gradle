@@ -34,9 +34,6 @@ sourceSets {
      jflex {
        srcDir "src/main/jflex"
      }
-     java {
-       srcDir "$buildDir/my-generated-sources/jflex"
-     }
   }
 }
 
@@ -44,8 +41,7 @@ test {
     //ignoreFailures = true 
     useJUnitPlatform()
 }
-
+ext.javaMainClass = "edu.odu.cs.cs350.DupDetector"
 application {
-    mainClass = "edu.odu.cs.cs350.DupDetector"
-
+    mainClassName = javaMainClass
 }

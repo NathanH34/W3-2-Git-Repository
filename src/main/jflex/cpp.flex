@@ -1,296 +1,274 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright 2008 Ayman Al-Sairafi ayman.alsairafi@gmail.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License
+ *       at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+ * Copyright 2006 Arnout Engelen <arnouten[remove] at bzzt dot net>.
+ * Copyright 2000-2006 Omnicore Software, Hans Kratz & Dennis Strein GbR,
+ *                     Geert Bevin <gbevin[remove] at uwyn dot com>.
+ * Distributed under the terms of either:
+ * - the common development and distribution license (CDDL), v1.0; or
+ * - the GNU Lesser General Public License, v2.1 or later
+ */
+package jsyntaxpane.lexers;
 
-/** modified by Jeremy Boissevain 10/29/2021**/
 
-/**TODO: NEEDS MODIFICATION TO MATCH WITH CPP RESERVED WORDS. CURRENTLY ONLY WORKS FOR JAVA SOURCE.
-
-import java_cup.runtime.*;
+import jsyntaxpane.Token;
+import jsyntaxpane.TokenType;
 
 %%
 
 %public
-%class Scanner
-%implements sym
-
+%class CppLexer
+%extends DefaultJFlexLexer
+%final
 %unicode
+%char
+%type Token
 
-%line
-%column
-
-%cup
-%cupdebug
 
 %{
-  StringBuilder string = new StringBuilder();
-  
-  private Symbol symbol(int type) {
-    return new JavaSymbol(type, yyline+1, yycolumn+1);
-  }
 
-  private Symbol symbol(int type, Object value) {
-    return new JavaSymbol(type, yyline+1, yycolumn+1, value);
-  }
-
-  /** 
-   * assumes correct representation of a long value for 
-   * specified radix in scanner buffer from <code>start</code> 
-   * to <code>end</code> 
-   */
-  private long parseLong(int start, int end, int radix) {
-    long result = 0;
-    long digit;
-
-    for (int i = start; i < end; i++) {
-      digit  = Character.digit(yycharat(i),radix);
-      result*= radix;
-      result+= digit;
+    public CppLexer() {
+        super();
     }
 
-    return result;
-  }
+    @Override
+    public int yychar() {
+        return yychar;
+    }
+
+    private static final byte PARAN     = 1;
+    private static final byte BRACKET   = 2;
+    private static final byte CURLY     = 3;
+
 %}
 
 /* main character classes */
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 
-WhiteSpace = {LineTerminator} | [ \t\f]
-
 /* comments */
-Comment = {TraditionalComment} | {EndOfLineComment} | 
-          {DocumentationComment}
+Comment = {TraditionalComment} | {EndOfLineComment} 
 
 TraditionalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 EndOfLineComment = "//" {InputCharacter}* {LineTerminator}?
-DocumentationComment = "/*" "*"+ [^/*] ~"*/"
 
 /* identifiers */
+
+ConstantIdentifier = {SimpleConstantIdentifier}
+SimpleConstantIdentifier = [#A-Z0-9_]+
+
 Identifier = [:jletter:][:jletterdigit:]*
 
-/* integer literals */
-DecIntegerLiteral = 0 | [1-9][0-9]*
-DecLongLiteral    = {DecIntegerLiteral} [lL]
+/* int literals */
 
-HexIntegerLiteral = 0 [xX] 0* {HexDigit} {1,8}
-HexLongLiteral    = 0 [xX] 0* {HexDigit} {1,16} [lL]
-HexDigit          = [0-9a-fA-F]
+DecLiteral = 0 | [1-9][0-9]* {IntegerSuffix}
 
-OctIntegerLiteral = 0+ [1-3]? {OctDigit} {1,15}
-OctLongLiteral    = 0+ 1? {OctDigit} {1,21} [lL]
+HexLiteral    = 0 [xX] 0* {HexDigit}* {IntegerSuffix}
+HexDigit      = [0-9a-fA-F]
+
+OctLiteral    = 0+ {OctDigit}* {IntegerSuffix}
 OctDigit          = [0-7]
-    
-/* floating point literals */        
-FloatLiteral  = ({FLit1}|{FLit2}|{FLit3}) {Exponent}? [fF]
-DoubleLiteral = ({FLit1}|{FLit2}|{FLit3}) {Exponent}?
 
-FLit1    = [0-9]+ \. [0-9]* 
-FLit2    = \. [0-9]+ 
-FLit3    = [0-9]+ 
-Exponent = [eE] [+-]? [0-9]+
+IntegerSuffix = [uU]? [lL]? [uU]?
+	
+/* float literals */
 
-/* string and character literals */
-StringCharacter = [^\r\n\"\\]
-SingleCharacter = [^\r\n\'\\]
+FloatLiteral  = ({FLit1}|{FLit2}|{FLit3}|{FLit4}) ([fF]|[dD])?
 
-%state STRING, CHARLITERAL
+FLit1 = [0-9]+ \. [0-9]* {Exponent}?
+FLit2 = \. [0-9]+ {Exponent}?
+FLit3 = [0-9]+ {Exponent}
+FLit4 = [0-9]+ {Exponent}?
+
+Exponent = [eE] [+\-]? [0-9]+
 
 %%
 
 <YYINITIAL> {
 
   /* keywords */
-  "abstract"                     { return symbol(ABSTRACT); }
-  "boolean"                      { return symbol(BOOLEAN); }
-  "break"                        { return symbol(BREAK); }
-  "byte"                         { return symbol(BYTE); }
-  "case"                         { return symbol(CASE); }
-  "catch"                        { return symbol(CATCH); }
-  "char"                         { return symbol(CHAR); }
-  "class"                        { return symbol(CLASS); }
-  "const"                        { return symbol(CONST); }
-  "continue"                     { return symbol(CONTINUE); }
-  "do"                           { return symbol(DO); }
-  "double"                       { return symbol(DOUBLE); }
-  "else"                         { return symbol(ELSE); }
-  "extends"                      { return symbol(EXTENDS); }
-  "final"                        { return symbol(FINAL); }
-  "finally"                      { return symbol(FINALLY); }
-  "float"                        { return symbol(FLOAT); }
-  "for"                          { return symbol(FOR); }
-  "default"                      { return symbol(DEFAULT); }
-  "implements"                   { return symbol(IMPLEMENTS); }
-  "import"                       { return symbol(IMPORT); }
-  "instanceof"                   { return symbol(INSTANCEOF); }
-  "int"                          { return symbol(INT); }
-  "interface"                    { return symbol(INTERFACE); }
-  "long"                         { return symbol(LONG); }
-  "native"                       { return symbol(NATIVE); }
-  "new"                          { return symbol(NEW); }
-  "goto"                         { return symbol(GOTO); }
-  "if"                           { return symbol(IF); }
-  "public"                       { return symbol(PUBLIC); }
-  "short"                        { return symbol(SHORT); }
-  "super"                        { return symbol(SUPER); }
-  "switch"                       { return symbol(SWITCH); }
-  "synchronized"                 { return symbol(SYNCHRONIZED); }
-  "package"                      { return symbol(PACKAGE); }
-  "private"                      { return symbol(PRIVATE); }
-  "protected"                    { return symbol(PROTECTED); }
-  "transient"                    { return symbol(TRANSIENT); }
-  "return"                       { return symbol(RETURN); }
-  "void"                         { return symbol(VOID); }
-  "static"                       { return symbol(STATIC); }
-  "while"                        { return symbol(WHILE); }
-  "this"                         { return symbol(THIS); }
-  "throw"                        { return symbol(THROW); }
-  "throws"                       { return symbol(THROWS); }
-  "try"                          { return symbol(TRY); }
-  "volatile"                     { return symbol(VOLATILE); }
-  "strictfp"                     { return symbol(STRICTFP); }
+  "break" |
+  "case" |
+  "catch" |
+  "continue" |
+  "default" |
+  "do" |
+  "else" |
+  "for" |
+  "goto" |
+  "enum" |
+  "if" |
+  "inline" |
+  "mutable" |
+  "noinline" |
+  "return" |
+  "safecast" |
+  "sealed" |
+  "selectany" |
+  "sizeof" |
+  "static_cast" |
+  "switch" |
+  "template" |
+  "this" |
+  "thread" |
+  "throw" |
+  "try" |
+  "typedef" |
+  "typeid" |
+  "typename" |
+  "using" |
+  "uuid" |
+  "value" |
+  "virtual" |
+  "while" |
+  /* C++ Keywords */
+  "new"       |
+  "delete"    |
+  "this"      |
+  "friend"    |
+  "using"     |
+  "throw"     |
+  "try"       |
+  "catch"     |
+  "class"     |
+  "typename"  |
+  "template"  |
+  "namespace" 
+     { return token(TokenType.KEYWORD); }
+     
+  "static" |
+  "struct" |
+  "union" |
+  "volatile" |
+  "register" |
+  "extern" |
+  "const" |
+  "signed" |
+  "unsigned" |
+  "bool" |
+  "char" |
+  "double" |
+  "int" |
+  "long" |
+  "float" |
+  "short" |
+  "void" |
+
+  "public"     |
+  "protected"  |
+  "private"    |
+  "virtual"    |
+  "inline"     |
+  "virtual"    |
+  "explicit"   |
+  "export"     |
+  "bool"       |
+  "wchar_t"
+  { return token(TokenType.TYPE); }
+
+  /* literals */
   
-  /* boolean literals */
-  "true"                         { return symbol(BOOLEAN_LITERAL, true); }
-  "false"                        { return symbol(BOOLEAN_LITERAL, false); }
-  
-  /* null literal */
-  "null"                         { return symbol(NULL_LITERAL); }
-  
+
+  (\" ( [^\"\n\\] | \\[^\n] )* (\n | \\\n | \")) |
+  (\' ( [^\'\n\\] | \\[^\n] )* (\n | \\\n | \')) 
+ 	{ return token(TokenType.STRING); }
+ 	
+  "true" |
+  "false" |
+  {DecLiteral} |
+  {OctLiteral} |
+  {HexLiteral} |
+
+  {FloatLiteral}
+	 { return token(TokenType.NUMBER); }
+
+  /* preprocessor symbols */
+  "#define" |
+  "#elif" |
+  "#else" |
+  "#endif" |
+  "#error" |
+  "#ifdef" |
+  "#ifndef" |
+  "#if" |
+  "#import" |
+  "#include" |
+  "#line" |
+  "#pragma" |
+  "#undef" |
+  "#using"
+  	{ return token(TokenType.KEYWORD2); }
+
   
   /* separators */
-  "("                            { return symbol(LPAREN); }
-  ")"                            { return symbol(RPAREN); }
-  "{"                            { return symbol(LBRACE); }
-  "}"                            { return symbol(RBRACE); }
-  "["                            { return symbol(LBRACK); }
-  "]"                            { return symbol(RBRACK); }
-  ";"                            { return symbol(SEMICOLON); }
-  ","                            { return symbol(COMMA); }
-  "."                            { return symbol(DOT); }
-  
+  "("                            { return token(TokenType.OPERATOR,  PARAN); }
+  ")"                            { return token(TokenType.OPERATOR, -PARAN); }
+  "{"                            { return token(TokenType.OPERATOR,  CURLY); }
+  "}"                            { return token(TokenType.OPERATOR, -CURLY); }
+  "["                            { return token(TokenType.OPERATOR,  BRACKET); }
+  "]"                            { return token(TokenType.OPERATOR, -BRACKET); }
+
   /* operators */
-  "="                            { return symbol(EQ); }
-  ">"                            { return symbol(GT); }
-  "<"                            { return symbol(LT); }
-  "!"                            { return symbol(NOT); }
-  "~"                            { return symbol(COMP); }
-  "?"                            { return symbol(QUESTION); }
-  ":"                            { return symbol(COLON); }
-  "=="                           { return symbol(EQEQ); }
-  "<="                           { return symbol(LTEQ); }
-  ">="                           { return symbol(GTEQ); }
-  "!="                           { return symbol(NOTEQ); }
-  "&&"                           { return symbol(ANDAND); }
-  "||"                           { return symbol(OROR); }
-  "++"                           { return symbol(PLUSPLUS); }
-  "--"                           { return symbol(MINUSMINUS); }
-  "+"                            { return symbol(PLUS); }
-  "-"                            { return symbol(MINUS); }
-  "*"                            { return symbol(MULT); }
-  "/"                            { return symbol(DIV); }
-  "&"                            { return symbol(AND); }
-  "|"                            { return symbol(OR); }
-  "^"                            { return symbol(XOR); }
-  "%"                            { return symbol(MOD); }
-  "<<"                           { return symbol(LSHIFT); }
-  ">>"                           { return symbol(RSHIFT); }
-  ">>>"                          { return symbol(URSHIFT); }
-  "+="                           { return symbol(PLUSEQ); }
-  "-="                           { return symbol(MINUSEQ); }
-  "*="                           { return symbol(MULTEQ); }
-  "/="                           { return symbol(DIVEQ); }
-  "&="                           { return symbol(ANDEQ); }
-  "|="                           { return symbol(OREQ); }
-  "^="                           { return symbol(XOREQ); }
-  "%="                           { return symbol(MODEQ); }
-  "<<="                          { return symbol(LSHIFTEQ); }
-  ">>="                          { return symbol(RSHIFTEQ); }
-  ">>>="                         { return symbol(URSHIFTEQ); }
-  
-  /* string literal */
-  \"                             { yybegin(STRING); string.setLength(0); }
+  "=" |
+  ";" |
+  "," |
+  "." |
+  ">" |
+  "<" |
+  "!" |
+  "~" |
+  "?" |
+  ":" |
+  "+" |
+  "-" |
+  "*" |
+  "/" |
+  "&" |
+  "|" |
+  "^" |
+  "%" |
+  ">>"       |
+  "<<"       |
+  "operator" |
+  "typeid"   |
+  "and"      |
+  "bitor"    |
+  "or"       |
+  "xor"      |
+  "compl"    |
+  "bitand"   |
+  "and_eq"   |
+  "or_eq"    |
+  "xor_eq"   |
+  "not"      |
+  "not_eq"
+                     { return token(TokenType.OPERATOR); }
 
-  /* character literal */
-  \'                             { yybegin(CHARLITERAL); }
+  /** C++ standard and built-in objects */
+  "cin"  |
+  "cout"
+  { return token(TokenType.TYPE2); }
 
-  /* numeric literals */
+  {ConstantIdentifier}     { return token(TokenType.TYPE); }
 
-  /* This is matched together with the minus, because the number is too big to 
-     be represented by a positive integer. */
-  "-2147483648"                  { return symbol(INTEGER_LITERAL, Integer.valueOf(Integer.MIN_VALUE)); }
-  
-  {DecIntegerLiteral}            { return symbol(INTEGER_LITERAL, Integer.valueOf(yytext())); }
-  {DecLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(yytext().substring(0,yylength()-1))); }
-  
-  {HexIntegerLiteral}            { return symbol(INTEGER_LITERAL, Integer.valueOf((int) parseLong(2, yylength(), 16))); }
-  {HexLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(2, yylength()-1, 16))); }
- 
-  {OctIntegerLiteral}            { return symbol(INTEGER_LITERAL, Integer.valueOf((int) parseLong(0, yylength(), 8))); }
-  {OctLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(0, yylength()-1, 8))); }
-  
-  {FloatLiteral}                 { return symbol(FLOATING_POINT_LITERAL, new Float(yytext().substring(0,yylength()-1))); }
-  {DoubleLiteral}                { return symbol(FLOATING_POINT_LITERAL, new Double(yytext())); }
-  {DoubleLiteral}[dD]            { return symbol(FLOATING_POINT_LITERAL, new Double(yytext().substring(0,yylength()-1))); }
-  
-  /* comments */
-  {Comment}                      { /* ignore */ }
+  {Identifier}             { return token(TokenType.IDENTIFIER); }
 
-  /* whitespace */
-  {WhiteSpace}                   { /* ignore */ }
-
-  /* identifiers */ 
-  {Identifier}                   { return symbol(IDENTIFIER, yytext()); }  
+  {Comment}   	           { return token(TokenType.COMMENT); }
 }
 
-<STRING> {
-  \"                             { yybegin(YYINITIAL); return symbol(STRING_LITERAL, string.toString()); }
-  
-  {StringCharacter}+             { string.append( yytext() ); }
-  
-  /* escape sequences */
-  "\\b"                          { string.append( '\b' ); }
-  "\\t"                          { string.append( '\t' ); }
-  "\\n"                          { string.append( '\n' ); }
-  "\\f"                          { string.append( '\f' ); }
-  "\\r"                          { string.append( '\r' ); }
-  "\\\""                         { string.append( '\"' ); }
-  "\\'"                          { string.append( '\'' ); }
-  "\\\\"                         { string.append( '\\' ); }
-  \\[0-3]?{OctDigit}?{OctDigit}  { char val = (char) Integer.parseInt(yytext().substring(1),8);
-                        				   string.append( val ); }
-  
-  /* error cases */
-  \\.                            { throw new RuntimeException("Illegal escape sequence \""+yytext()+"\""); }
-  {LineTerminator}               { throw new RuntimeException("Unterminated string at end of line"); }
-}
 
-<CHARLITERAL> {
-  {SingleCharacter}\'            { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, yytext().charAt(0)); }
-  
-  /* escape sequences */
-  "\\b"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\b');}
-  "\\t"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\t');}
-  "\\n"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\n');}
-  "\\f"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\f');}
-  "\\r"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\r');}
-  "\\\""\'                       { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\"');}
-  "\\'"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\'');}
-  "\\\\"\'                       { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\\'); }
-  \\[0-3]?{OctDigit}?{OctDigit}\' { yybegin(YYINITIAL); 
-			                              int val = Integer.parseInt(yytext().substring(1,yylength()-1),8);
-			                            return symbol(CHARACTER_LITERAL, (char)val); }
-  
-  /* error cases */
-  \\.                            { throw new RuntimeException("Illegal escape sequence \""+yytext()+"\""); }
-  {LineTerminator}               { throw new RuntimeException("Unterminated character literal at end of line"); }
-}
 
 /* error fallback */
-[^]                              { throw new RuntimeException("Illegal character \""+yytext()+
-                                                              "\" at line "+yyline+", column "+yycolumn); }
-<<EOF>>                          { return symbol(EOF); }
+.|\n                             {  }
+<<EOF>>                          { return null; }
