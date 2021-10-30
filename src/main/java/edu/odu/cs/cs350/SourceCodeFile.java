@@ -2,17 +2,20 @@ package edu.odu.cs.cs350;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.processing.Filer;
 
 public class SourceCodeFile {
     private File path;
     private int numTokens;
-    private Token[] tokens;
+    private ArrayList<Token> tokens;
     
     public SourceCodeFile() {
         path = new File("");
         numTokens = 0;
+        tokens = new ArrayList<Token>();
     }
 
     /**
@@ -21,7 +24,13 @@ public class SourceCodeFile {
      */
     public SourceCodeFile(String filePath) {
         path = new File(filePath);
-        tokenize();
+        tokens = new ArrayList<Token>();
+        try{
+            FileReader reader = new FileReader(path);
+            tokenize(reader);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found at " + path.getAbsolutePath());
+        }
     }
 
     public void setPath(String filePath) {
@@ -40,15 +49,20 @@ public class SourceCodeFile {
         return numTokens;
     }
     
-    public void tokenize() {
-        FileReader reader;
+    public void tokenize(final FileReader input) {
+        Scanner scanner = new Scanner(input);
         try {
-            reader = new FileReader(path);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to open sourcefile at " + path.getAbsolutePath() + "Using default");
+            Token token = scanner.yylex();
+            while(token != null && token.getName() != TokenKinds.EOF) {
+                tokens.add(token);
+                numTokens ++;
+                token = scanner.yylex();
+            }
+
+        } catch (IOException e) {
+           
         }
-        Scanner scanner = new Scanner(reader);
-        
+
     }
 
     @Override

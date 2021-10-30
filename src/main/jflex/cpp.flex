@@ -153,7 +153,6 @@ SingleCharacter = [^\r\n\'\\]
   "explicit"                { return symbol(TokenKinds.EXPLICIT); }
   "export"                  { return symbol(TokenKinds.EXPORT); }
   "extern"                  { return symbol(TokenKinds.EXTERN); }
-  "false"                   { return symbol(TokenKinds.FALSE); }
   "float"                   { return symbol(TokenKinds.FLOAT); }
   "for"                     { return symbol(TokenKinds.FOR); }
   "friend"                  { return symbol(TokenKinds.FRIEND)); }
@@ -193,7 +192,6 @@ SingleCharacter = [^\r\n\'\\]
   "this"                    { return symbol(TokenKinds.THIS); }
   "thread_local"            { return symbol(TokenKinds.THREAD_LOCAL); }
   "throw"                   { return symbol(TokenKinds.THROW); }
-  "true"                    { return symbol(TokenKinds.TRUE); }
   "try"                     { return symbol(TokenKinds.TRY); }
   "typedef"                 { return symbol(TokenKinds.TYPEDEF); }
   "typeid"                  { return symbol(TokenKinds.TYPEID); }
