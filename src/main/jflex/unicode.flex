@@ -36,7 +36,7 @@ UnicodeInputCharacter:
 only an even number of '\' is eligible to start a Unicode escape sequence
 
 */
-
+package edu.odu.cs.cs350;
 import java.io.*;
 
 %%
