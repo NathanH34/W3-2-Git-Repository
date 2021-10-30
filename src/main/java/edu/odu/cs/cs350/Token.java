@@ -41,16 +41,34 @@ public class Token {
         column = theColumn;
     }
 
+    public void setName(String tempName) {
+        name = tempName;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setLexeme(Lexeme tempLexeme) {
+        lex = tempLexeme;
     }
 
     public Lexeme getLexeme() {
         return lex;
     }
+
+    public void setLine(int tempLine) {
+        line = tempLine;
+    }
+
     public int getLine() {
         return line;
     }
+
+    public void setColumn(int tempColumn) {
+        column = tempColumn;
+    }
+
     public int getColumn() {
         return column;
     }
