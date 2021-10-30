@@ -106,12 +106,11 @@ SingleCharacter = [^\r\n\'\\]
 
 %state STRING, CHARLITERAL
 
-%%
+%% 
 
 <YYINITIAL> {
 
   /* keywords */
-  "abstract"                     { return symbol(ABSTRACT); }
   "boolean"                      { return symbol(BOOLEAN); }
   "break"                        { return symbol(BREAK); }
   "byte"                         { return symbol(BYTE); }
@@ -161,62 +160,62 @@ SingleCharacter = [^\r\n\'\\]
   "strictfp"                     { return symbol(STRICTFP); }
   
   /* boolean literals */
-  "true"                         { return symbol(BOOLEAN_LITERAL, true); }
-  "false"                        { return symbol(BOOLEAN_LITERAL, false); }
+  "true"                         { return symbol(TokenKinds.BOOLEAN_LITERAL, true); }
+  "false"                        { return symbol(TokenKinds.BOOLEAN_LITERAL, false); }
   
   /* null literal */
-  "null"                         { return symbol(NULL_LITERAL); }
+  "null"                         { return symbol(TokenKinds.NULL_LITERAL); }
   
   
   /* separators */
-  "("                            { return symbol(LPAREN); }
-  ")"                            { return symbol(RPAREN); }
-  "{"                            { return symbol(LBRACE); }
-  "}"                            { return symbol(RBRACE); }
-  "["                            { return symbol(LBRACK); }
-  "]"                            { return symbol(RBRACK); }
-  ";"                            { return symbol(SEMICOLON); }
-  ","                            { return symbol(COMMA); }
-  "."                            { return symbol(DOT); }
+  "("                            { return symbol(TokenKinds.LPAREN); }
+  ")"                            { return symbol(TokenKinds.RPAREN); }
+  "{"                            { return symbol(TokenKinds.LBRACE); }
+  "}"                            { return symbol(TokenKinds.RBRACE); }
+  "["                            { return symbol(TokenKinds.LBRACK); }
+  "]"                            { return symbol(TokenKinds.RBRACK); }
+  ";"                            { return symbol(TokenKinds.SEMICOLON); }
+  ","                            { return symbol(TokenKinds.COMMA); }
+  "."                            { return symbol(TokenKinds.DOT); }
   
   /* operators */
-  "="                            { return symbol(EQ); }
-  ">"                            { return symbol(GT); }
-  "<"                            { return symbol(LT); }
-  "!"                            { return symbol(NOT); }
-  "~"                            { return symbol(COMP); }
-  "?"                            { return symbol(QUESTION); }
-  ":"                            { return symbol(COLON); }
-  "=="                           { return symbol(EQEQ); }
-  "<="                           { return symbol(LTEQ); }
-  ">="                           { return symbol(GTEQ); }
-  "!="                           { return symbol(NOTEQ); }
-  "&&"                           { return symbol(ANDAND); }
-  "||"                           { return symbol(OROR); }
-  "++"                           { return symbol(PLUSPLUS); }
-  "--"                           { return symbol(MINUSMINUS); }
-  "+"                            { return symbol(PLUS); }
-  "-"                            { return symbol(MINUS); }
-  "*"                            { return symbol(MULT); }
-  "/"                            { return symbol(DIV); }
-  "&"                            { return symbol(AND); }
-  "|"                            { return symbol(OR); }
-  "^"                            { return symbol(XOR); }
-  "%"                            { return symbol(MOD); }
-  "<<"                           { return symbol(LSHIFT); }
-  ">>"                           { return symbol(RSHIFT); }
-  ">>>"                          { return symbol(URSHIFT); }
-  "+="                           { return symbol(PLUSEQ); }
-  "-="                           { return symbol(MINUSEQ); }
-  "*="                           { return symbol(MULTEQ); }
-  "/="                           { return symbol(DIVEQ); }
-  "&="                           { return symbol(ANDEQ); }
-  "|="                           { return symbol(OREQ); }
-  "^="                           { return symbol(XOREQ); }
-  "%="                           { return symbol(MODEQ); }
-  "<<="                          { return symbol(LSHIFTEQ); }
-  ">>="                          { return symbol(RSHIFTEQ); }
-  ">>>="                         { return symbol(URSHIFTEQ); }
+  "="                            { return symbol(TokenKinds.EQ); }
+  ">"                            { return symbol(TokenKinds.GT); }
+  "<"                            { return symbol(TokenKinds.LT); }
+  "!"                            { return symbol(TokenKinds.NOT); }
+  "~"                            { return symbol(TokenKinds.COMPL); }
+  "?"                            { return symbol(TokenKinds.QUESTION); }
+  ":"                            { return symbol(TokenKinds.COLON); }
+  "=="                           { return symbol(TokenKinds.EQEQ); }
+  "<="                           { return symbol(TokenKinds.LTEQ); }
+  ">="                           { return symbol(TokenKinds.GTEQ); }
+  "!="                           { return symbol(TokenKinds.NOT_EQ); }
+  "&&"                           { return symbol(TokenKinds.AND); }
+  "||"                           { return symbol(TokenKinds.OR); }
+  "++"                           { return symbol(TokenKinds.PLUSPLUS); }
+  "--"                           { return symbol(TokenKinds.MINUSMINUS); }
+  "+"                            { return symbol(TokenKinds.PLUS); }
+  "-"                            { return symbol(TokenKinds.MINUS); }
+  "*"                            { return symbol(TokenKinds.MULT); }
+  "/"                            { return symbol(TokenKinds.DIV); }
+  "&"                            { return symbol(TokenKinds.BITAND); }
+  "|"                            { return symbol(TokenKinds.BITOR); }
+  "^"                            { return symbol(TokenKinds.XOR); }
+  "%"                            { return symbol(TokenKinds.MOD); }
+  "<<"                           { return symbol(TokenKinds.LSHIFT); }
+  ">>"                           { return symbol(TokenKinds.RSHIFT); }
+  ">>>"                          { return symbol(TokenKinds.URSHIFT); }
+  "+="                           { return symbol(TokenKinds.PLUSEQ); }
+  "-="                           { return symbol(TokenKinds.MINUSEQ); }
+  "*="                           { return symbol(TokenKinds.MULTEQ); }
+  "/="                           { return symbol(TokenKinds.DIVEQ); }
+  "&="                           { return symbol(TokenKinds.AND_EQ); }
+  "|="                           { return symbol(TokenKinds.OR_EQ); }
+  "^="                           { return symbol(TokenKinds.XOR_EQ); }
+  "%="                           { return symbol(TokenKinds.MODEQ); }
+  "<<="                          { return symbol(TokenKindsLSHIFTEQ); }
+  ">>="                          { return symbol(TokenKinds.RSHIFTEQ); }
+  ">>>="                         { return symbol(TokenKinds.URSHIFTEQ); }
   
   /* string literal */
   \"                             { yybegin(STRING); string.setLength(0); }
@@ -228,20 +227,20 @@ SingleCharacter = [^\r\n\'\\]
 
   /* This is matched together with the minus, because the number is too big to 
      be represented by a positive integer. */
-  "-2147483648"                  { return symbol(INTEGER_LITERAL, Integer.valueOf(Integer.MIN_VALUE)); }
+  "-2147483648"                  { return symbol(TokenKinds.INTEGER_LITERAL, Integer.valueOf(Integer.MIN_VALUE)); }
   
-  {DecIntegerLiteral}            { return symbol(INTEGER_LITERAL, Integer.valueOf(yytext())); }
-  {DecLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(yytext().substring(0,yylength()-1))); }
+  {DecIntegerLiteral}            { return symbol(TokenKinds.INTEGER_LITERAL, Integer.valueOf(yytext())); }
+  {DecLongLiteral}               { return symbol(TokenKinds.INTEGER_LITERAL, new Long(yytext().substring(0,yylength()-1))); }
   
-  {HexIntegerLiteral}            { return symbol(INTEGER_LITERAL, Integer.valueOf((int) parseLong(2, yylength(), 16))); }
-  {HexLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(2, yylength()-1, 16))); }
+  {HexIntegerLiteral}            { return symbol(TokenKinds.INTEGER_LITERAL, Integer.valueOf((int) parseLong(2, yylength(), 16))); }
+  {HexLongLiteral}               { return symbol(TokenKinds.INTEGER_LITERAL, new Long(parseLong(2, yylength()-1, 16))); }
  
-  {OctIntegerLiteral}            { return symbol(INTEGER_LITERAL, Integer.valueOf((int) parseLong(0, yylength(), 8))); }
-  {OctLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(0, yylength()-1, 8))); }
+  {OctIntegerLiteral}            { return symbol(TokenKinds.INTEGER_LITERAL, Integer.valueOf((int) parseLong(0, yylength(), 8))); }
+  {OctLongLiteral}               { return symbol(TokenKinds.INTEGER_LITERAL, new Long(parseLong(0, yylength()-1, 8))); }
   
-  {FloatLiteral}                 { return symbol(FLOATING_POINT_LITERAL, new Float(yytext().substring(0,yylength()-1))); }
-  {DoubleLiteral}                { return symbol(FLOATING_POINT_LITERAL, new Double(yytext())); }
-  {DoubleLiteral}[dD]            { return symbol(FLOATING_POINT_LITERAL, new Double(yytext().substring(0,yylength()-1))); }
+  {FloatLiteral}                 { return symbol(TokenKinds.FLOATING_POINT_LITERAL, new Float(yytext().substring(0,yylength()-1))); }
+  {DoubleLiteral}                { return symbol(TokenKinds.FLOATING_POINT_LITERAL, new Double(yytext())); }
+  {DoubleLiteral}[dD]            { return symbol(TokenKinds.FLOATING_POINT_LITERAL, new Double(yytext().substring(0,yylength()-1))); }
   
   /* comments */
   {Comment}                      { /* ignore */ }
@@ -250,11 +249,11 @@ SingleCharacter = [^\r\n\'\\]
   {WhiteSpace}                   { /* ignore */ }
 
   /* identifiers */ 
-  {Identifier}                   { return symbol(IDENTIFIER, yytext()); }  
+  {Identifier}                   { return symbol(TokenKinds.IDENTIFIER, yytext()); }  
 }
 
 <STRING> {
-  \"                             { yybegin(YYINITIAL); return symbol(STRING_LITERAL, string.toString()); }
+  \"                             { yybegin(YYINITIAL); return symbol(TokenKinds.STRING_LITERAL, string.toString()); }
   
   {StringCharacter}+             { string.append( yytext() ); }
   
@@ -276,17 +275,17 @@ SingleCharacter = [^\r\n\'\\]
 }
 
 <CHARLITERAL> {
-  {SingleCharacter}\'            { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, yytext().charAt(0)); }
+  {SingleCharacter}\'            { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, yytext().charAt(0)); }
   
   /* escape sequences */
-  "\\b"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\b');}
-  "\\t"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\t');}
-  "\\n"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\n');}
-  "\\f"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\f');}
-  "\\r"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\r');}
-  "\\\""\'                       { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\"');}
-  "\\'"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\'');}
-  "\\\\"\'                       { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, '\\'); }
+  "\\b"\'                        { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\b');}
+  "\\t"\'                        { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\t');}
+  "\\n"\'                        { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\n');}
+  "\\f"\'                        { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\f');}
+  "\\r"\'                        { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\r');}
+  "\\\""\'                       { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\"');}
+  "\\'"\'                        { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\'');}
+  "\\\\"\'                       { yybegin(YYINITIAL); return symbol(TokenKinds.CHARACTER_LITERAL, '\\'); }
   \\[0-3]?{OctDigit}?{OctDigit}\' { yybegin(YYINITIAL); 
 			                              int val = Integer.parseInt(yytext().substring(1,yylength()-1),8);
 			                            return symbol(CHARACTER_LITERAL, (char)val); }
@@ -299,4 +298,4 @@ SingleCharacter = [^\r\n\'\\]
 /* error fallback */
 [^]                              { throw new RuntimeException("Illegal character \""+yytext()+
                                                               "\" at line "+yyline+", column "+yycolumn); }
-<<EOF>>                          { return symbol(EOF); }
+<<EOF>>                          { return symbol(TokenKinds.EOF); }

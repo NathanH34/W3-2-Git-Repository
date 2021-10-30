@@ -1,7 +1,7 @@
 package edu.odu.cs.cs350;
 public class Token {
     //What kind of token is it
-    private String name;
+    private TokenKinds name;
     //The lexeme associated with the token(if the token has one)
     private Lexeme lex;
 
@@ -9,19 +9,13 @@ public class Token {
     private int line;
     private int column;
 
-    public Token() {
-        name = "";
-        lex = new Lexeme();
-        line = 0;
-        column = 0;
-    }
     /**
      * 
      * @param theName
      * @param theLine
      * @param theColumn
      */
-    public Token(String theName, int theLine, int theColumn) {
+    public Token(TokenKinds theName, int theLine, int theColumn) {
         name = theName;
         lex = new Lexeme();
         line = theLine;
@@ -34,18 +28,18 @@ public class Token {
      * @param theLine
      * @param theColumn
      */
-    public Token(String theName, String theLex, int theLine, int theColumn) {
+    public Token(TokenKinds theName, String theLex, int theLine, int theColumn) {
         name = theName;
         lex = new Lexeme(theLex);
         line = theLine;
         column = theColumn;
     }
 
-    public void setName(String tempName) {
+    public void setName(TokenKinds tempName) {
         name = tempName;
     }
 
-    public String getName() {
+    public TokenKinds getName() {
         return name;
     }
 
