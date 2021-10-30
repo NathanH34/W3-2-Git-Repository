@@ -29,4 +29,14 @@ public class TestSourceCodeFile {
       assertThat(src.toString(), is("   Tokens:0\n"));
       assertThat(src, equalTo(blankCodeFile));
     }
+    
+    @Test
+    public void testConstructorWithFilepath() {
+      SourceCodeFile src = new SourceCodeFile(defaultFilePath);
+      assertThat(src.getPath(), is(defaultFilePath));
+      assertThat(src.getNumTokens(), is(0));
+      assertThat(src.toString(), is(defaultFilePath + "   Tokens:0\n"));
+      assertThat(src, not(equalTo(blankCodeFile)));
+      // Check Relative path?
+    }
 }
