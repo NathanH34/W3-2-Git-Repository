@@ -20,8 +20,16 @@ public class SourceCodeFile {
         numTokens = 0;
     }
 
+    public void setPath(String filePath) {
+        path = new File(filePath);
+    }
+
     public String getPath() {
         return path.getAbsolutePath();
+    }
+
+    public void setNumTokens(int numberTokens) {
+        numTokens = numberTokens;
     }
 
     public int getNumTokens() {
