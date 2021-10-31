@@ -24,7 +24,7 @@ public class DupDetector {
             	File file = new File(args[i]);
             	if(file.isFile()) { //check if path argument represents a file
 	            	SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
-                    fileCollection.add(src)
+                    fileCollection.add(src);
             	}
             	else if(file.isDirectory()) { //check if path argument represents a directory
             		searchFiles(file, fileCollection);

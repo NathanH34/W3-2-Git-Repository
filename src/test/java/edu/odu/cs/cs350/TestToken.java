@@ -60,7 +60,7 @@ public class TestToken {
         assertThat(token.getLexeme(), equalTo(defaultLex));
         assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(defaultColumn));
-        assertThat(token.toString(), equalTo("Token type: "+ kind + " Lexeme: " + defaultLex.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n";));
+        assertThat(token.toString(), equalTo("Token type: "+ kind + " Lexeme: " + defaultLex.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n"));
         assertNotEquals(token, defaultTokenWithLex);
     }
 
@@ -73,7 +73,7 @@ public class TestToken {
         assertThat(token.getLexeme(), equalTo(lex));
         assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(defaultColumn));
-        assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + lex.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n";));
+        assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + lex.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n"));
         assertNotEquals(token, defaultTokenWithLex);
     }
 
@@ -86,8 +86,8 @@ public class TestToken {
         assertThat(token.getLexeme(), equalTo(defaultLex));
         assertThat(token.getLine(), equalTo(line));
         assertThat(token.getColumn(), equalTo(defaultColumn));
-        assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + defaultLex.toString() + " Line: " + line + " Column: " + defaultColumn + "\n";));
-        assertNotEquals(token, defaultTokenWithLex);
+        assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + defaultLex.toString() + " Line: " + line + " Column: " + defaultColumn + "\n"));
+        assertEquals(token, defaultTokenWithLex);
     }
 
     @Test
@@ -97,9 +97,9 @@ public class TestToken {
         token.setColumn(col);
         assertThat(token.getName(), equalTo(defaultName));
         assertThat(token.getLexeme(), equalTo(defaultLex));
-        assertThat(token.getLine(), equalTo(defaultLine)));
+        assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(col));
-        assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + defaultLex.toString() + " Line: " + defaultLine + " Column: " + col + "\n";));
-        assertNotEquals(token, defaultTokenWithLex);
+        assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + defaultLex.toString() + " Line: " + defaultLine + " Column: " + col + "\n"));
+        assertEquals(token, defaultTokenWithLex);
     }
 }
