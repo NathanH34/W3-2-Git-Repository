@@ -10,10 +10,10 @@ public class DupDetector {
         String propertiesPath = "";
         SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
         /**
-         * Not final logic, just placeholder to process filepath args.
+         * TODO: placeholder to process filepath args, Not final logic
          */
 
-        //Placeholder try block. nSuggestions does nothing but must be entered to run.
+        // Placeholder try block. nSuggestions does nothing but must be entered to run.
         try {
             nSuggestions = Integer.parseInt(args[0]);
         } catch(Exception e) {
