@@ -265,6 +265,22 @@ SingleCharacter = [^\r\n\'\\]
 
   /* character literal */
   \'                             { yybegin(CHARLITERAL); }
+  /* preprocessor symbols */
+  "#define" |
+  "#elif" |
+  "#else" |
+  "#endif" |
+  "#error" |
+  "#ifdef" |
+  "#ifndef" |
+  "#if" |
+  "#import" |
+  "#include" |
+  "#line" |
+  "#pragma" |
+  "#undef" |
+  "#using"
+  	{ return symbol(TokenKinds.PREPROCESSOR, yytext()); }
 
   /* numeric literals */
 
