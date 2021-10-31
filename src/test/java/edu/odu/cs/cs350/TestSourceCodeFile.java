@@ -32,7 +32,7 @@ public class TestSourceCodeFile {
   public void testDefaultConstructor() {
     SourceCodeFile src = new SourceCodeFile();
     assertThat(src.getPath(), is(blankFile.getAbsolutePath()));
-    assertThat(src.getNumTokens(), is(0));
+    assertThat(src.getNumTokens(), is(noNumTokens));
     assertThat(src.toString(), is(blankFile.getAbsolutePath() + "   Tokens:0\n"));
     assertThat(src, equalTo(blankCodeFile));
     Iterator<Token> it = src.iterator();
@@ -43,7 +43,7 @@ public class TestSourceCodeFile {
   public void testConstructorWithFilepath() {
     SourceCodeFile src = new SourceCodeFile(defaultFilePath);
     assertThat(src.getPath(), is(defaultFile.getAbsolutePath()));
-    assertThat(src.getNumTokens(), is(0));
+    assertThat(src.getNumTokens(), is(defaultFileNumTokens));
     assertThat(src.toString(), is(defaultFile.getAbsolutePath() + "   Tokens:"+defaultFileNumTokens + "\n"));
     assertThat(src, not(equalTo(blankCodeFile)));
     Iterator<Token> it = src.iterator();
