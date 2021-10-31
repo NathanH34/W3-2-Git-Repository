@@ -22,6 +22,10 @@ public class SourceCodeFileCollection {
         Collections.sort(files);
     }
 
+    public SourceCodeFile getFile(int i) {
+        return files.get(i);
+    }
+
     public void output(){
         for (SourceCodeFile f: files) {
             System.out.print(f.toString());
