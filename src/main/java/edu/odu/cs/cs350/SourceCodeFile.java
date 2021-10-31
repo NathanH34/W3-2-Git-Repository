@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.annotation.processing.Filer;
+import javax.xml.transform.Source;
 
-public class SourceCodeFile implements Iterable<Token> {
+public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<Token>{
     private File path;
     private int numTokens;
     private ArrayList<Token> tokens;
@@ -109,4 +110,10 @@ public class SourceCodeFile implements Iterable<Token> {
     public boolean equals(Object obj) {
         return (obj instanceof SourceCodeFile) && (this.getPath().equals(((SourceCodeFile) obj).getPath()));
     }
+
+    @Override
+    public int compareTo(SourceCodeFile src1) {
+        return path.compareTo(src1.path);
+    }
+
 }
