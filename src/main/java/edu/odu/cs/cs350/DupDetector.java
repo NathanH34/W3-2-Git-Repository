@@ -45,9 +45,12 @@ public class DupDetector {
     		File[] files = file.listFiles();
     		for(File f: files) {
     			System.out.println(f.getAbsolutePath());
-    			if(f.isDirectory()) {
-    				searchFiles(f);
+    			if(f.isDirectory()) { //If there is a sub-directory
+    				searchFiles(f);   //search it
     			}
+                else if(f.isFile()) { //If there is a file in the directory
+                    searchFiles(f);   //**Should we confirm that file is .cpp or .h?
+                }
     		}
     	}
     }
