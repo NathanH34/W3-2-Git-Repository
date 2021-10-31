@@ -15,7 +15,9 @@ public class TestSourceCodeFIleCollection {
     SourceCodeFileCollection blank = new SourceCodeFileCollection();
     SourceCodeFile srcFile1 = new SourceCodeFile("src/test/resources/TestFile1.cpp");
     SourceCodeFile srcFile2 = new SourceCodeFile("src/test/resources/TestFile2.cpp");
+    SourceCodeFile srcFile3 = new SourceCodeFile("src/test/resources/TestFile3.cpp");
 
+    
     /**
     * @throws java.lang.Exception
     */
