@@ -23,8 +23,11 @@ public class DupDetector {
             for(int i=1; i<args.length; i++) { //go through all specified file paths
             	File file = new File(args[i]);
             	if(file.isFile()) { //check if path argument represents a file
-	            	SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
-                    fileCollection.add(src);
+            		if(file.getAbsolutePath().contains(".h") || file.getAbsolutePath().contains(".cpp")) {
+	            		SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
+	                    fileCollection.add(src);
+	                    System.out.print(src.toString());
+            		}
             	}
             	else if(file.isDirectory()) { //check if path argument represents a directory
             		searchFiles(file, fileCollection);
@@ -44,8 +47,11 @@ public class DupDetector {
     	File[] files = dir.listFiles();
     	for(File f: files) {
             if(f.isFile()) {
-                SourceCodeFile srcFile = new SourceCodeFile(f.getAbsolutePath());
-    		    collection.add(srcFile);
+                if(f.getAbsolutePath().contains(".h") || f.getAbsolutePath().contains(".cpp")) { //check for .h and .cpp files
+                	SourceCodeFile srcFile = new SourceCodeFile(f.getAbsolutePath());
+                	collection.add(srcFile);
+                	System.out.print(srcFile.toString());
+                }
             } else if(f.isDirectory()) {
     			searchFiles(f, collection);
     		}
