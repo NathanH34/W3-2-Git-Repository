@@ -17,6 +17,7 @@
 /build/
 .gradle
 .settings/*
+/bin/
 
 # Gradle GUI configuration to be ignored
 gradle-app.setting

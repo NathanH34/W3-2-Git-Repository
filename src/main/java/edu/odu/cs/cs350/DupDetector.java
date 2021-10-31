@@ -3,10 +3,12 @@ import java.io.File;
 import java.util.Iterator;
 
 public class DupDetector {
+    
 
     public static void main(String [] args) {
         int nSuggestions = 0;
         String propertiesPath = "";
+        SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
         /**
          * Not final logic, just placeholder to process filepath args.
          */
@@ -22,14 +24,10 @@ public class DupDetector {
             	File file = new File(args[i]);
             	if(file.isFile()) { //check if path argument represents a file
 	            	SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
-	            	System.out.print(src.toString());
-	                Iterator<Token> it =  src.iterator();
-	                while(it.hasNext()) {
-	                    System.out.print(it.next().toString());
-	                }
+                    fileCollection.add(src)
             	}
             	else if(file.isDirectory()) { //check if path argument represents a directory
-            		searchFiles(file);
+            		searchFiles(file, fileCollection);
             	}
             }      
         } catch(Exception e) {
@@ -42,13 +40,14 @@ public class DupDetector {
      * Recursively search for files in a directory and its sub-directories and print their absolute paths
      * @param dir directory to be searched
      */
-    public static void searchFiles(File dir) {
+    public static void searchFiles(File dir, SourceCodeFileCollection collection) {
     	File[] files = dir.listFiles();
     	for(File f: files) {
-    		SourceCodeFile srcFile = new SourceCodeFile(f.getAbsolutePath());
-    		System.out.print(srcFile.toString());
-    		if(f.isDirectory()) {
-    			searchFiles(f);
+            if(f.isFile()) {
+                SourceCodeFile srcFile = new SourceCodeFile(f.getAbsolutePath());
+    		    collection.add(srcFile);
+            } else if(f.isDirectory()) {
+    			searchFiles(f, collection);
     		}
     	}
     }
