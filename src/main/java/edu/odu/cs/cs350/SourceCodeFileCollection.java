@@ -6,6 +6,10 @@ import java.util.Iterator;
 public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
     private ArrayList<SourceCodeFile> files;
 
+
+    /**
+     * Default constructor
+     */
     public SourceCodeFileCollection() {
         files = new ArrayList<SourceCodeFile>();
     }
@@ -19,15 +23,12 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
         order();
     }
 
+    /**
+     * Order the source code files in the collection
+     * @post the files are in ascending alphabetical order
+     */
     public void order(){
         Collections.sort(files);
-    }
-
-    /**
-     *
-     */
-    public SourceCodeFile getFile(int i) {
-        return files.get(i);
     }
 
     /**
@@ -38,6 +39,9 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
         return files.iterator();
     }
 
+    /**
+     * @return Newline separated strings for each file
+     */
     @Override
     public final String toString() {
         StringBuilder fileCollection = new StringBuilder();
