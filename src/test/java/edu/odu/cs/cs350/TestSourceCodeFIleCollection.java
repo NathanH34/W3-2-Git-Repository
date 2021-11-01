@@ -27,7 +27,6 @@ public class TestSourceCodeFIleCollection {
     @Test
     public void testDefaultConstructor() {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
-        assertThat(col1, equalTo(blank));
         assertThat(col1.toString(), is(emptyString()));
         Iterator<SourceCodeFile> it = col1.iterator();
         assertFalse(it.hasNext());
@@ -36,7 +35,6 @@ public class TestSourceCodeFIleCollection {
     @Test
     public void testAdd() {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
-        assertThat(col1, equalTo(blank));
         assertThat(col1.toString(), is(emptyString()));
         col1.add(srcFile1);
         col1.add(srcFile2);
@@ -51,7 +49,6 @@ public class TestSourceCodeFIleCollection {
     @Test
     public void testOrder() {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
-        assertThat(col1, equalTo(blank));
         assertThat(col1.toString(), is(emptyString()));
         col1.add(srcFile2);
         col1.add(srcFile1);
