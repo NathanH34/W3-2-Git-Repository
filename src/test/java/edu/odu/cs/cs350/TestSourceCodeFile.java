@@ -35,7 +35,7 @@ public class TestSourceCodeFile {
     assertThat(src.getNumTokens(), is(noNumTokens));
     assertThat(src.toString(), is(blankFile.getAbsolutePath() + "   Tokens:0\n"));
     assertThat(src, equalTo(blankCodeFile));
-    Iterator<Token> it = src.iterator();
+    Iterator<CPPToken> it = src.iterator();
     assertFalse(it.hasNext());
   }
     
@@ -46,7 +46,7 @@ public class TestSourceCodeFile {
     assertThat(src.getNumTokens(), is(defaultFileNumTokens));
     assertThat(src.toString(), is(defaultFile.getAbsolutePath() + "   Tokens:"+defaultFileNumTokens + "\n"));
     assertThat(src, not(equalTo(blankCodeFile)));
-    Iterator<Token> it = src.iterator();
+    Iterator<CPPToken> it = src.iterator();
     assertTrue(it.hasNext());
     int sum = 0;
     while(it.hasNext()) {
@@ -67,7 +67,7 @@ public class TestSourceCodeFile {
     assertThat(src.getNumTokens(), is(defaultFileNumTokens));
     assertThat(src.toString(), is(fileTwo.getAbsolutePath() + "   Tokens:"+defaultFileNumTokens + "\n"));
     assertNotEquals(src, src2);
-    Iterator<Token> it = src.iterator();
+    Iterator<CPPToken> it = src.iterator();
     assertTrue(it.hasNext());
     int sum = 0;
     while(it.hasNext()) {

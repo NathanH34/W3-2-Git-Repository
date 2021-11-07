@@ -9,10 +9,10 @@ import java.util.Iterator;
 import javax.annotation.processing.Filer;
 import javax.xml.transform.Source;
 
-public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<Token>{
+public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPToken>{
     private File path;
     private int numTokens;
-    private ArrayList<Token> tokens;
+    private ArrayList<CPPToken> tokens;
     
     /**
      * Default constructor. 
@@ -21,7 +21,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<Toke
     public SourceCodeFile() {
         path = new File("");
         numTokens = 0;
-        tokens = new ArrayList<Token>();
+        tokens = new ArrayList<CPPToken>();
     }
 
     /**
@@ -31,7 +31,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<Toke
      */
     public SourceCodeFile(String filePath) {
         path = new File(filePath);
-        tokens = new ArrayList<Token>();
+        tokens = new ArrayList<CPPToken>();
         tokenize();
     }
     /**
@@ -45,18 +45,10 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<Toke
         path = new File(filePath);
     }
 
-    /**
-     * path getter
-     * @return the absolute path of the File, as a String
-     */
     public String getPath() {
         return path.getAbsolutePath();
     }
 
-    /**
-     * numTokens getter
-     * @return the number of tokens in the 
-     */
     public int getNumTokens() {
         return numTokens;
     }
@@ -74,7 +66,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<Toke
             Scanner scanner = new Scanner(input);
             tokens.clear();
             numTokens = 0;
-            Token token = scanner.yylex();
+            CPPToken token = scanner.yylex();
             while(token != null && token.getName() != TokenKinds.EOF) {
                 tokens.add(token);
                 numTokens ++;
@@ -87,24 +79,18 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<Toke
 
     } 
 
-    /**
-     * Iterable implementation
-     */
     @Override
-    public final Iterator<Token> iterator() {
+    public final Iterator<CPPToken> iterator() {
         return tokens.iterator();
     }
 
-    /**
-     * Returns a string describing the absolute path of the file, and the number of tokens in it
-     */
     @Override
     public final String toString() {
         return (path.getAbsolutePath() + "   Tokens:" + numTokens + "\n");
     }
 
     /**
-     * Returns true if the two sourceCodeFiles have the same absolute path.
+     * @return true if the two sourceCodeFiles have the same absolute path.
      */
     @Override
     public boolean equals(Object obj) {

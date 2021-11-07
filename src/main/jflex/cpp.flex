@@ -25,17 +25,17 @@ package edu.odu.cs.cs350;
 
 %line
 %column
-%type Token
+%type CPPToken
 
 %{
   StringBuilder string = new StringBuilder();
   
-  private Token symbol(TokenKinds type) {
-    return new Token(type, yyline+1, yycolumn+1);
+  private CPPToken symbol(TokenKinds type) {
+    return new CPPToken(type, yyline+1, yycolumn+1);
   }
 
-  private Token symbol(TokenKinds type, Object value) {
-    return new Token(type, value.toString(), yyline+1, yycolumn+1);
+  private CPPToken symbol(TokenKinds type, Object value) {
+    return new CPPToken(type, value.toString(), yyline+1, yycolumn+1);
   }
 
   /** 

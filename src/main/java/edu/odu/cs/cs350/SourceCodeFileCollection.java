@@ -7,16 +7,13 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
     private ArrayList<SourceCodeFile> files;
 
 
-    /**
-     * Default constructor
-     */
     public SourceCodeFileCollection() {
         files = new ArrayList<SourceCodeFile>();
     }
 
     /**
      * Add new file path 
-     * @param newFile SourceCodeFile that contains 
+     * @param newFile SourceCodeFile 
      */
     public void add(SourceCodeFile newFile){
         files.add(newFile);
@@ -31,16 +28,13 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
         Collections.sort(files);
     }
 
-    /**
-     * Iterable implementation
-     */
     @Override
     public final Iterator<SourceCodeFile> iterator() {
         return files.iterator();
     }
 
     /**
-     * @return Newline separated strings for each file
+     * @return string with newline separators for each file path
      */
     @Override
     public final String toString() {

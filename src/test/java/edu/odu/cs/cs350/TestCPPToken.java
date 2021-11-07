@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat; 
 import static org.hamcrest.Matchers.*;
 
-public class TestToken {
+public class TestCPPToken {
 
     Lexeme blankLexeme = new Lexeme();
     String defaultLexValue = "3.14159265";
@@ -15,8 +15,8 @@ public class TestToken {
     TokenKinds defaultName = TokenKinds.DOUBLE;
     int defaultLine = 30;
     int defaultColumn = 14;
-    Token defaultToken = new Token(defaultName, defaultLine, defaultColumn);
-    Token defaultTokenWithLex = new Token(defaultName, defaultLexValue, defaultLine, defaultColumn);
+    CPPToken defaultToken = new CPPToken(defaultName, defaultLine, defaultColumn);
+    CPPToken defaultTokenWithLex = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
     String defaultToString = "Token type: "+ defaultName + " Lexeme: " + blankLexeme.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n";
     String defaultToStringWithLex = "Token type: "+ defaultName + " Lexeme: " + defaultLex.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n";
 
@@ -31,7 +31,7 @@ public class TestToken {
     
     @Test
     public void testConstructorNoLexParameter() {
-        Token token = new Token(defaultName, defaultLine, defaultColumn);
+        CPPToken token = new CPPToken(defaultName, defaultLine, defaultColumn);
         assertThat(token.getName(), equalTo(defaultName));
         assertThat(token.getLexeme(), equalTo(blankLexeme));
         assertThat(token.getLine(), equalTo(defaultLine));
@@ -42,7 +42,7 @@ public class TestToken {
 
     @Test
     public void testConstructorWithLexParameter() {
-        Token token = new Token(defaultName, defaultLexValue, defaultLine, defaultColumn);
+        CPPToken token = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
         assertThat(token.getName(), equalTo(defaultName));
         assertThat(token.getLexeme(), equalTo(defaultLex));
         assertThat(token.getLine(), equalTo(defaultLine));
@@ -53,7 +53,7 @@ public class TestToken {
 
     @Test
     public void testSetName() {
-        Token token = new Token(defaultName, defaultLexValue, defaultLine, defaultColumn);
+        CPPToken token = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
         TokenKinds kind = TokenKinds.INT;
         token.setName(kind);
         assertThat(token.getName(), equalTo(kind));
@@ -66,7 +66,7 @@ public class TestToken {
 
     @Test
     public void testSetLexeme() {
-        Token token = new Token(defaultName, defaultLexValue, defaultLine, defaultColumn);
+       CPPToken token = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
         Lexeme lex = new Lexeme("friday");
         token.setLexeme(lex);
         assertThat(token.getName(), equalTo(defaultName));
@@ -79,7 +79,7 @@ public class TestToken {
 
     @Test
     public void testSetLine() {
-        Token token = new Token(defaultName, defaultLexValue, defaultLine, defaultColumn);
+       CPPToken token = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
         int line = 2;
         token.setLine(line);
         assertThat(token.getName(), equalTo(defaultName));
@@ -92,7 +92,7 @@ public class TestToken {
 
     @Test
     public void testSetColumn() {
-        Token token = new Token(defaultName, defaultLexValue, defaultLine, defaultColumn);
+        CPPToken token = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
         int col = 2;
         token.setColumn(col);
         assertThat(token.getName(), equalTo(defaultName));
