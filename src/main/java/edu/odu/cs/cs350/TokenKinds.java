@@ -148,5 +148,7 @@ public enum TokenKinds {
     FLOATING_POINT_LITERAL,
     STRING_LITERAL,
     PREPROCESSOR,
-    EOF,
+    EOF;
+
+    public static final TokenKinds values[] = values();
 }

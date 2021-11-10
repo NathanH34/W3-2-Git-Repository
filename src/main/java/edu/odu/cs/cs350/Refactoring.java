@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.print.attribute.SetOfIntegerSyntax;
 
-public class Refactoring {
+public class Refactoring implements Comparable<Refactoring>  {
     private LinkedHashMap<SourceCodeFile, ArrayList<Integer>> sequenceStartLocations;
     private LinkedHashSet<SourceCodeFile> sourceFiles;
     private int sequenceLength;
@@ -15,6 +15,7 @@ public class Refactoring {
 
     public Refactoring() {
         sequenceStartLocations = new LinkedHashMap<SourceCodeFile, ArrayList<Integer>>();
+        sourceFiles = new LinkedHashSet<SourceCodeFile>();
         sequenceLength = 0;
         opportunityValue = 0;
     }
@@ -68,5 +69,13 @@ public class Refactoring {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Refactorings are sorted by the size of opportunityValue
+     */
+    @Override
+    public int compareTo(Refactoring r) {
+       return opportunityValue - (r.getOpportunityValue());
     }
 }

@@ -19,7 +19,7 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
     }
 
     /**
-     * Add new SourceCodeFile tr list, and add its tokens as a sentence to the SharedPhrases member
+     * Add new SourceCodeFile to list, and add its tokens as a sentence to the SharedPhrases member
      * @param newFile SourceCodeFile 
      */
     public void add(SourceCodeFile newFile){
@@ -42,13 +42,29 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
     }
 
     /**
-     * TODO: actually find refactorings, returns empty list at the moment.
-     * TODO: add support for parameters for minSequenceLength, nSuggestions, and maxSubstitutions properties to modify what the returned list contains
+     * TODO: actually find refactorings, returns list of empty refactorings at the moment
+     * TODO: add support for parameters for nSuggestions, and maxSubstitutions properties to modify what the returned list contains
      */
-    public List<Refactoring> findRefactorings( ) {
-        ArrayList refactoringList = new ArrayList<>();
-
+    public List<Refactoring> findRefactorings( int minLength ) {
+        ArrayList<Refactoring> refactoringList = new ArrayList<Refactoring>();
+        ArrayList<String> phraseList = getPhrasesOverLength(minLength);
+        for(String phrase: phraseList){
+            Refactoring r = new Refactoring();
+            refactoringList.add(r);
+        }
         return refactoringList;
+    }
+
+    private ArrayList<String> getPhrasesOverLength(int minLength) {
+        ArrayList<String> phraseList = new ArrayList<String>();
+        for(CharSequence phrase: phrases.allPhrases()) {
+            int phraseLength = phrase.length();
+            if(phraseLength > minLength){
+                phraseList.add(phrase.toString());
+            }
+        }
+
+        return phraseList;
     }
 
     /**
