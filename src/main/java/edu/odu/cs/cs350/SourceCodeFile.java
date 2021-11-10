@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import edu.odu.cs.cs350.sharedphrases.*;
 
 import javax.annotation.processing.Filer;
 import javax.xml.transform.Source;
@@ -79,6 +80,10 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
 
     } 
 
+    public ArrayList<CPPToken> getTokens() {
+        return tokens;
+    }
+
     @Override
     public final Iterator<CPPToken> iterator() {
         return tokens.iterator();
@@ -102,4 +107,8 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         return path.compareTo(src1.path);
     }
 
+    @Override
+    public int hashCode() {
+        return path.hashCode();
+    }
 }

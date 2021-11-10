@@ -11,7 +11,11 @@ plugins {
    id 'java'
    id 'application'
    //JFlex plugin
-   id "org.xbib.gradle.plugin.jflex" version "1.5.0"
+   id "org.xbib.gradle.plugin.jflex" version "1.5.0" 
+}
+
+jflex{
+    verbose = 'true'
 }
 
 java {
@@ -20,11 +24,19 @@ java {
 }
 
 repositories {
-    jcenter()
-}
+     mavenCentral()
+
+     ivy {
+        url 'https://www.cs.odu.edu/~zeil/ivyrepo'
+     }
+ }
+
 
 dependencies {
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.0')
+    //implementation 'edu.odu.cs.zeil:JarNeedsHeap:1.0'   TODO: Causes build errors when included in dependencies, may need another repository to fix.
+    implementation 'edu.odu.cs.cs350:sourcedSuffixTrees:1.4'
+    implementation 'com.googlecode.concurrent-trees:concurrent-trees:2.6.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
 }
@@ -33,9 +45,6 @@ sourceSets {
   main {
      jflex {
        srcDir "src/main/jflex"
-     }
-     java {
-         srcDir "$buildDir/generated/sources/jflex"
      }
   }
 }

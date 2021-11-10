@@ -1,5 +1,6 @@
 package edu.odu.cs.cs350;
-public class CPPToken {
+import edu.odu.cs.cs350.sharedphrases.*;
+public class CPPToken implements Token{
     //What kind of token is it
     private TokenKinds name;
     //The lexeme associated with the token(if the token has one)
@@ -72,6 +73,10 @@ public class CPPToken {
     
     public int getColumn() {
         return column;
+    }
+
+    public int getTokenKind() {
+        return name.ordinal();
     }
 
     @Override 

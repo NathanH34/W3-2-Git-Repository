@@ -37,6 +37,7 @@ public class TestCPPToken {
         assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(defaultColumn));
         assertThat(token.toString(), equalTo(defaultToString));
+        assertThat(token.getTokenKind(), equalTo(defaultName.ordinal()));
         assertEquals(token, defaultToken);
     }
 
@@ -48,6 +49,7 @@ public class TestCPPToken {
         assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(defaultColumn));
         assertThat(token.toString(), equalTo(defaultToStringWithLex));
+        assertThat(token.getTokenKind(), equalTo(defaultName.ordinal()));
         assertEquals(token, defaultTokenWithLex);
     }
 
@@ -61,6 +63,7 @@ public class TestCPPToken {
         assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(defaultColumn));
         assertThat(token.toString(), equalTo("Token type: "+ kind + " Lexeme: " + defaultLex.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n"));
+        assertThat(token.getTokenKind(), equalTo(kind.ordinal()));
         assertNotEquals(token, defaultTokenWithLex);
     }
 
@@ -74,6 +77,7 @@ public class TestCPPToken {
         assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(defaultColumn));
         assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + lex.toString() + " Line: " + defaultLine + " Column: " + defaultColumn + "\n"));
+        assertThat(token.getTokenKind(), equalTo(defaultName.ordinal()));
         assertNotEquals(token, defaultTokenWithLex);
     }
 
@@ -87,6 +91,7 @@ public class TestCPPToken {
         assertThat(token.getLine(), equalTo(line));
         assertThat(token.getColumn(), equalTo(defaultColumn));
         assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + defaultLex.toString() + " Line: " + line + " Column: " + defaultColumn + "\n"));
+        assertThat(token.getTokenKind(), equalTo(defaultName.ordinal()));
         assertEquals(token, defaultTokenWithLex);
     }
 
@@ -100,6 +105,7 @@ public class TestCPPToken {
         assertThat(token.getLine(), equalTo(defaultLine));
         assertThat(token.getColumn(), equalTo(col));
         assertThat(token.toString(), equalTo("Token type: "+ defaultName + " Lexeme: " + defaultLex.toString() + " Line: " + defaultLine + " Column: " + col + "\n"));
+        assertThat(token.getTokenKind(), equalTo(defaultName.ordinal()));
         assertEquals(token, defaultTokenWithLex);
     }
 }

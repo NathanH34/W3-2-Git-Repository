@@ -15,8 +15,8 @@ public class TestSourceCodeFile {
   int noNumTokens = 0;
   int defaultFileNumTokens = 20;
   int filePathTwoTokens = 4;
-  String defaultFilePath = "src/test/resources/TestFile1.cpp";
-  String filePathTwo = "src/test/resources/TestFile2.cpp";
+  String defaultFilePath = "src/test/data/TestFile1.cpp";
+  String filePathTwo = "src/test/data/TestFile2.cpp";
   File fileTwo = new File(filePathTwo);
   File defaultFile = new File(defaultFilePath);
   File blankFile = new File("");
