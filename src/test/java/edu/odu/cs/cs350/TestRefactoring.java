@@ -13,8 +13,7 @@ public class TestRefactoring {
     SourceCodeFile srcFile1 = new SourceCodeFile("src/test/data/TestFile1.cpp");
     SourceCodeFile srcFile2 = new SourceCodeFile("src/test/data/TestFile2.cpp");
     SourceCodeFile srcFile3 = new SourceCodeFile("src/test/data/TestFile3.cpp");
-    ArrayList<Integer> locs = new ArrayList<Integer>;
-    locs.add(0);
+    ArrayList<Integer> locs = new ArrayList<Integer>();
 
     @Test
     public void testConstructor() {
@@ -35,6 +34,7 @@ public class TestRefactoring {
     @Test
     public void testAddSource() {
         Refactoring ref = new Refactoring();
+        locs.add(Integer.valueOf(0));
         ref.setSequenceLength(20);
         ref.addSource(srcFile1, locs);
         assertThat(ref.getOpportunityValue(), is(0));

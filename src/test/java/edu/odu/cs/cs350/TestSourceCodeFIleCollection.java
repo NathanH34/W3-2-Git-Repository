@@ -34,7 +34,7 @@ public class TestSourceCodeFIleCollection {
         assertThat(col1.toString(), is(emptyString()));
         Iterator<SourceCodeFile> it = col1.iterator();
         assertFalse(it.hasNext());
-        assertTrue(col1.getRefactorings().isEmpty());
+        assertTrue(col1.findRefactorings().isEmpty());
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TestSourceCodeFIleCollection {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
         assertThat(col1.toString(), is(emptyString()));
         col1.add(srcFile1);
-        assertTrue(col1.getRefactorings().isEmpty());
+        assertTrue(col1.findRefactorings().isEmpty());
         col1.add(srcFile2);
         Iterator<SourceCodeFile> it = col1.iterator();
         assertTrue(it.hasNext());
@@ -57,7 +57,7 @@ public class TestSourceCodeFIleCollection {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
         assertThat(col1.toString(), is(emptyString()));
         col1.add(srcFile2);
-        assertTrue(col1.getRefactorings().isEmpty());
+        assertTrue(col1.findRefactorings().isEmpty());
         col1.add(srcFile1);
         Iterator<SourceCodeFile> it = col1.iterator();
         assertTrue(it.hasNext());
@@ -67,3 +67,4 @@ public class TestSourceCodeFIleCollection {
         assertThat(col1, not(equalTo(blank)));
     }
 
+}
