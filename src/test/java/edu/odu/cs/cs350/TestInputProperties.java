@@ -17,5 +17,13 @@ public class TestInputProperties {
     public void setUp() throws Exception {
     }
 
-    
+    /**
+     * TODO: add test case for the filepath specifications from command line
+     */
+
+
+
+     /**
+      * TODO: add test cases for the minimum sequence length
+      */
 }
