@@ -9,4 +9,13 @@ import static org.hamcrest.Matchers.*;
 
 public class TestInputProperties {
     
+
+    /**
+    * @throws java.lang.Exception
+    */
+    @BeforeEach
+    public void setUp() throws Exception {
+    }
+
+    
 }
