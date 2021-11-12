@@ -38,12 +38,11 @@ public class DupDetector {
             		String[] srcExtensions = cppExtensions.split(","); //get valid file extensions separated by a comma
             		for(int j=0; j<srcExtensions.length; j++) {
             			if(!(validExtensions.contains(srcExtensions[j]))) {
-            				validExtensions.add(srcExtensions[j]);
+            				validExtensions.add(srcExtensions[j].toLowerCase());
             			}
             		}
             		System.err.println(validExtensions.toString());
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
-            			System.err.println("moving on to file paths");
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
             		}
@@ -55,7 +54,8 @@ public class DupDetector {
                 	validExtensions.add("cpp");
                 	System.err.println(validExtensions.toString());
             		if(file.isFile()) { //check if path argument represents a file
-	            		String ext = getFileExtension(file);
+	            		String extension = getFileExtension(file);
+	            		String ext = extension.toLowerCase();
 	            		if(validExtensions.contains(ext)) {
 		            		SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
 		                    fileCollection.add(src);
