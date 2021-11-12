@@ -2,6 +2,8 @@ package edu.odu.cs.cs350;
 import java.io.File;
 import java.util.Iterator;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.List;
 import java.util.ArrayList;
@@ -32,10 +34,9 @@ public class DupDetector {
             	File file = new File(args[i]);
             	if(i==1 && file.getAbsolutePath().contains(".ini")) { //properties file was properly specified
             		//work with properties file
-            		FileInputStream propertiesFile = new FileInputStream(args[i]);
-            		Properties properties = new Properties();
-            		properties.load(propertiesFile); //load properties from the properties file
-            		String cppExtensions = properties.getProperty("CppExtensions");
+            		Properties propertyFile = loadPropertiesFile(args[i]);
+
+            		String cppExtensions = propertyFile.getProperty("CppExtensions");
             		String[] srcExtensions = cppExtensions.split(","); //get valid file extensions separated by a comma
             		for(int j=0; j<srcExtensions.length; j++) {
             			if(!(validExtensions.contains(srcExtensions[j]))) {
@@ -107,6 +108,34 @@ public class DupDetector {
     	String extension = file.getAbsolutePath().substring(index+1);
     	return extension;
     }
+
+	/**
+	 * Load in the properties file
+ 	 * @param arg the filepath to the properties file
+ 	 * @return the properties variable with loaded properties file
+ 	 */
+
+	public static Properties loadPropertiesFile(String arg){
+		Properties properties = new Properties();
+		try{
+			FileInputStream propertiesFileStream = new FileInputStream(arg);
+   			try{
+				properties.load(propertiesFileStream); //load properties from the properties file
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		return properties;
+	}
+
+	public static String extractCppExtensions(Properties propertyFile){
+		
+	}
+
 }
 
 
