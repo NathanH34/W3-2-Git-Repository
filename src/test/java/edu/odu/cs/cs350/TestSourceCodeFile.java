@@ -33,7 +33,7 @@ public class TestSourceCodeFile {
     SourceCodeFile src = new SourceCodeFile();
     assertThat(src.getPath(), is(blankFile.getAbsolutePath()));
     assertThat(src.getNumTokens(), is(noNumTokens));
-    assertThat(src.toString(), is(blankFile.getAbsolutePath() + "   Tokens:0\n"));
+    assertThat(src.toString(), is("\t" + blankFile.getAbsolutePath() + "   Tokens:0\n"));
     assertThat(src, equalTo(blankCodeFile));
     Iterator<CPPToken> it = src.iterator();
     assertFalse(it.hasNext());
@@ -44,7 +44,7 @@ public class TestSourceCodeFile {
     SourceCodeFile src = new SourceCodeFile(defaultFilePath);
     assertThat(src.getPath(), is(defaultFile.getAbsolutePath()));
     assertThat(src.getNumTokens(), is(defaultFileNumTokens));
-    assertThat(src.toString(), is(defaultFile.getAbsolutePath() + "   Tokens:"+defaultFileNumTokens + "\n"));
+    assertThat(src.toString(), is("\t" + defaultFile.getAbsolutePath() + "   Tokens:"+defaultFileNumTokens + "\n"));
     assertThat(src, not(equalTo(blankCodeFile)));
     Iterator<CPPToken> it = src.iterator();
     assertTrue(it.hasNext());
@@ -65,7 +65,7 @@ public class TestSourceCodeFile {
     assertThat(src.getPath(), is(fileTwo.getAbsolutePath()));
     //Expect wrong numTokens and tokens list, since path is set but tokenize not called. Maybe should be changed
     assertThat(src.getNumTokens(), is(defaultFileNumTokens));
-    assertThat(src.toString(), is(fileTwo.getAbsolutePath() + "   Tokens:"+defaultFileNumTokens + "\n"));
+    assertThat(src.toString(), is("\t" + fileTwo.getAbsolutePath() + "   Tokens:"+defaultFileNumTokens + "\n"));
     assertNotEquals(src, src2);
     Iterator<CPPToken> it = src.iterator();
     assertTrue(it.hasNext());
@@ -79,7 +79,7 @@ public class TestSourceCodeFile {
     //Call tokenize, should update tokens and numTokens to new file
     src.tokenize();
     assertThat(src.getNumTokens(), is(filePathTwoTokens));
-    assertThat(src.toString(), is(fileTwo.getAbsolutePath() + "   Tokens:"+filePathTwoTokens + "\n"));
+    assertThat(src.toString(), is("\t" + fileTwo.getAbsolutePath() + "   Tokens:"+filePathTwoTokens + "\n"));
     assertNotEquals(src, src2);
     assertEquals(src, src3);
     it = src.iterator();

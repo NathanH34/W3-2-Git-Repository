@@ -38,9 +38,8 @@ public class TestRefactoring {
         ref.setSequenceLength(20);
         ref.addSource(srcFile1, locs);
         assertThat(ref.getOpportunityValue(), is(0));
-        assertThat(ref.getSequenceLength(), is(20));
         ref.addSource(srcFile2, locs);
         assertThat(ref.getOpportunityValue(), is(20));
-        assertThat(ref.getSequenceLength(), is(20));
+
     }
 }

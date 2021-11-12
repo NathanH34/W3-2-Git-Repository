@@ -1,11 +1,8 @@
 package edu.odu.cs.cs350;
 import java.util.ArrayList;
 import java.util.TreeMap;
-import java.util.Collections;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Set;
-import java.util.List;
 
 
 import edu.odu.cs.cs350.sharedphrases.*;
@@ -36,10 +33,8 @@ public class SourceCodeFileCollection {
 
     /**
      * 
-     * TODO: add support for parameters for maxSubstitutions and nSuggestions. Currently returns a refactoring for every possible phrase, needs to be pruned.
-     * 
-     * @param minLength the minimum length of refactoring in tokens
-     * 
+     * @param minLength the minimum length of each refactoring in tokens
+     * @return all possible refactorings within the collection with Opportunity value over 0
      */
     public ArrayList<Refactoring> findRefactorings( int minLength) {
         ArrayList<Refactoring> refactoringList = new ArrayList<Refactoring>();
@@ -48,6 +43,7 @@ public class SourceCodeFileCollection {
             Refactoring r = makeRefactoring(phrase);
             refactoringList.add(r);
         }
+        refactoringList.removeIf(refactoring -> refactoring.getOpportunityValue() == 0);
         return refactoringList;
     }
 
@@ -58,9 +54,9 @@ public class SourceCodeFileCollection {
      */
     private Refactoring makeRefactoring(String phrase) {
         Refactoring ref = new Refactoring(phrase.length());
-        Iterable<CharSequence> suffixes = phrases.phrasesCompleting(phrase);
+        Iterable<CharSequence> suffixes = phrases.phrasesCompleting(phrase); 
         for(CharSequence suffix: suffixes) {
-            Set<String> sources = phrases.sourcesOf(suffix.toString());
+            Set<String> sources = phrases.sourcesOf(suffix.toString()); //Method returns a set, but each maximal suffix should only have one source
             for(String path: sources){
                 ArrayList<Integer> startLocation = new ArrayList<Integer>();
                 int index = files.get(path).getNumTokens() - (suffix.length() - 1);
@@ -72,7 +68,7 @@ public class SourceCodeFileCollection {
     }
 
     /**
-     * helper function, gets every shared phrase from sharedPhrases and filters for those above the given length. 
+     * helper function, gets every shared phrase from sharedPhrases and filters for those above or equal to the given length. 
      * @param minLength
      * @return  a list of the phrases as strings.
      */
@@ -80,7 +76,7 @@ public class SourceCodeFileCollection {
         ArrayList<String> phraseList = new ArrayList<String>();
         for(CharSequence phrase: phrases.allPhrases()) {
             int phraseLength = phrase.length();
-            if(phraseLength > minLength){
+            if(phraseLength >= minLength){
                 phraseList.add(phrase.toString());
             }
         }
