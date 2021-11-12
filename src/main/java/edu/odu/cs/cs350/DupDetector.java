@@ -35,15 +35,8 @@ public class DupDetector {
             	if(i==1 && file.getAbsolutePath().contains(".ini")) { //properties file was properly specified
             		//work with properties file
             		Properties propertyFile = loadPropertiesFile(args[i]);
-
-            		String cppExtensions = propertyFile.getProperty("CppExtensions");
-            		String[] srcExtensions = cppExtensions.split(","); //get valid file extensions separated by a comma
-            		for(int j=0; j<srcExtensions.length; j++) {
-            			if(!(validExtensions.contains(srcExtensions[j]))) {
-            				validExtensions.add(srcExtensions[j].toLowerCase());
-            			}
-            		}
-            		System.out.println(validExtensions.toString());
+            		extractCppExtensions(propertyFile, validExtensions);
+            		
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
@@ -132,8 +125,25 @@ public class DupDetector {
 		return properties;
 	}
 
-	public static String extractCppExtensions(Properties propertyFile){
+	/**
+	 * Extract valid file extensions from the properties file
+	 * @param propertyFile file to get file extensions from
+	 * @param validExtensions file extensions to search for 
+	 * @return a list of valid file extensions
+	 */
+	public static ArrayList<String> extractCppExtensions(Properties propertyFile, ArrayList<String> validExtensions){
+		ArrayList<String> extensions = new ArrayList<String>();
 		
+		String cppExtensions = propertyFile.getProperty("CppExtensions");
+		String[] srcExtensions = cppExtensions.split(","); //get valid file extensions separated by a comma
+		for(int j=0; j<srcExtensions.length; j++) {
+			if(!(validExtensions.contains(srcExtensions[j]))) {
+				validExtensions.add(srcExtensions[j].toLowerCase());
+			}
+		}
+		System.out.println(validExtensions.toString());
+		
+		return extensions;
 	}
 
 }
