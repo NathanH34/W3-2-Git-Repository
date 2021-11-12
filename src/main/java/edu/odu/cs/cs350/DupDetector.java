@@ -27,7 +27,8 @@ public class DupDetector {
             System.out.print(e.toString());
         }
         try {
-            for(int i=1; i<args.length; i++) { //go through all specified file paths
+            System.out.print("Files scanned: ");
+        	for(int i=1; i<args.length; i++) { //go through all specified file paths
             	File file = new File(args[i]);
             	if(i==1 && file.getAbsolutePath().contains(".ini")) { //properties file was properly specified
             		//work with properties file
@@ -41,7 +42,7 @@ public class DupDetector {
             				validExtensions.add(srcExtensions[j].toLowerCase());
             			}
             		}
-            		System.err.println(validExtensions.toString());
+            		System.out.println(validExtensions.toString());
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
@@ -52,7 +53,7 @@ public class DupDetector {
             	else { //no properties file was specified, search for .h and .cpp files
             		validExtensions.add("h");
                 	validExtensions.add("cpp");
-                	System.err.println(validExtensions.toString());
+                	System.out.println(validExtensions.toString());
             		if(file.isFile()) { //check if path argument represents a file
 	            		String extension = getFileExtension(file);
 	            		String ext = extension.toLowerCase();

@@ -95,7 +95,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
 
     @Override
     public final String toString() {
-        return (path.getAbsolutePath() + "   Tokens:" + numTokens + "\n");
+        return ("\t" + path.getAbsolutePath() + "   Tokens:" + numTokens + "\n");
     }
 
     /**
