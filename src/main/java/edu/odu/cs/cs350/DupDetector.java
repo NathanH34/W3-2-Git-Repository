@@ -60,7 +60,6 @@ public class DupDetector {
 	            		if(validExtensions.contains(ext)) {
 		            		SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
 		                    fileCollection.add(src);
-		                    System.out.print(src.toString());
 	            		}
 	            	}
 	            	else if(file.isDirectory()) { //check if path argument represents a directory
@@ -72,7 +71,14 @@ public class DupDetector {
         } catch(Exception e) {
             System.out.print(e.toString());
         }
-           
+        
+		//Print Section 1 of output
+		System.out.print(fileCollection.toString());
+		//Print Section 2 of output
+		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(10);
+		for(Refactoring r: refactorings) {
+			System.out.print(r.toString());
+		}
     }
     
     /**
@@ -82,8 +88,7 @@ public class DupDetector {
     public static void searchFiles(File path, SourceCodeFileCollection collection, ArrayList<String> validExtensions) {    	
     	if(path.isFile() && validExtensions.contains(getFileExtension(path))) {     
     		SourceCodeFile srcFile = new SourceCodeFile(path.getAbsolutePath());
-            collection.add(srcFile);
-            System.out.print(srcFile.toString());    
+            collection.add(srcFile);  
             } else if(path.isDirectory()) {            	
             	File[] files = path.listFiles();
     			for(File f: files) {

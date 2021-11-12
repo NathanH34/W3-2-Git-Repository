@@ -74,7 +74,7 @@ public class Refactoring implements Comparable<Refactoring>  {
         for(SourceCodeFile s: sourceFiles) {
             for(Integer i : sequenceStartLocations.get(s)) {
                 CPPToken token = s.getTokenAt(i);
-                sb.append(s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
+                sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
             }
         }
 
