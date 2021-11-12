@@ -1,6 +1,8 @@
 package edu.odu.cs.cs350;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.Collections;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
@@ -8,13 +10,13 @@ import java.util.List;
 
 import edu.odu.cs.cs350.sharedphrases.*;
 
-public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
-    private ArrayList<SourceCodeFile> files;
+public class SourceCodeFileCollection {
+    private TreeMap<String,SourceCodeFile> files;
     private SharedPhrases phrases;
 
 
     public SourceCodeFileCollection() {
-        files = new ArrayList<SourceCodeFile>();
+        files = new TreeMap<String,SourceCodeFile>();
         phrases = new SharedPhrases();
     }
 
@@ -23,8 +25,7 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
      * @param newFile SourceCodeFile 
      */
     public void add(SourceCodeFile newFile){
-        files.add(newFile);
-        order();
+        files.put(newFile.getPath(), newFile);
         try {
             String encodedTokens = TokenEncoding.encode(newFile.getTokens());
             phrases.addSentence(encodedTokens, newFile.getPath());
@@ -34,27 +35,47 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
     }
 
     /**
-     * Order the source code files in the collection
-     * @post the files are in ascending alphabetical order
+     * 
+     * TODO: add support for parameters for maxSubstitutions and nSuggestions. Currently returns a refactoring for every possible phrase, needs to be pruned.
+     * 
+     * @param minLength the minimum length of refactoring in tokens
+     * 
      */
-    public void order(){
-        Collections.sort(files);
-    }
-
-    /**
-     * TODO: actually find refactorings, returns list of empty refactorings at the moment
-     * TODO: add support for parameters for nSuggestions, and maxSubstitutions properties to modify what the returned list contains
-     */
-    public List<Refactoring> findRefactorings( int minLength ) {
+    public ArrayList<Refactoring> findRefactorings( int minLength) {
         ArrayList<Refactoring> refactoringList = new ArrayList<Refactoring>();
         ArrayList<String> phraseList = getPhrasesOverLength(minLength);
-        for(String phrase: phraseList){
-            Refactoring r = new Refactoring();
+        for(String phrase: phraseList) {
+            Refactoring r = makeRefactoring(phrase);
             refactoringList.add(r);
         }
         return refactoringList;
     }
 
+    /**
+     * 
+     * @param phrase
+     * @return a Refactoring for that phrase with the correct sources and starting token
+     */
+    private Refactoring makeRefactoring(String phrase) {
+        Refactoring ref = new Refactoring(phrase.length());
+        Iterable<CharSequence> suffixes = phrases.phrasesCompleting(phrase);
+        for(CharSequence suffix: suffixes) {
+            Set<String> sources = phrases.sourcesOf(suffix.toString());
+            for(String path: sources){
+                ArrayList<Integer> startLocation = new ArrayList<Integer>();
+                int index = files.get(path).getNumTokens() - (suffix.length() - 1);
+                startLocation.add(index);
+                ref.addSource(files.get(path), startLocation);
+            }
+        }
+        return ref;
+    }
+
+    /**
+     * helper function, gets every shared phrase from sharedPhrases and filters for those above the given length. 
+     * @param minLength
+     * @return  a list of the phrases as strings.
+     */
     private ArrayList<String> getPhrasesOverLength(int minLength) {
         ArrayList<String> phraseList = new ArrayList<String>();
         for(CharSequence phrase: phrases.allPhrases()) {
@@ -68,37 +89,13 @@ public class SourceCodeFileCollection implements Iterable<SourceCodeFile> {
     }
 
     /**
-     * Helper function
-     * @param sourcePaths
-     * @return A sublist of files whose paths match the paths in sourcePaths
-     */
-    private List<SourceCodeFile> getFilesFromPaths (Set<String> sourcePaths) {
-        ArrayList<SourceCodeFile> sourceFiles = new ArrayList<SourceCodeFile>();
-        for(String source: sourcePaths) {
-            for(SourceCodeFile file: files) {
-                if(source.equals(file.getPath())) {
-                    sourceFiles.add(file);
-                }
-            }
-        }
-
-        return sourceFiles;
-    }
-
-    @Override
-    public final Iterator<SourceCodeFile> iterator() {
-        return files.iterator();
-    }
-
-    /**
      * @return string with newline separators for each file path
      */
     @Override
     public final String toString() {
         StringBuilder fileCollection = new StringBuilder();
-        for (SourceCodeFile f: files) {
-            fileCollection.append(f.toString());
-        }
+        Collection<SourceCodeFile> sourceFiles = files.values();
+        sourceFiles.forEach(file -> {fileCollection.append(file.toString());});
         return fileCollection.toString();
     }
 }

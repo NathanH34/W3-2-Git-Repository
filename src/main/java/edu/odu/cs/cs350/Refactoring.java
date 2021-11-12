@@ -20,6 +20,13 @@ public class Refactoring implements Comparable<Refactoring>  {
         opportunityValue = 0;
     }
 
+    public Refactoring(int length) {
+        sequenceStartLocations = new LinkedHashMap<SourceCodeFile, ArrayList<Integer>>();
+        sourceFiles = new LinkedHashSet<SourceCodeFile>();
+        sequenceLength = length;
+        opportunityValue = 0;
+    }
+
     public void setSequenceLength(int newLength) {
         sequenceLength = newLength;
     }
@@ -28,6 +35,7 @@ public class Refactoring implements Comparable<Refactoring>  {
      * Adds a source file to the refactoring, along with the startings locations of the sequence in the file. 
      * @param file the file to be included in the refactoring
      * @param startLocations A list of integers corresponding to the beginning token indices of each instance of the sequence in the file.
+     * @post opportunityValue is updated to new correct value based on new additions to the refactoring
      */
     public void addSource(SourceCodeFile file, ArrayList<Integer> startLocations) {
         if(sourceFiles.contains(file)) {
@@ -62,9 +70,11 @@ public class Refactoring implements Comparable<Refactoring>  {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
             for(Integer i : sequenceStartLocations.get(s)) {
-
+                CPPToken token = s.getTokenAt(i);
+                sb.append(s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
             }
         }
 

@@ -1,8 +1,8 @@
-// System test input 1
+if(x < y)
+    y = x + 1;
+cout << y;
 
-#include <iostream>
+if(x > y)
+    y = x - 1;
+cout << y;
 
-int main() {
-    std::cout << "Hello World!";
-    return 0;
-}

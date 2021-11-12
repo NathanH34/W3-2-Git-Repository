@@ -84,6 +84,10 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         return tokens;
     }
 
+    public CPPToken getTokenAt(int index) {
+        return tokens.get(index);
+    }
+
     @Override
     public final Iterator<CPPToken> iterator() {
         return tokens.iterator();

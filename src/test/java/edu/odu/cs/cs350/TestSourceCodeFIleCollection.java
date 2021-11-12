@@ -1,9 +1,11 @@
 package edu.odu.cs.cs350;
 import java.io.File;
+import java.sql.Ref;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +22,7 @@ public class TestSourceCodeFIleCollection {
     SourceCodeFile srcFile1 = new SourceCodeFile("src/test/data/TestFile1.cpp");
     SourceCodeFile srcFile2 = new SourceCodeFile("src/test/data/TestFile2.cpp");
     SourceCodeFile srcFile3 = new SourceCodeFile("src/test/data/TestFile3.cpp");
+    SourceCodeFile srcFile4 = new SourceCodeFile("src/test/data/TestFile4.cpp");
     int defaultPhraseLength = 10;
 
     
@@ -34,8 +37,6 @@ public class TestSourceCodeFIleCollection {
     public void testDefaultConstructor() {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
         assertThat(col1.toString(), is(emptyString()));
-        Iterator<SourceCodeFile> it = col1.iterator();
-        assertFalse(it.hasNext());
         assertTrue(col1.findRefactorings(defaultPhraseLength).isEmpty());
     }
 
@@ -44,41 +45,20 @@ public class TestSourceCodeFIleCollection {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
         assertThat(col1.toString(), is(emptyString()));
         col1.add(srcFile1);
+        
         col1.add(srcFile2);
-        Iterator<SourceCodeFile> it = col1.iterator();
-        assertTrue(it.hasNext());
-        assertThat(it.next(), equalTo(srcFile1));
-        assertThat(it.next(), equalTo(srcFile2));
         assertThat(col1.toString(), not(emptyString()));
         assertThat(col1, not(equalTo(blank)));
     }
 
-    @Test
-    public void testOrder() {
-        SourceCodeFileCollection col1 = new SourceCodeFileCollection();
-        assertThat(col1.toString(), is(emptyString()));
-        col1.add(srcFile2);
-        col1.add(srcFile1);
-        Iterator<SourceCodeFile> it = col1.iterator();
-        assertTrue(it.hasNext());
-        assertThat(it.next(), equalTo(srcFile1));
-        assertThat(it.next(), equalTo(srcFile2));
-        assertThat(col1.toString(), not(emptyString()));
-        assertThat(col1, not(equalTo(blank)));
-    }
 
     @Test
     public void testFindRefactorings() {
         SourceCodeFileCollection col1 = new SourceCodeFileCollection();
-        assertThat(col1.toString(), is(emptyString()));
-        col1.add(srcFile1);
-        assertThat(col1.findRefactorings(defaultPhraseLength).size(), is(0));
         col1.add(srcFile3);
-        assertThat(col1.findRefactorings(defaultPhraseLength).size(), is(1));
-        Iterator<SourceCodeFile> it = col1.iterator();
-        assertTrue(it.hasNext());
-        assertThat(it.next(), equalTo(srcFile1));
-        assertThat(it.next(), equalTo(srcFile3));
+        col1.add(srcFile4);
+        ArrayList<Refactoring> rList = col1.findRefactorings(10);
+
         assertThat(col1.toString(), not(emptyString()));
         assertThat(col1, not(equalTo(blank)));
     }
