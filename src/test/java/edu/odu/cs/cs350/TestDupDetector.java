@@ -66,7 +66,23 @@ public class TestDupDetector {
 
     @Test
     public void testAddMaxSubstitutions() throws IOException {
+        Properties testProperties = new Properties();
         
+        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+    	assertThat(validMaxSubstitutions, is(8));
+
+    	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
+    	testProperties.load(propFileStream);
+
+        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+        assertThat(validMaxSubstitutions, is(69));
+
+        FileInputStream wrongPropFileStream = new FileInputStream(wrongPropertiesFilePath);
+    	testProperties.load(wrongPropFileStream);
+
+        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+        assertThat(validMaxSubstitutions, not('B'));
+        assertThat(validMaxSubstitutions, is(8));
     }
 
     @Test
