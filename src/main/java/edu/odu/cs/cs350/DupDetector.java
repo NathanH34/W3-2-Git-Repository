@@ -65,7 +65,19 @@ public class DupDetector {
 			System.out.print(r.toString());
 		}
     }
-    
+
+	/**
+	 * Extract a valid maximum number of substitutions from the properties file
+	 * @param propertyFile file to get maximum number of substitutions from
+	 * @return the maximum number of substitutions for recommendation
+	 */
+	public static int addMaxSubstitutions(Properties propertyFile){
+
+		// Maximum recommendations is defaulted to 8
+		int maxSubstitutions = 8;
+		return maxSubstitutions;
+	}
+
 	/**
 	 * Extract a valid minimum sequence length from the properties file
 	 * @param propertyFile file to get minimum sequence length from

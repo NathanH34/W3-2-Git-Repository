@@ -65,6 +65,11 @@ public class TestDupDetector {
     }
 
     @Test
+    public void testAddMaxSubstitutions() throws IOException {
+        
+    }
+
+    @Test
     public void testAddMinSequenceLength() throws IOException {
         Properties testProperties = new Properties();
 
