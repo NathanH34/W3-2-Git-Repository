@@ -16,6 +16,8 @@ public class DupDetector {
         //String propertiesPath = "";
         SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
         ArrayList<String> validExtensions = new ArrayList<String>(); //should have h and cpp by default
+		int validMinSequenceLength;
+		int validMaxSubstitutions;
         
         /**
          * TODO: placeholder to process filepath args, Not final logic
@@ -34,10 +36,11 @@ public class DupDetector {
             	if(i==1 && file.getAbsolutePath().contains(".ini")) { //properties file was properly specified
             		Properties propertyFile = loadPropertiesFile(args[i]);
 
-            		validExtensions = extractCppExtensions(propertyFile, validExtensions);		
-
             		validExtensions = extractCppExtensions(propertyFile, validExtensions);
-            		//minSequenceLength = extractMinLength(propertyFile);
+
+            		validMinSequenceLength = addMinSequenceLength(propertyFile);
+
+					validMaxSubstitutions = addMaxSubstitutions(propertyFile);
 
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
             			File codeFile = new File(args[k]);
@@ -63,6 +66,18 @@ public class DupDetector {
 		}
     }
     
+	/**
+	 * Extract a valid minimum sequence length from the properties file
+	 * @param propertyFile file to get minimum sequence length from
+	 * @return the minimum sequence length for refactorization consideration
+	 */
+	public static int addMinSequenceLength(Properties propertyFile){
+
+		// Minimum Length is defaulted to 10
+		int minSequenceLength = 10;
+		return minSequenceLength;
+	}
+
     /**
      * Recursively search for files in a directory and its sub-directories and print their absolute paths
      * @param path path to a source code file or a directory containing source code files
