@@ -16,13 +16,13 @@ import static org.hamcrest.Matchers.*;
 public class TestDupDetector {
 
 
-    String defaultFilePath = "src/test/data/TestFile1.cpp"; 
+    String defaultFilePath = "src/test/data/TestFile1.cpp";
     File defaultFile = new File(defaultFilePath);
     String defaultDirPath = "src/test/data/";
     File defaultDirectory = new File("src/test/data");
     String propertiesFilePath = "src/test/data/properties.ini";
     String wrongPropertiesFilePath = "src/test/data/wrongProperties.ini";
-    
+
 
     DupDetector blankDupDetector = new DupDetector();
     ArrayList<String> validExtensions = new ArrayList<String>();
@@ -43,7 +43,7 @@ public class TestDupDetector {
         ArrayList<String> validExtensions = new ArrayList<String>();
         DupDetector.searchFiles(defaultFile, fileCollection, validExtensions);
         assertThat(fileCollection.toString().contains(defaultFilePath), is(true));
-        
+
         DupDetector.searchFiles(defaultDirectory, fileCollection, validExtensions);
         assertThat(fileCollection.toString().contains("src/test/data/TestFile1.cpp"), is(true));
         assertThat(fileCollection.toString().contains("src/test/data/TestFile2.cpp"), is(true));
@@ -63,7 +63,7 @@ public class TestDupDetector {
         Properties properties3 = dupDetector1.loadPropertiesFile(defaultFilePath);
         assertThat(properties3, is(nullValue())); //Make sure that properties3 would actually be null in the test
     }
-
+    
     @Test
     public void testAddMaxSubstitutions() throws IOException {
         Properties testProperties = new Properties();
@@ -105,7 +105,7 @@ public class TestDupDetector {
         assertThat(validMinSequenceLength, not('A'));
         assertThat(validMinSequenceLength, is(10));
     }
-    
+
     @Test
     public void testExtractCppExtensions() throws IOException {
     	ArrayList<String> validExtensions = new ArrayList<String>();
@@ -119,7 +119,7 @@ public class TestDupDetector {
     	assertThat(validExtensions.contains("hpp"), is(true));
     	assertThat(validExtensions.contains("cpp"), is(true));
     }
-    
+
     @Test
     public void testSearchForDefaults() {
     	SourceCodeFile srcFile = new SourceCodeFile(defaultFilePath);
