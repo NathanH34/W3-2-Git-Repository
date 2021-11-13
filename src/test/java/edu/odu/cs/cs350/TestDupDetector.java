@@ -1,5 +1,6 @@
 package edu.odu.cs.cs350;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,10 +13,11 @@ import static org.hamcrest.Matchers.*;
 
 public class TestDupDetector {
 
-    String defaultFile = "src/test/data/TestFile1.cpp";
+    String defaultFile = "src/test/data/";
     String propertiesFile = "src/test/data/properties.ini";
     File defaultFilePath = new File(defaultFile);
     DupDetector blankDupDetector = new DupDetector();
+    ArrayList<String> validExtensions = new ArrayList<String>();
 
     /**
     * @throws java.lang.Exception
@@ -40,6 +42,16 @@ public class TestDupDetector {
         assertThat(properties2, is(nullValue())); //Make sure that properties2 would actually be null in the test
         Properties properties3 = dupDetector1.loadPropertiesFile(defaultFile);
         assertThat(properties3, is(nullValue())); //Make sure that properties3 would actually be null in the test
+    }
+
+    @Test
+    public void testExtractCppExtensions() {
+        DupDetector dupDetector = new DupDetector();
+        assertThat(dupDetector, equalTo(blankDupDetector));
+        Properties properties = dupDetector.loadPropertiesFile(propertiesFile);
+        validExtensions.add("cpp");
+        validExtensions.add("h");
+        
     }
 
 }
