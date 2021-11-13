@@ -67,9 +67,21 @@ public class TestDupDetector {
     @Test
     public void testAddMinSequenceLength() throws IOException {
         Properties testProperties = new Properties();
+
+        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+    	assertThat(validMinSequenceLength, is(10));
+
     	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
     	testProperties.load(propFileStream);
 
+        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+        assertThat(validMinSequenceLength, is(42));
+
+        FileInputStream wrongPropFileStream = new FileInputStream(wrongPropertiesFilePath);
+    	testProperties.load(wrongPropFileStream);
+
+        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+        assertThat(validMinSequenceLength, not('A'));
         assertThat(validMinSequenceLength, is(10));
     }
     
