@@ -66,7 +66,11 @@ public class TestDupDetector {
 
     @Test
     public void testAddMinSequenceLength() throws IOException {
+        Properties testProperties = new Properties();
+    	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
+    	testProperties.load(propFileStream);
 
+        assertThat(validMinSequenceLength, is(10));
     }
     
     @Test
