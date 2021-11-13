@@ -20,11 +20,14 @@ public class TestDupDetector {
     File defaultFile = new File(defaultFilePath);
     String defaultDirPath = "src/test/data/";
     File defaultDirectory = new File("src/test/data");
-    String propertiesFilePath = "src/test/data/properties.ini";  
+    String propertiesFilePath = "src/test/data/properties.ini";
+    String wrongPropertiesFilePath = "src/test/data/wrongProperties.ini";
     
 
     DupDetector blankDupDetector = new DupDetector();
     ArrayList<String> validExtensions = new ArrayList<String>();
+    int validMinSequenceLength;
+    int validMaxSubstitutions;
 
     /**
     * @throws java.lang.Exception
@@ -59,6 +62,11 @@ public class TestDupDetector {
         assertThat(properties2, is(nullValue())); //Make sure that properties2 would actually be null in the test
         Properties properties3 = dupDetector1.loadPropertiesFile(defaultFilePath);
         assertThat(properties3, is(nullValue())); //Make sure that properties3 would actually be null in the test
+    }
+
+    @Test
+    public void testAddMinSequenceLength() throws IOException {
+
     }
     
     @Test
