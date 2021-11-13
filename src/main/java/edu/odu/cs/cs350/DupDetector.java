@@ -1,3 +1,4 @@
+
 package edu.odu.cs.cs350;
 import java.io.File;
 import java.util.Iterator;
@@ -11,9 +12,10 @@ import java.util.ArrayList;
 
 public class DupDetector {
     
+
     public static void main(String [] args) {
         int nSuggestions = 0;
-        String propertiesPath = "";
+        //String propertiesPath = "";
         SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
         ArrayList<String> validExtensions = new ArrayList<String>(); //should have h and cpp by default
         
@@ -32,16 +34,33 @@ public class DupDetector {
         	for(int i=1; i<args.length; i++) { //go through all specified file paths
             	File file = new File(args[i]);
             	if(i==1 && file.getAbsolutePath().contains(".ini")) { //properties file was properly specified
+            		//work with properties file
             		Properties propertyFile = loadPropertiesFile(args[i]);
-            		validExtensions = extractCppExtensions(propertyFile, validExtensions);		
+            		validExtensions = extractCppExtensions(propertyFile, validExtensions);
+            		minSequenceLength = extractMinLength(propertyFile);
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
             		}
             		return;
             	}
+            		
             	else { //no properties file was specified, search for .h and .cpp files
-            		searchForDefaults(file, fileCollection, validExtensions);
+            		validExtensions.add("h");
+                	validExtensions.add("cpp");
+                	System.out.println(validExtensions.toString());
+            		if(file.isFile()) { //check if path argument represents a file
+	            		String extension = getFileExtension(file);
+	            		String ext = extension.toLowerCase();
+	            		if(validExtensions.contains(ext)) {
+		            		SourceCodeFile src = new SourceCodeFile(file.getAbsolutePath());
+		                    fileCollection.add(src);
+	            		}
+	            	}
+	            	else if(file.isDirectory()) { //check if path argument represents a directory
+	            		searchFiles(file, fileCollection, validExtensions);
+	            	}
+	            	validExtensions.toString();
             	}
             }      
         } catch(Exception e) {
@@ -127,30 +146,5 @@ public class DupDetector {
 		
 		return extensions;
 	}
-	
-	/**
-	 * Search for .h and .cpp files and print their paths
-	 * @param path path to file or directory to search
-	 * @param fileCollection collection of source code files
-	 * @param validExtensions list of extensions to search for 
-	 */
-	public static void searchForDefaults(File path, SourceCodeFileCollection fileCollection, ArrayList<String> validExtensions) {
-		validExtensions.add("h");
-    	validExtensions.add("cpp");
-    	System.out.println(validExtensions.toString());
-		if(path.isFile()) { //check if path argument represents a file
-    		String extension = getFileExtension(path);
-    		String ext = extension.toLowerCase();
-    		if(validExtensions.contains(ext)) {
-        		SourceCodeFile src = new SourceCodeFile(path.getAbsolutePath());
-                fileCollection.add(src);
-    		}
-    	}
-    	else if(path.isDirectory()) { //check if path argument represents a directory
-    		searchFiles(path, fileCollection, validExtensions);
-    	}
-    	validExtensions.toString();
-	}
+
 }
-
-
