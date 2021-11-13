@@ -55,6 +55,7 @@ public class DupDetector {
         
 		//Print Section 1 of output
 		System.out.print(fileCollection.toString());
+		System.out.println("\n");
 		//Print Section 2 of output
 		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(10);
 		for(Refactoring r: refactorings) {
