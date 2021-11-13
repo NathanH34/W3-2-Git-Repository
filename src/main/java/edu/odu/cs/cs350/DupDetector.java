@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class DupDetector {
     
-
     public static void main(String [] args) {
         int nSuggestions = 0;
         //String propertiesPath = "";
@@ -33,18 +32,19 @@ public class DupDetector {
         	for(int i=1; i<args.length; i++) { //go through all specified file paths
             	File file = new File(args[i]);
             	if(i==1 && file.getAbsolutePath().contains(".ini")) { //properties file was properly specified
-            		//work with properties file
             		Properties propertyFile = loadPropertiesFile(args[i]);
+
+            		validExtensions = extractCppExtensions(propertyFile, validExtensions);		
+
             		validExtensions = extractCppExtensions(propertyFile, validExtensions);
-            		minSequenceLength = extractMinLength(propertyFile);
-            		
+            		//minSequenceLength = extractMinLength(propertyFile);
+
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
             		}
             		return;
             	}
-            		
             	else { //no properties file was specified, search for .h and .cpp files
             		searchForDefaults(file, fileCollection, validExtensions);
             	}
@@ -55,6 +55,7 @@ public class DupDetector {
         
 		//Print Section 1 of output
 		System.out.print(fileCollection.toString());
+		System.out.println("\n");
 		//Print Section 2 of output
 		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(10);
 		for(Refactoring r: refactorings) {
@@ -132,7 +133,6 @@ public class DupDetector {
 		
 		return extensions;
 	}
-	
 	/**
 	 * Search for .h and .cpp files and print their paths
 	 * @param path path to file or directory to search
