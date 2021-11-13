@@ -44,6 +44,7 @@ public class SourceCodeFileCollection {
             refactoringList.add(r);
         }
         refactoringList.removeIf(refactoring -> refactoring.getOpportunityValue() == 0);
+        refactoringList = reverseOrder(refactoringList);
         return refactoringList;
     }
 
@@ -93,5 +94,18 @@ public class SourceCodeFileCollection {
         Collection<SourceCodeFile> sourceFiles = files.values();
         sourceFiles.forEach(file -> {fileCollection.append(file.toString());});
         return fileCollection.toString();
+    }
+
+    /**
+     * Reverses the order of an array list of refactorings
+     * @param r the array list of refactorings to be reversed
+     * @return r in reverse order
+     */
+    public ArrayList<Refactoring> reverseOrder(ArrayList<Refactoring> r){
+        ArrayList<Refactoring> reverse = new ArrayList<Refactoring>();
+        for (int i = r.size() - 1; i >= 0; i--){
+            reverse.add(r.get(i));
+        }
+        return reverse;
     }
 }
