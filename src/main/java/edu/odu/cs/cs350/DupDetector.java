@@ -75,7 +75,21 @@ public class DupDetector {
 
 		// Maximum recommendations is defaulted to 8
 		int maxSubstitutions = 8;
-		return maxSubstitutions;
+		int extractedMaxSubstitutions = 0;
+
+		try{
+			extractedMaxSubstitutions = Integer.parseInt(propertyFile.getProperty("MaxSubstitutions"));
+		}
+        catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+
+		if(extractedMaxSubstitutions < 1) {
+			// Invalid input, return defaulted value
+			return maxSubstitutions;
+		} else {
+			return extractedMaxSubstitutions;
+		}
 	}
 
 	/**
