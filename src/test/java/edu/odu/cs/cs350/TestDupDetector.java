@@ -88,6 +88,9 @@ public class TestDupDetector {
     	
     }
 
-    
+    @Test
+    public void testExtractMinLength() {
+        
+    }
 
 }
