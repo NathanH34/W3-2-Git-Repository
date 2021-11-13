@@ -75,7 +75,21 @@ public class DupDetector {
 
 		// Minimum Length is defaulted to 10
 		int minSequenceLength = 10;
-		return minSequenceLength;
+		int extractedMinLength = 0;
+
+		try{
+			extractedMinLength = Integer.parseInt(propertyFile.getProperty("MinSequenceLength"));
+		}
+        catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+
+		if(extractedMinLength < 1) {
+			// Invalid input, return defaulted value
+			return minSequenceLength;
+		} else {
+			return extractedMinLength;
+		}
 	}
 
     /**
