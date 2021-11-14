@@ -57,9 +57,9 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
     /**
      * Use the current value of path member to read the file and populate tokens and numTokens.
      * Will overwrite any previous values of both tokens and numTokens
-     * @pre (path.isFile()) && path is a c++ source code file 
-     * @post tokens contains all tokens in path file as lexically analyzed by Scanner. 
-     * @post numTokens = tokens.size()
+     * pre: (path.isFile()) AND path is a c++ source code file 
+     * post: tokens contains all tokens in path file as lexically analyzed by Scanner. 
+     * post: numTokens = tokens.size()
      */
     public void tokenize() {
         try {
