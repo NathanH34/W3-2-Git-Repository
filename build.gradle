@@ -59,6 +59,10 @@ application {
     mainClassName = javaMainClass
 }
 
+javadoc {
+    exclude 'edu/odu/cs/cs350/Scanner.java'
+}
+
 task reports (dependsOn: ['check', 'javadoc']) {
    description 'Generate all reports for this project'
 }
