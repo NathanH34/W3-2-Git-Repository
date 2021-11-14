@@ -57,3 +57,67 @@ ext.javaMainClass = "edu.odu.cs.cs350.DupDetector"
 application {
     mainClassName = javaMainClass
 }
+
+task reports (dependsOn: ['check', 'javadoc']) {
+   description 'Generate all reports for this project'
+}
+
+task copyDocs (type: Copy){
+    from "$buildDir/docs"
+    into "$buildDir/tmp/website/docs"
+    dependsOn 'reports'
+}
+
+task copyReports (type: Copy) {
+    from "$buildDir/reports"
+    into "$buildDir/tmp/website/reports"
+    dependsOn 'reports'
+}
+
+task deployReports(dependsOn: ['copyDocs', 'copyReports']){
+    description 'deploy the reports (Really)'
+}
+
+task clonePages() {                                             
+    doLast {
+        mkdir 'build/gh-pages'
+        def thisRepo = rootProject.projectDir.toString()
+        def pagesDir = "$buildDir/gh-pages"
+        project.delete {
+            delete pagesDir
+        }
+        def grgit = git.clone {
+            dir = pagesDir
+            uri = thisRepo
+            bare = false
+            refToCheckout = 'gh-pages'
+        }
+    
+       grgit.checkout {
+           branch = 'gh-pages'
+       }
+       
+    }
+}
+
+task copySite (type: Copy, dependsOn: ['deployReports', 'clonePages']) {  
+    from "$buildDir/tmp/website"
+    into "$buildDir/gh-pages"
+}
+
+task updateGHPages (dependsOn: 'copySite') {                     
+    group = "Reporting"
+    description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
+    doLast {
+        def pagesDir = "$buildDir/gh-pages"
+        def grgit = git.open {
+            dir = pagesDir 
+        }
+        grgit.add (patterns: ['docs/'])
+        grgit.add (patterns: ['reports/'])
+        grgit.commit {
+            message = "Updating web pages"
+        }
+        grgit.push {}
+    }
+}
