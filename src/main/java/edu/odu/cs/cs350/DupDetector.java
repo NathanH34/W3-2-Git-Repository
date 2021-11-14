@@ -63,6 +63,7 @@ public class DupDetector {
 		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(10);
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
+			System.out.println("\n");
 		}
     }
 
