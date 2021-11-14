@@ -31,6 +31,10 @@ public class Refactoring implements Comparable<Refactoring>  {
         sequenceLength = newLength;
     }
 
+    public void setOpportunityValue(int newOppValue){
+        opportunityValue = newOppValue;
+    }
+
     /**
      * Adds a source file to the refactoring, along with the startings locations of the sequence in the file. 
      * @param file the file to be included in the refactoring

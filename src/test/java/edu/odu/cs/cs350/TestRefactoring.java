@@ -43,7 +43,7 @@ public class TestRefactoring {
         assertThat(ref.getOpportunityValue(), is(20));
 
     }
-/** 
+
     @Test
     public void testCompareTo(){
         Refactoring r1 = new Refactoring();
@@ -61,5 +61,5 @@ public class TestRefactoring {
         r2.setOpportunityValue(10);
         assertEquals(-1, r1.compareTo(r2));
     }
-    */
+    
 }
