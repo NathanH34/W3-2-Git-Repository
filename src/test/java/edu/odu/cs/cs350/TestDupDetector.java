@@ -16,15 +16,18 @@ import static org.hamcrest.Matchers.*;
 public class TestDupDetector {
 
 
-    String defaultFilePath = "src/test/data/TestFile1.cpp"; 
+    String defaultFilePath = "src/test/data/TestFile1.cpp";
     File defaultFile = new File(defaultFilePath);
     String defaultDirPath = "src/test/data/";
     File defaultDirectory = new File("src/test/data");
-    String propertiesFilePath = "src/test/data/properties.ini";  
-    
+    String propertiesFilePath = "src/test/data/properties.ini";
+    String wrongPropertiesFilePath = "src/test/data/wrongProperties.ini";
+
 
     DupDetector blankDupDetector = new DupDetector();
     ArrayList<String> validExtensions = new ArrayList<String>();
+    int validMinSequenceLength;
+    int validMaxSubstitutions;
 
     /**
     * @throws java.lang.Exception
@@ -40,7 +43,7 @@ public class TestDupDetector {
         ArrayList<String> validExtensions = new ArrayList<String>();
         DupDetector.searchFiles(defaultFile, fileCollection, validExtensions);
         assertThat(fileCollection.toString().contains(defaultFilePath), is(true));
-        
+
         DupDetector.searchFiles(defaultDirectory, fileCollection, validExtensions);
         assertThat(fileCollection.toString().contains("src/test/data/TestFile1.cpp"), is(true));
         assertThat(fileCollection.toString().contains("src/test/data/TestFile2.cpp"), is(true));
@@ -62,6 +65,48 @@ public class TestDupDetector {
     }
     
     @Test
+    public void testAddMaxSubstitutions() throws IOException {
+        Properties testProperties = new Properties();
+        
+        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+    	assertThat(validMaxSubstitutions, is(8));
+
+    	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
+    	testProperties.load(propFileStream);
+
+        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+        assertThat(validMaxSubstitutions, is(69));
+
+        FileInputStream wrongPropFileStream = new FileInputStream(wrongPropertiesFilePath);
+    	testProperties.load(wrongPropFileStream);
+
+        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+        assertThat(validMaxSubstitutions, not('B'));
+        assertThat(validMaxSubstitutions, is(8));
+    }
+
+    @Test
+    public void testAddMinSequenceLength() throws IOException {
+        Properties testProperties = new Properties();
+
+        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+    	assertThat(validMinSequenceLength, is(10));
+
+    	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
+    	testProperties.load(propFileStream);
+
+        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+        assertThat(validMinSequenceLength, is(42));
+
+        FileInputStream wrongPropFileStream = new FileInputStream(wrongPropertiesFilePath);
+    	testProperties.load(wrongPropFileStream);
+
+        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+        assertThat(validMinSequenceLength, not('A'));
+        assertThat(validMinSequenceLength, is(10));
+    }
+
+    @Test
     public void testExtractCppExtensions() throws IOException {
     	ArrayList<String> validExtensions = new ArrayList<String>();
     	Properties properties = new Properties();
@@ -74,7 +119,7 @@ public class TestDupDetector {
     	assertThat(validExtensions.contains("hpp"), is(true));
     	assertThat(validExtensions.contains("cpp"), is(true));
     }
-    
+
     @Test
     public void testSearchForDefaults() {
     	SourceCodeFile srcFile = new SourceCodeFile(defaultFilePath);
@@ -88,6 +133,5 @@ public class TestDupDetector {
     	
     }
 
-    
 
 }
