@@ -64,6 +64,7 @@ public class DupDetector {
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
 			System.out.println("\n");
+			System.out.println("Printed k of n suggestions.");
 		}
     }
 
