@@ -174,7 +174,7 @@ public class DupDetector {
 	}
 
 	/**
-	 * Extract valid file extensions from the properties file
+	 * Extract and print valid file extensions from the properties file
 	 * @param propertyFile file to get file extensions from
 	 * @param validExtensions file extensions to search for 
 	 * @return a list of valid file extensions
@@ -218,5 +218,3 @@ public class DupDetector {
     	validExtensions.toString();
 	}
 }
-
-
