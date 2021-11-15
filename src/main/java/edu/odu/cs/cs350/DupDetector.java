@@ -13,7 +13,6 @@ public class DupDetector {
     
     public static void main(String [] args) {
         int nSuggestions = 0;
-	int kSuggestions = 0;
         //String propertiesPath = "";
         SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
         ArrayList<String> validExtensions = new ArrayList<String>(); //should have h and cpp by default
@@ -71,8 +70,10 @@ public class DupDetector {
 			System.out.print(r.toString());
 			System.out.println("\n");
 		}
-        {
-		System.out.println("Printed " + kSuggestions + " of " + nSuggestions + " suggestions");
+	    {
+		int kSuggestions;
+		kSuggestions = nSuggestions + 10; //default 
+		System.out.println("Printed " + nSuggestions + " of " + kSuggestions + " suggestions");
 	}
     }
 
