@@ -49,6 +49,11 @@ public class DupDetector {
             		}
             		return;
             	}
+            	else if(i!=1 && file.getAbsolutePath().contains(".ini")) { //properties file was specified in the wrong place
+            		System.err.println("Usage: nSuggestions [ properties ] path1 path2 ... ]");
+            		System.err.println("[ ... ] denotes optional parameters");
+            		return;
+            	}
             	else { //no properties file was specified, search for .h and .cpp files
             		searchForDefaults(file, fileCollection, validExtensions);
             	}
