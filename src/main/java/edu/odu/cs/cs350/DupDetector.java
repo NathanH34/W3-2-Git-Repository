@@ -65,7 +65,7 @@ public class DupDetector {
 			System.out.print(r.toString());
 			System.out.println("\n");
 		}
-        
+	    {
 		int kSuggestions;
 		kSuggestions = nSuggestions + 10; //default 
 		System.out.println("Printed " + nSuggestions + " of " + kSuggestions + " suggestions");
