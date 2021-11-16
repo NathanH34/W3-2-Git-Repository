@@ -192,7 +192,7 @@ public class DupDetector {
 		String[] srcExtensions = cppExtensions.split(","); //get valid file extensions separated by a comma
 		for(int j=0; j<srcExtensions.length; j++) {
 			if(!(validExtensions.contains(srcExtensions[j]))) {
-				validExtensions.add(srcExtensions[j].toLowerCase());
+				extensions.add(srcExtensions[j].toLowerCase());
 			}
 		}
 		System.out.println(validExtensions.toString());

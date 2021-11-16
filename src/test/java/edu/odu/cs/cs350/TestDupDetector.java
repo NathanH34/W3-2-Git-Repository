@@ -108,17 +108,17 @@ public class TestDupDetector {
 
     @Test
     public void testExtractCppExtensions() throws IOException {
-    	ArrayList<String> validExtensions = new ArrayList<String>();
+    	ArrayList<String> testExtensions = new ArrayList<String>();
     	Properties testProperties = new Properties();
     	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
     	testProperties.load(propFileStream);
-    	validExtensions = DupDetector.extractCppExtensions(testProperties, validExtensions);
+    	testExtensions = DupDetector.extractCppExtensions(testProperties, validExtensions);
     	
-    	assertThat(validExtensions.contains("h"), is(true));
-    	assertThat(validExtensions.contains("c"), is(true));
-    	assertThat(validExtensions.contains("hpp"), is(true));
-    	assertThat(validExtensions.contains("cpp"), is(true));
-    	assertThat(validExtensions.size(), is(4));
+    	assertThat(testExtensions.contains("h"), is(true));
+    	assertThat(testExtensions.contains("c"), is(true));
+    	assertThat(testExtensions.contains("hpp"), is(true));
+    	assertThat(testExtensions.contains("cpp"), is(true));
+    	assertThat(testExtensions.size(), is(4));
     }
 
     @Test
