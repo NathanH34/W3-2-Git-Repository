@@ -46,7 +46,6 @@ public class DupDetector {
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
             		}
-            		return;
             	}
             	else if(i!=1 && file.getAbsolutePath().contains(".ini")) { //properties file was specified in the wrong place
             		System.err.println("Usage: nSuggestions [ properties ] path1 path2 ... ]");
