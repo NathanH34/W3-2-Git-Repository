@@ -46,6 +46,10 @@ public class DupDetector {
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
             		}
+            	}
+            	else if(i!=1 && file.getAbsolutePath().contains(".ini")) { //properties file was specified in the wrong place
+            		System.err.println("Usage: nSuggestions [ properties ] path1 path2 ... ]");
+            		System.err.println("[ ... ] denotes optional parameters");
             		return;
             	}
             	else { //no properties file was specified, search for .h and .cpp files
@@ -60,10 +64,16 @@ public class DupDetector {
 		System.out.print(fileCollection.toString());
 		System.out.println("\n");
 		//Print Section 2 of output
-		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(10);
+		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(nSuggestions);
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
+			System.out.println("\n");
 		}
+	    {
+		int kSuggestions;
+		kSuggestions = refactorings.size(); //default 
+		System.out.println("Printed " + nSuggestions + " of " + kSuggestions + " suggestions");
+	}
     }
 
 	/**
@@ -169,7 +179,7 @@ public class DupDetector {
 	}
 
 	/**
-	 * Extract valid file extensions from the properties file
+	 * Extract and print valid file extensions from the properties file
 	 * @param propertyFile file to get file extensions from
 	 * @param validExtensions file extensions to search for 
 	 * @return a list of valid file extensions
@@ -181,7 +191,7 @@ public class DupDetector {
 		String[] srcExtensions = cppExtensions.split(","); //get valid file extensions separated by a comma
 		for(int j=0; j<srcExtensions.length; j++) {
 			if(!(validExtensions.contains(srcExtensions[j]))) {
-				validExtensions.add(srcExtensions[j].toLowerCase());
+				extensions.add(srcExtensions[j].toLowerCase());
 			}
 		}
 		System.out.println(validExtensions.toString());
@@ -213,5 +223,3 @@ public class DupDetector {
     	validExtensions.toString();
 	}
 }
-
-
