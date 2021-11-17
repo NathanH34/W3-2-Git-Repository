@@ -64,14 +64,14 @@ public class DupDetector {
 		System.out.print(fileCollection.toString());
 		System.out.println("\n");
 		//Print Section 2 of output
-		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(10);
+		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(nSuggestions);
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
 			System.out.println("\n");
 		}
 	    {
 		int kSuggestions;
-		kSuggestions = nSuggestions + 10; //default 
+		kSuggestions = refactorings.size(); //default 
 		System.out.println("Printed " + nSuggestions + " of " + kSuggestions + " suggestions");
 	}
     }
