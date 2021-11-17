@@ -31,11 +31,15 @@ public class Refactoring implements Comparable<Refactoring>  {
         sequenceLength = newLength;
     }
 
+    public void setOpportunityValue(int newOppValue){
+        opportunityValue = newOppValue;
+    }
+
     /**
      * Adds a source file to the refactoring, along with the startings locations of the sequence in the file. 
      * @param file the file to be included in the refactoring
      * @param startLocations A list of integers corresponding to the beginning token indices of each instance of the sequence in the file.
-     * @post opportunityValue is updated to new correct value based on new additions to the refactoring
+     * post: opportunityValue is updated to new correct value based on new additions to the refactoring
      */
     public void addSource(SourceCodeFile file, ArrayList<Integer> startLocations) {
         if(sourceFiles.contains(file)) {

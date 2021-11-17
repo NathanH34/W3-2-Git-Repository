@@ -16,8 +16,9 @@ public class DupDetector {
         //String propertiesPath = "";
         SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
         ArrayList<String> validExtensions = new ArrayList<String>(); //should have h and cpp by default
-        int MinSequenceLength = 10;
-		int MaxSubstitutions = 8;
+		int validMinSequenceLength;
+		int validMaxSubstitutions;
+        
         /**
          * TODO: placeholder to process filepath args, Not final logic
          */
@@ -34,14 +35,22 @@ public class DupDetector {
             	File file = new File(args[i]);
             	if(i==1 && file.getAbsolutePath().contains(".ini")) { //properties file was properly specified
             		Properties propertyFile = loadPropertiesFile(args[i]);
+
             		validExtensions = extractCppExtensions(propertyFile, validExtensions);
-            		MinSequenceLength = extractMinLength(propertyFile);
-					
+
+            		validMinSequenceLength = addMinSequenceLength(propertyFile);
+
+					validMaxSubstitutions = addMaxSubstitutions(propertyFile);
 
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
             			File codeFile = new File(args[k]);
             			searchFiles(codeFile, fileCollection, validExtensions);
             		}
+            		return;
+            	}
+            	else if(i!=1 && file.getAbsolutePath().contains(".ini")) { //properties file was specified in the wrong place
+            		System.err.println("Usage: nSuggestions [ properties ] path1 path2 ... ]");
+            		System.err.println("[ ... ] denotes optional parameters");
             		return;
             	}
             	else { //no properties file was specified, search for .h and .cpp files
@@ -59,9 +68,67 @@ public class DupDetector {
 		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(10);
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
+			System.out.println("\n");
 		}
+	    {
+		int kSuggestions;
+		kSuggestions = nSuggestions + 10; //default 
+		System.out.println("Printed " + nSuggestions + " of " + kSuggestions + " suggestions");
+	}
     }
-    
+
+	/**
+	 * Extract a valid maximum number of substitutions from the properties file
+	 * @param propertyFile file to get maximum number of substitutions from
+	 * @return the maximum number of substitutions for recommendation
+	 */
+	public static int addMaxSubstitutions(Properties propertyFile){
+
+		// Maximum recommendations is defaulted to 8
+		int maxSubstitutions = 8;
+		int extractedMaxSubstitutions = 0;
+
+		try{
+			extractedMaxSubstitutions = Integer.parseInt(propertyFile.getProperty("MaxSubstitutions"));
+		}
+        catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+
+		if(extractedMaxSubstitutions < 1) {
+			// Invalid input, return defaulted value
+			return maxSubstitutions;
+		} else {
+			return extractedMaxSubstitutions;
+		}
+	}
+
+	/**
+	 * Extract a valid minimum sequence length from the properties file
+	 * @param propertyFile file to get minimum sequence length from
+	 * @return the minimum sequence length for refactorization consideration
+	 */
+	public static int addMinSequenceLength(Properties propertyFile){
+
+		// Minimum Length is defaulted to 10
+		int minSequenceLength = 10;
+		int extractedMinLength = 0;
+
+		try{
+			extractedMinLength = Integer.parseInt(propertyFile.getProperty("MinSequenceLength"));
+		}
+        catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+
+		if(extractedMinLength < 1) {
+			// Invalid input, return defaulted value
+			return minSequenceLength;
+		} else {
+			return extractedMinLength;
+		}
+	}
+
     /**
      * Recursively search for files in a directory and its sub-directories and print their absolute paths
      * @param path path to a source code file or a directory containing source code files
@@ -113,7 +180,7 @@ public class DupDetector {
 	}
 
 	/**
-	 * Extract valid file extensions from the properties file
+	 * Extract and print valid file extensions from the properties file
 	 * @param propertyFile file to get file extensions from
 	 * @param validExtensions file extensions to search for 
 	 * @return a list of valid file extensions
@@ -125,13 +192,14 @@ public class DupDetector {
 		String[] srcExtensions = cppExtensions.split(","); //get valid file extensions separated by a comma
 		for(int j=0; j<srcExtensions.length; j++) {
 			if(!(validExtensions.contains(srcExtensions[j]))) {
-				validExtensions.add(srcExtensions[j].toLowerCase());
+				extensions.add(srcExtensions[j].toLowerCase());
 			}
 		}
 		System.out.println(validExtensions.toString());
 		
 		return extensions;
 	}
+
 	/**
 	 * Search for .h and .cpp files and print their paths
 	 * @param path path to file or directory to search
@@ -156,5 +224,3 @@ public class DupDetector {
     	validExtensions.toString();
 	}
 }
-
-

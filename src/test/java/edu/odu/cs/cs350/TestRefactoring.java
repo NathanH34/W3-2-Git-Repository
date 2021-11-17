@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat; 
 import static org.hamcrest.Matchers.*;
 
+
 public class TestRefactoring {
     
     Refactoring defaultRef = new Refactoring();
@@ -42,4 +43,23 @@ public class TestRefactoring {
         assertThat(ref.getOpportunityValue(), is(20));
 
     }
+
+    @Test
+    public void testCompareTo(){
+        Refactoring r1 = new Refactoring();
+        Refactoring r2 = new Refactoring();
+        
+        r1.setOpportunityValue(10);
+        r2.setOpportunityValue(0);
+        assertEquals(1, r1.compareTo(r2));
+
+        r1.setOpportunityValue(0);
+        r2.setOpportunityValue(0);
+        assertEquals(0, r1.compareTo(r2));
+        
+        r1.setOpportunityValue(0);
+        r2.setOpportunityValue(10);
+        assertEquals(-1, r1.compareTo(r2));
+    }
+    
 }
