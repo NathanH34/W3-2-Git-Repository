@@ -23,9 +23,6 @@ public class TestDupDetector {
     String propertiesFilePath = "src/test/data/properties.ini";
     String wrongPropertiesFilePath = "src/test/data/wrongProperties.ini";
 
-
-    DupDetector blankDupDetector = new DupDetector();
-    ArrayList<String> validExtensions = new ArrayList<String>();
     int validMinSequenceLength;
     int validMaxSubstitutions;
 
@@ -38,30 +35,30 @@ public class TestDupDetector {
     }
 
     @Test
-    public void testSearchFiles() {
-        SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
-        ArrayList<String> validExtensions = new ArrayList<String>();
-        DupDetector.searchFiles(defaultFile, fileCollection, validExtensions);
-        assertThat(fileCollection.toString().contains(defaultFilePath), is(true));
-
-        DupDetector.searchFiles(defaultDirectory, fileCollection, validExtensions);
-        assertThat(fileCollection.toString().contains("src/test/data/TestFile1.cpp"), is(true));
-        assertThat(fileCollection.toString().contains("src/test/data/TestFile2.cpp"), is(true));
-        assertThat(fileCollection.toString().contains("src/test/data/TestFile3.cpp"), is(true));
-        assertThat(fileCollection.toString().contains("src/test/data/TestFile4.cpp"), is(true));
+    public void testSearchFiles() throws IOException {
+        SourceCodeFileCollection testFileCollection = new SourceCodeFileCollection();
+        ArrayList<String> testExtensions = new ArrayList<String>();
+    	Properties testProperties = new Properties();
+    	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
+    	testProperties.load(propFileStream);
+    	testExtensions = DupDetector.extractCppExtensions(testProperties, testExtensions);
+    	
+        DupDetector.searchFiles(defaultFile, testFileCollection, testExtensions);
+        assertTrue(testFileCollection.toString().contains(defaultFile.getAbsolutePath()));
     }
 
     @Test
+    public void testGetFileExtension() {
+    	String testExtension = DupDetector.getFileExtension(defaultFile);
+    	assertThat(testExtension, is("cpp"));
+    }
+    
+    @Test
     public void testLoadPropertiesFile() {
-        DupDetector dupDetector1 = new DupDetector();
-        assertThat(dupDetector1, equalTo(blankDupDetector));
-        Properties properties1 = dupDetector1.loadPropertiesFile(propertiesFilePath);
+        Properties properties1 = DupDetector.loadPropertiesFile(propertiesFilePath);
         assertThat(properties1, is(notNullValue()));
-        String wrongPropertiesPath = "src/test/resources/properties.ini";
-        Properties properties2 = dupDetector1.loadPropertiesFile(wrongPropertiesPath);
-        assertThat(properties2, is(nullValue())); //Make sure that properties2 would actually be null in the test
-        Properties properties3 = dupDetector1.loadPropertiesFile(defaultFilePath);
-        assertThat(properties3, is(nullValue())); //Make sure that properties3 would actually be null in the test
+        Properties properties2 = DupDetector.loadPropertiesFile(wrongPropertiesFilePath);
+        assertThat(properties2, is(notNullValue())); //Make sure that properties2 would actually be null in the test       
     }
     
     @Test
@@ -112,12 +109,12 @@ public class TestDupDetector {
     	Properties testProperties = new Properties();
     	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
     	testProperties.load(propFileStream);
-    	testExtensions = DupDetector.extractCppExtensions(testProperties, validExtensions);
     	
-    	assertThat(testExtensions.contains("h"), is(true));
-    	assertThat(testExtensions.contains("c"), is(true));
-    	assertThat(testExtensions.contains("hpp"), is(true));
-    	assertThat(testExtensions.contains("cpp"), is(true));
+    	testExtensions = DupDetector.extractCppExtensions(testProperties, testExtensions);
+    	assertTrue(testExtensions.contains("h"));
+    	assertTrue(testExtensions.contains("c"));
+    	assertTrue(testExtensions.contains("hpp"));
+    	assertTrue(testExtensions.contains("cpp"));
     	assertThat(testExtensions.size(), is(4));
     }
 
@@ -133,8 +130,6 @@ public class TestDupDetector {
     	assertThat(validExtensions.contains("hpp"), is(false));
     	assertThat(validExtensions.contains("c"), is(false));
     	assertThat(validExtensions.size(), is(2));
-    	assertThat(fileCollection.toString().contains(defaultFilePath), is(true));
-    	
     }
 
 
