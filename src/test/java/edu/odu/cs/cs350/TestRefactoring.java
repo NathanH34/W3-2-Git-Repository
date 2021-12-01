@@ -62,4 +62,6 @@ public class TestRefactoring {
         assertEquals(-1, r1.compareTo(r2));
     }
     
+    @Test
+    public bool 
 }

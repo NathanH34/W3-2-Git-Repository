@@ -18,7 +18,7 @@ public class SourceCodeFileCollection {
     }
 
     /**
-     * Add new SourceCodeFile to list, and add its tokens as a sentence to the SharedPhrases member
+     * Add new SourceCodeFile to the collection, and add its tokens as a sentence to the SharedPhrases member
      * @param newFile SourceCodeFile 
      */
     public void add(SourceCodeFile newFile){
