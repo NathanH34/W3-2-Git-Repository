@@ -78,6 +78,19 @@ public class CPPToken implements Token{
     public int getTokenKind() {
         return name.ordinal();
     }
+    
+    public boolean isParameterizable() {
+    	if(name == TokenKinds.IDENTIFIER ||
+    	   name == TokenKinds.INTEGER_LITERAL ||
+    	   name == TokenKinds.FLOATING_POINT_LITERAL ||
+           name == TokenKinds.CHARACTER_LITERAL ||
+    	   name == TokenKinds.STRING_LITERAL ||
+    	   name == TokenKinds.BOOLEAN_LITERAL) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
 
     @Override 
     public String toString() {
