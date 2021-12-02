@@ -108,4 +108,15 @@ public class TestCPPToken {
         assertThat(token.getTokenKind(), equalTo(defaultName.ordinal()));
         assertEquals(token, defaultTokenWithLex);
     }
+    
+    @Test
+    public void testIsParameterizable() {
+    	CPPToken token = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
+    	token.setName(TokenKinds.INTEGER_LITERAL);
+    	assertTrue(token.isParameterizable());
+    	
+    	CPPToken token2 = new CPPToken(defaultName, defaultLexValue, defaultLine, defaultColumn);
+    	token2.setName(TokenKinds.AND);
+    	assertTrue(!token2.isParameterizable());
+    }
 }
