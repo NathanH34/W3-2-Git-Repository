@@ -51,17 +51,20 @@ public class TestRefactoring {
         
         r1.setOpportunityValue(10);
         r2.setOpportunityValue(0);
-        assertEquals(1, r1.compareTo(r2));
+        assert(r1.compareTo(r2) > 0);
 
         r1.setOpportunityValue(0);
         r2.setOpportunityValue(0);
-        assertEquals(0, r1.compareTo(r2));
+        assert(r1.compareTo(r2) == 0);
         
         r1.setOpportunityValue(0);
         r2.setOpportunityValue(10);
-        assertEquals(-1, r1.compareTo(r2));
+        assert(r1.compareTo(r2) < 0);
     }
+<<<<<<< HEAD
     
     @Test
     public bool 
+=======
+>>>>>>> 07f698693da7fc30f5ac4481c6db5f4c39d62939
 }

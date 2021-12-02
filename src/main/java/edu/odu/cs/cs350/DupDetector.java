@@ -18,10 +18,6 @@ public class DupDetector {
         ArrayList<String> validExtensions = new ArrayList<String>(); //should have h and cpp by default
 		int validMinSequenceLength;
 		int validMaxSubstitutions;
-        
-        /**
-         * TODO: placeholder to process filepath args, Not final logic
-         */
 
         // Placeholder try block. nSuggestions does nothing but must be entered to run.
         try {
@@ -194,7 +190,6 @@ public class DupDetector {
 				extensions.add(srcExtensions[j].toLowerCase());
 			}
 		}
-		System.out.println(validExtensions.toString());
 		
 		return extensions;
 	}
@@ -206,8 +201,12 @@ public class DupDetector {
 	 * @param validExtensions list of extensions to search for 
 	 */
 	public static void searchForDefaults(File path, SourceCodeFileCollection fileCollection, ArrayList<String> validExtensions) {
-		validExtensions.add("h");
-    	validExtensions.add("cpp");
+		if(!(validExtensions.contains("h"))) {
+			validExtensions.add("h");
+		}
+		if(!(validExtensions.contains("cpp"))) {
+			validExtensions.add("cpp");
+		}
     	System.out.println(validExtensions.toString());
 		if(path.isFile()) { //check if path argument represents a file
     		String extension = getFileExtension(path);
@@ -220,6 +219,5 @@ public class DupDetector {
     	else if(path.isDirectory()) { //check if path argument represents a directory
     		searchFiles(path, fileCollection, validExtensions);
     	}
-    	validExtensions.toString();
 	}
 }

@@ -2,6 +2,7 @@ package edu.odu.cs.cs350;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 
@@ -43,6 +44,7 @@ public class SourceCodeFileCollection {
             Refactoring r = makeRefactoring(phrase);
             refactoringList.add(r);
         }
+        Collections.sort(refactoringList);
         refactoringList.removeIf(refactoring -> refactoring.getOpportunityValue() == 0);
         refactoringList = reverseOrder(refactoringList);
         return refactoringList;
