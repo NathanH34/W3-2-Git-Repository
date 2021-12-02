@@ -34,7 +34,7 @@ public class DupDetector {
 
             		validMinSequenceLength = addMinSequenceLength(propertyFile);
 
-					validMaxSubstitutions = addMaxSubstitutions(propertyFile);
+					validMaxSubstitutions = setMaxSubstitutions(propertyFile);
 
             		for(int k=2; k<args.length; k++) { //go through files that were specified after properties file
             			File codeFile = new File(args[k]);
@@ -72,11 +72,11 @@ public class DupDetector {
     }
 
 	/**
-	 * Extract a valid maximum number of substitutions from the properties file
+	 * Extract and set a valid maximum number of substitutions from the properties file
 	 * @param propertyFile file to get maximum number of substitutions from
 	 * @return the maximum number of substitutions for recommendation
 	 */
-	public static int addMaxSubstitutions(Properties propertyFile){
+	public static int setMaxSubstitutions(Properties propertyFile){
 		int extractedMaxSubstitutions = 0;
 
 		try{
