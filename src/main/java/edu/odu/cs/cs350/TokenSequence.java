@@ -1,6 +1,7 @@
 package edu.odu.cs.cs350;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Set;
 
 public class TokenSequence {
     private ArrayList<Integer> parameterOrder;
@@ -50,5 +51,17 @@ public class TokenSequence {
 		}
 	}
 
+	private String pullLexemeStrings() {
+		Set<Lexeme> Lexemes = lexemeMap.keySet();
+		for () //For lexeme set,
+		//convert lexeme to a string, then add to set of strings
+		//return the final set
+	}
+
+	@Override
+    public final String toString() {
+		//call the pullLexemeStrings() function in return statement
+		return ("\n");
+    }
 
 }
