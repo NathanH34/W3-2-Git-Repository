@@ -77,9 +77,6 @@ public class DupDetector {
 	 * @return the maximum number of substitutions for recommendation
 	 */
 	public static int addMaxSubstitutions(Properties propertyFile){
-
-		// Maximum recommendations is defaulted to 8
-		int maxSubstitutions = 8;
 		int extractedMaxSubstitutions = 0;
 
 		try{
@@ -91,7 +88,7 @@ public class DupDetector {
 
 		if(extractedMaxSubstitutions < 1) {
 			// Invalid input, return defaulted value
-			return maxSubstitutions;
+			return 8;
 		} else {
 			return extractedMaxSubstitutions;
 		}
