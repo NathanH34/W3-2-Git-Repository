@@ -6,6 +6,7 @@ public class TokenSequence {
     private ArrayList<Integer> parameterOrder;
     private LinkedHashMap<Lexeme, Integer> lexemeMap;
     private ArrayList<CPPToken> tokens;
+	private int numParameters;
 
 	public TokenSequence() {
         parameterOrder = new ArrayList<Integer>();
@@ -42,7 +43,8 @@ public class TokenSequence {
 					parameterOrder.add(lexemeMap.get(token.getLexeme()));
 				}
 				else { //the lexeme is not in the lexeme map
-					
+					lexemeMap.put(token.getLexeme(),lexemeMap.size());
+					parameterOrder.add(lexemeMap.get(token.getLexeme()));
 				}
 			}
 		}
