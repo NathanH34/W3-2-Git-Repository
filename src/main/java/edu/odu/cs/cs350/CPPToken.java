@@ -87,8 +87,7 @@ public class CPPToken implements Token{
     	   name == TokenKinds.STRING_LITERAL ||
     	   name == TokenKinds.BOOLEAN_LITERAL) {
     		return true;
-    	}
-    	
+    	}	
     	return false;
     }
 
