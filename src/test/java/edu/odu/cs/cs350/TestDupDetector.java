@@ -62,43 +62,43 @@ public class TestDupDetector {
     }
     
     @Test
-    public void testAddMaxSubstitutions() throws IOException {
+    public void testSetMaxSubstitutions() throws IOException {
         Properties testProperties = new Properties();
         
-        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+        validMaxSubstitutions = DupDetector.setMaxSubstitutions(testProperties);
     	assertThat(validMaxSubstitutions, is(8));
 
     	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
     	testProperties.load(propFileStream);
 
-        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+        validMaxSubstitutions = DupDetector.setMaxSubstitutions(testProperties);
         assertThat(validMaxSubstitutions, is(69));
 
         FileInputStream wrongPropFileStream = new FileInputStream(wrongPropertiesFilePath);
     	testProperties.load(wrongPropFileStream);
 
-        validMaxSubstitutions = DupDetector.addMaxSubstitutions(testProperties);
+        validMaxSubstitutions = DupDetector.setMaxSubstitutions(testProperties);
         assertThat(validMaxSubstitutions, not('B'));
         assertThat(validMaxSubstitutions, is(8));
     }
 
     @Test
-    public void testAddMinSequenceLength() throws IOException {
+    public void testSetMinSequenceLength() throws IOException {
         Properties testProperties = new Properties();
 
-        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+        validMinSequenceLength = DupDetector.setMinSequenceLength(testProperties);
     	assertThat(validMinSequenceLength, is(10));
 
     	FileInputStream propFileStream = new FileInputStream(propertiesFilePath);
     	testProperties.load(propFileStream);
 
-        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+        validMinSequenceLength = DupDetector.setMinSequenceLength(testProperties);
         assertThat(validMinSequenceLength, is(42));
 
         FileInputStream wrongPropFileStream = new FileInputStream(wrongPropertiesFilePath);
     	testProperties.load(wrongPropFileStream);
 
-        validMinSequenceLength = DupDetector.addMinSequenceLength(testProperties);
+        validMinSequenceLength = DupDetector.setMinSequenceLength(testProperties);
         assertThat(validMinSequenceLength, not('A'));
         assertThat(validMinSequenceLength, is(10));
     }
