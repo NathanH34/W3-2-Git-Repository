@@ -13,6 +13,12 @@ public class TokenSequence {
         tokens = new ArrayList<CPPToken>();
     }
 
+	public TokenSequence(ArrayList<CPPToken> argTokenSequence) {
+		parameterOrder = new ArrayList<Integer>();
+        lexemeMap = new LinkedHashMap<Lexeme, Integer>();
+        tokens = argTokenSequence;
+	}
+
     public ArrayList<Integer> getParameterOrder() {
     	return parameterOrder;
     }
@@ -41,4 +47,6 @@ public class TokenSequence {
 			}
 		}
 	}
+
+
 }

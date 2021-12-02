@@ -35,6 +35,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         tokens = new ArrayList<CPPToken>();
         tokenize();
     }
+
     /**
      * Mutator for path variable. 
      * DOES NOT MODIFY tokens! Call tokenize() to update numTokens/tokens List
@@ -79,6 +80,21 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         }
 
     } 
+
+    /**
+     * Given the Token Sequence Length and the Token Sequence Start Location, gather the necessary tokens in the sequence.
+     * @param sequenceLength
+     * @param sequenceStartLocation
+     * @return
+     */
+    public ArrayList<CPPToken> makeTokenSequence(int sequenceLength, int sequenceStartLocation) {
+        ArrayList<CPPToken> tempTokenSequence = new ArrayList<CPPToken>(1);
+        for(int i = sequenceStartLocation; i < sequenceLength; i++){
+            CPPToken nextToken = getTokenAt(i);
+            tempTokenSequence.add(nextToken);
+        }
+        return tempTokenSequence;
+    }
 
     public ArrayList<CPPToken> getTokens() {
         return tokens;
