@@ -1,11 +1,9 @@
 package edu.odu.cs.cs350;
 import java.io.File;
-import java.util.Iterator;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.List;
 import java.util.ArrayList;
 
 
@@ -64,12 +62,13 @@ public class DupDetector {
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
 			System.out.println("\n");
+			
 		}
-	    {
+	    
 		int kSuggestions;
 		kSuggestions = refactorings.size(); 
 		System.out.println("Printed " + nSuggestions + " of " + kSuggestions + " suggestions");
-	}
+	
     }
 
 	/**
@@ -220,4 +219,5 @@ public class DupDetector {
     		searchFiles(path, fileCollection, validExtensions);
     	}
 	}
+	
 }

@@ -62,6 +62,10 @@ public class Refactoring implements Comparable<Refactoring>  {
         return sequenceLength;
     }
 
+    public LinkedHashSet<SourceCodeFile> getSourceCodeFiles() {
+    	return sourceFiles;
+    }
+    
     private void updateOpportunityValue() {
         int numInstances = 0;
         for(SourceCodeFile s: sourceFiles) {
