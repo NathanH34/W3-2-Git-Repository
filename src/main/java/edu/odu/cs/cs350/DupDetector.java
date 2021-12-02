@@ -16,8 +16,8 @@ public class DupDetector {
         //String propertiesPath = "";
         SourceCodeFileCollection fileCollection = new SourceCodeFileCollection();
         ArrayList<String> validExtensions = new ArrayList<String>(); //should have h and cpp by default
-		int validMinSequenceLength;
-		int validMaxSubstitutions;
+		int validMinSequenceLength = 10;
+		int validMaxSubstitutions = 8;
 
         // Placeholder try block. nSuggestions does nothing but must be entered to run.
         try {
@@ -60,7 +60,7 @@ public class DupDetector {
 		System.out.print(fileCollection.toString());
 		System.out.println("\n");
 		//Print Section 2 of output
-		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(nSuggestions);
+		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(validMinSequenceLength);
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
 			System.out.println("\n");
@@ -104,9 +104,6 @@ public class DupDetector {
 	 * @return the minimum sequence length for refactorization consideration
 	 */
 	public static int addMinSequenceLength(Properties propertyFile){
-
-		// Minimum Length is defaulted to 10
-		int minSequenceLength = 10;
 		int extractedMinLength = 0;
 
 		try{
@@ -118,7 +115,7 @@ public class DupDetector {
 
 		if(extractedMinLength < 1) {
 			// Invalid input, return defaulted value
-			return minSequenceLength;
+			return 10;
 		} else {
 			return extractedMinLength;
 		}
