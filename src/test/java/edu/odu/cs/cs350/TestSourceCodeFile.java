@@ -1,7 +1,9 @@
 package edu.odu.cs.cs350;
 import java.io.File;
 import java.util.Iterator;
+import java.util.ArrayList;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -91,4 +93,15 @@ public class TestSourceCodeFile {
     }
     assertThat(sum, is(filePathTwoTokens));
   }
+
+  @Test
+  public void testMakeTokenSequence() {
+    SourceCodeFile newSourceCodeFile = new SourceCodeFile(defaultFilePath);
+    int sequenceLength = 10;
+    int sequenceStartLocation = 1;
+    newSourceCodeFile.tokenize();
+    ArrayList<CPPToken> testTokenSequence = newSourceCodeFile.makeTokenSequence(sequenceLength, sequenceStartLocation);
+    assertFalse(testTokenSequence.isEmpty());
+  }
+
 }
