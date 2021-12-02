@@ -32,7 +32,7 @@ public class DupDetector {
 
             		validExtensions = extractCppExtensions(propertyFile, validExtensions);
 
-            		validMinSequenceLength = addMinSequenceLength(propertyFile);
+            		validMinSequenceLength = setMinSequenceLength(propertyFile);
 
 					validMaxSubstitutions = setMaxSubstitutions(propertyFile);
 
@@ -95,11 +95,11 @@ public class DupDetector {
 	}
 
 	/**
-	 * Extract a valid minimum sequence length from the properties file
+	 * Extract and set a valid minimum sequence length from the properties file
 	 * @param propertyFile file to get minimum sequence length from
 	 * @return the minimum sequence length for refactorization consideration
 	 */
-	public static int addMinSequenceLength(Properties propertyFile){
+	public static int setMinSequenceLength(Properties propertyFile){
 		int extractedMinLength = 0;
 
 		try{
