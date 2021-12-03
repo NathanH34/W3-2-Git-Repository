@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -206,26 +206,32 @@ implements java.lang.Comparable&lt;<a href="SourceCodeFile.html" title="class in
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="TokenSequence.html" title="class in edu.odu.cs.cs350">TokenSequence</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSequence(int,int)">getSequence</a></span>&#8203;(int&nbsp;startIndex,
+           int&nbsp;length)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="CPPToken.html" title="class in edu.odu.cs.cs350">CPPToken</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTokenAt(int)">getTokenAt</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.ArrayList&lt;<a href="CPPToken.html" title="class in edu.odu.cs.cs350">CPPToken</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTokens()">getTokens</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.util.Iterator&lt;<a href="CPPToken.html" title="class in edu.odu.cs.cs350">CPPToken</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.util.ArrayList&lt;<a href="CPPToken.html" title="class in edu.odu.cs.cs350">CPPToken</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#makeTokenSequence(int,int)">makeTokenSequence</a></span>&#8203;(int&nbsp;sequenceLength,
                  int&nbsp;sequenceStartLocation)</code></th>
@@ -233,21 +239,21 @@ implements java.lang.Comparable&lt;<a href="SourceCodeFile.html" title="class in
 <div class="block">Given the Token Sequence Length and the Token Sequence Start Location, gather the necessary tokens in the sequence.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPath(java.lang.String)">setPath</a></span>&#8203;(java.lang.String&nbsp;filePath)</code></th>
 <td class="colLast">
 <div class="block">Mutator for path variable.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tokenize()">tokenize</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Use the current value of path member to read the file and populate tokens and numTokens.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -399,6 +405,16 @@ implements java.lang.Comparable&lt;<a href="SourceCodeFile.html" title="class in
 <li class="blockList">
 <h4>getTokenAt</h4>
 <pre class="methodSignature">public&nbsp;<a href="CPPToken.html" title="class in edu.odu.cs.cs350">CPPToken</a>&nbsp;getTokenAt&#8203;(int&nbsp;index)</pre>
+</li>
+</ul>
+<a id="getSequence(int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSequence</h4>
+<pre class="methodSignature">public&nbsp;<a href="TokenSequence.html" title="class in edu.odu.cs.cs350">TokenSequence</a>&nbsp;getSequence&#8203;(int&nbsp;startIndex,
+                                 int&nbsp;length)</pre>
 </li>
 </ul>
 <a id="iterator()">
