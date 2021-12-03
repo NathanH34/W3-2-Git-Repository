@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 
 import javax.print.attribute.SetOfIntegerSyntax;
+import javax.xml.transform.Source;
 
 public class Refactoring implements Comparable<Refactoring>  {
     private LinkedHashMap<SourceCodeFile, ArrayList<Integer>> sequenceStartLocations;
@@ -96,7 +97,7 @@ public class Refactoring implements Comparable<Refactoring>  {
        return opportunityValue - (r.getOpportunityValue());
     }
 
-    public void compareSequences(startLocation, sourceFile) {
+    public void compareSequences(int startLocation, SourceCodeFile sourceFile) {
         /// compare startLocation and sourceFile from TokenSequence to startLocation and sourceFile from Refactoring
         /// may need to return something other than void
     }

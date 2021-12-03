@@ -104,6 +104,10 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         return tokens.get(index);
     }
 
+    public TokenSequence getSequence(int startIndex, int length) {
+        return new TokenSequence(tokens.subList(startIndex, startIndex+length), this, startIndex);
+    }
+
     @Override
     public final Iterator<CPPToken> iterator() {
         return tokens.iterator();

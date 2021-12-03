@@ -19,6 +19,7 @@ public class TestSourceCodeFile {
   int filePathTwoTokens = 4;
   String defaultFilePath = "src/test/data/TestFile1.cpp";
   String filePathTwo = "src/test/data/TestFile2.cpp";
+  String filePathFour = "src/test/data/TestFile4.cpp";
   File fileTwo = new File(filePathTwo);
   File defaultFile = new File(defaultFilePath);
   File blankFile = new File("");
@@ -104,4 +105,13 @@ public class TestSourceCodeFile {
     assertFalse(testTokenSequence.isEmpty());
   }
 
+  @Test
+  public void testGetSequence() {
+    SourceCodeFile src = new SourceCodeFile(filePathFour);
+    TokenSequence seq1 = src.getSequence(0, 4);
+    ArrayList<CPPToken> tokens = seq1.getTokens();
+    assertThat(tokens.size(), is(4));
+    assertThat(tokens.get(0).getName(), is(TokenKinds.IF));
+    assertThat(tokens.get(3).getName(), is(TokenKinds.GT));
+  }
 }
