@@ -2,6 +2,7 @@ package edu.odu.cs.cs350;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Set;
+import java.lang.StringBuilder;
 
 public class TokenSequence {
     private ArrayList<Integer> parameterOrder;
@@ -19,6 +20,7 @@ public class TokenSequence {
 		parameterOrder = new ArrayList<Integer>();
         lexemeMap = new LinkedHashMap<Lexeme, Integer>();
         tokens = argTokenSequence;
+		findLexemeMappings();
 	}
 
     public ArrayList<Integer> getParameterOrder() {
@@ -37,7 +39,7 @@ public class TokenSequence {
     	return tokens;
     }
     
-	public void findLexemeMappings() {
+	private void findLexemeMappings() {
 		for(CPPToken token : this.tokens) {
 			if(token.isParameterizable()) {
 				if(lexemeMap.containsKey(token.getLexeme())) { //the lexeme is in the lexemeMap
@@ -52,16 +54,16 @@ public class TokenSequence {
 	}
 
 	private String pullLexemeStrings() {
-		Set<Lexeme> Lexemes = lexemeMap.keySet();
-		for () //For lexeme set,
-		//convert lexeme to a string, then add to set of strings
-		//return the final set
+		StringBuilder parametersToPrint = new StringBuilder();
+		for(Lexeme lex : lexemeMap.keySet())
+			parametersToPrint.append(lex.toString() + " ");
+		return parametersToPrint.toString();
 	}
 
 	@Override
     public final String toString() {
-		//call the pullLexemeStrings() function in return statement
-		return ("\n");
+		String parametersToPrint = pullLexemeStrings();
+		return (parametersToPrint + "\n");
     }
 
 }
