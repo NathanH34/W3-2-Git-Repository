@@ -20,6 +20,7 @@ public class TokenSequence {
 		parameterOrder = new ArrayList<Integer>();
         lexemeMap = new LinkedHashMap<Lexeme, Integer>();
         tokens = argTokenSequence;
+		findLexemeMappings();
 	}
 
     public ArrayList<Integer> getParameterOrder() {
@@ -38,7 +39,7 @@ public class TokenSequence {
     	return tokens;
     }
     
-	public void findLexemeMappings() {
+	private void findLexemeMappings() {
 		for(CPPToken token : this.tokens) {
 			if(token.isParameterizable()) {
 				if(lexemeMap.containsKey(token.getLexeme())) { //the lexeme is in the lexemeMap
