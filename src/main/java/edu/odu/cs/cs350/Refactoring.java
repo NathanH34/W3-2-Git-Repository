@@ -95,4 +95,9 @@ public class Refactoring implements Comparable<Refactoring>  {
     public int compareTo(Refactoring r) {
        return opportunityValue - (r.getOpportunityValue());
     }
+
+    public void compareSequences(startLocation, sourceFile) {
+        /// compare startLocation and sourceFile from TokenSequence to startLocation and sourceFile from Refactoring
+        /// may need to return something other than void
+    }
 }
