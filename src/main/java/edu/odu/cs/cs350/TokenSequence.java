@@ -8,18 +8,23 @@ public class TokenSequence {
     private ArrayList<Integer> parameterOrder;
     private LinkedHashMap<Lexeme, Integer> lexemeMap;
     private ArrayList<CPPToken> tokens;
-	private int numParameters;
+	private SourceCodeFile sourceCode;
+	private int startingLocation;
 
 	public TokenSequence() {
         parameterOrder = new ArrayList<Integer>();
         lexemeMap = new LinkedHashMap<Lexeme, Integer>();
         tokens = new ArrayList<CPPToken>();
+		sourceCode = new SourceCodeFile();
+		startingLocation = 0;
     }
 
-	public TokenSequence(ArrayList<CPPToken> argTokenSequence) {
+	public TokenSequence(ArrayList<CPPToken> argTokenSequence, SourceCodeFile argSourceCode, int argStartingLocation) {
 		parameterOrder = new ArrayList<Integer>();
         lexemeMap = new LinkedHashMap<Lexeme, Integer>();
         tokens = argTokenSequence;
+		sourceCode = argSourceCode;
+		startingLocation = argStartingLocation;
 		findLexemeMappings();
 	}
 
@@ -31,6 +36,13 @@ public class TokenSequence {
     	return lexemeMap;
     }
     
+	public SourceCodeFile getSourceCode() {
+		return sourceCode;
+	}
+
+	public int getStartingLocation() {
+		return startingLocation;
+	}
     public void setTokens(ArrayList<CPPToken> newTokens) {
     	tokens = newTokens;
     }
@@ -53,6 +65,10 @@ public class TokenSequence {
 		}
 	}
 
+	/**
+	 * Extract and convert the lexemes from the LexemeMap to strings
+	 * @return
+	 */
 	private String pullLexemeStrings() {
 		StringBuilder parametersToPrint = new StringBuilder();
 		for(Lexeme lex : lexemeMap.keySet())
