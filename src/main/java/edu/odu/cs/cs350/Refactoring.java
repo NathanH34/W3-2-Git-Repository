@@ -81,6 +81,8 @@ public class Refactoring implements Comparable<Refactoring>  {
         sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
             for(Integer i : sequenceStartLocations.get(s)) {
+                //TokenSequence tokenSeq = generateTokenSequence(i);
+
                 CPPToken token = s.getTokenAt(i);
                 sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
 
@@ -101,10 +103,18 @@ public class Refactoring implements Comparable<Refactoring>  {
        return opportunityValue - (r.getOpportunityValue());
     }
 
-    public void generateTokenSeqeunce() {
-        /// Create sourceCodeFile object
-        /// Call makeTokenSequence();
-        /// Create TokenSequence object
+
+    /**
+     * Generate the token sequence for comparisons
+     */
+    public TokenSequence generateTokenSeqeunce(Integer i) {
+        SourceCodeFile tempSource = new SourceCodeFile();
+        ArrayList<CPPToken> tempTokenArrayList = new ArrayList<CPPToken>();
+        tempTokenArrayList = tempSource.makeTokenSequence(sequenceLength, i);
+
+        TokenSequence tokenSeq = new TokenSequence(tempTokenArrayList, tempSource, i);
+
+        return tokenSeq;
     }
 
     public void compareParameterOrder() {
