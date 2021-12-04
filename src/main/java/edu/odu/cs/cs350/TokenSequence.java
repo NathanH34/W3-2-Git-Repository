@@ -20,10 +20,10 @@ public class TokenSequence {
 		startingLocation = 0;
     }
 
-	public TokenSequence(List<CPPToken> argTokenSequence, SourceCodeFile argSourceCode, int argStartingLocation) {
+	public TokenSequence(List<CPPToken> list, SourceCodeFile argSourceCode, int argStartingLocation) {
 		parameterOrder = new ArrayList<Integer>();
         lexemeMap = new LinkedHashMap<Lexeme, Integer>();
-        tokens = new ArrayList<CPPToken>(argTokenSequence);
+        tokens = new ArrayList<CPPToken>(list);
 		sourceCode = argSourceCode;
 		startingLocation = argStartingLocation;
 		findLexemeMappings();

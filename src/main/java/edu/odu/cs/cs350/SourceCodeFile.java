@@ -17,7 +17,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
     private File path;
     private int numTokens;
     private ArrayList<CPPToken> tokens;
-    private ArrayList<CPPToken> parameterizables;
+    private ArrayList<Lexeme> parameterizables;
 
 	/**
      * Default constructor. 
@@ -27,7 +27,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         path = new File("");
         numTokens = 0;
         tokens = new ArrayList<CPPToken>();
-        parameterizables = new ArrayList<CPPToken>();
+        parameterizables = new ArrayList<Lexeme>();
     }
 
     /**
@@ -38,7 +38,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
     public SourceCodeFile(String filePath) {
         path = new File(filePath);
         tokens = new ArrayList<CPPToken>();
-        parameterizables = new ArrayList<CPPToken>();
+        parameterizables = new ArrayList<Lexeme>();
         tokenize();
     }
 
@@ -61,11 +61,11 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         return numTokens;
     }
     
-    public ArrayList<CPPToken> getParameterizables() {
+    public ArrayList<Lexeme> getParameterizables() {
 		return parameterizables;
 	}
 
-	public void setParameterizables(ArrayList<CPPToken> paramTokens) {
+	public void setParameterizables(ArrayList<Lexeme> paramTokens) {
 		this.parameterizables = paramTokens;
 	}
     
