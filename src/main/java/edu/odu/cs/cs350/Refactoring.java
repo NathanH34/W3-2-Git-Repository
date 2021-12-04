@@ -81,14 +81,20 @@ public class Refactoring implements Comparable<Refactoring>  {
         sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
             for(Integer i : sequenceStartLocations.get(s)) {
-                //TokenSequence tokenSeq = generateTokenSequence(i);
+                // change looping to something
+                // for(int i=0; sequenceStartLocations.get(s) - 1 > i; i++)
+                // TokenSequence tokenSeq1 = generateTokenSequence(i);
+                // TokenSequence tokenSeq2 = generateTokenSequence(i+1);
 
                 CPPToken token = s.getTokenAt(i);
                 sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
 
-                // Is refactoring valid?
-                // Yes? Print it
-                // No? skip
+                // ArrayList<CPPToken> validRefactoring = compareParameterOrder(tokenSeq1, tokenSeq2);
+                // if(!validRefactoring.isEmpty()) {
+                //     // Yes? Print the token output for output section2
+                //     //sb.append()
+                // }
+                // If invalid it skips over
             }
         }
 
