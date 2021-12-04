@@ -64,7 +64,22 @@ public class TestRefactoring {
     @Test
     public void testGenerateTokenSequence() {
         Refactoring r1 = new Refactoring();
-        //assertThat(r1.generateTokenSequence(1), isEqual());
+        Refactoring r2 = new Refactoring();
+
+        /// Ensure the parameters are correct
+        assertThat(r1.getSequenceLength(), is(0));
+        assertThat(r2.getSequenceLength(), is(0));
+        
+        /// Correct the tests to pass the correct parameters for the generateTokenSequence
+        r1.setSequenceLength(20);
+        r1.addSource(srcFile1, locs);
+
+        r2.setSequenceLength(20);
+        r2.addSource(srcFile2, locs);
+
+        // Set up the method call to be able to compare
+        // r1.generateTokenSequence(0);
+        // assertThat(r1.generateTokenSequence(1), is(r2));
 
         // Setup a TokenSequence to compare is Equal
         // Setup a TokenSequence to compare that it is false / different
