@@ -86,8 +86,7 @@ public class Refactoring implements Comparable<Refactoring>  {
         StringBuilder sb = new StringBuilder();
         sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
-            for(Integer i : sequenceStartLocations.get(s)) {
-
+            for(int i=0; i<sequenceStartLocations.size()-1; i++) {
             	/*
                 // change looping to something
                 // for(int i=0; sequenceStartLocations.get(s) - 1 > i; i++)
@@ -99,9 +98,10 @@ public class Refactoring implements Comparable<Refactoring>  {
                 
                 TokenSequence ts1 = generateTokenSequence(s.getTokens(), s, i);
             	TokenSequence ts2 = generateTokenSequence(s.getTokens(), s, i+1); 
-                ArrayList<CPPToken> validRefactoring = compareParameterOrder(ts1, ts2);
-            	if(!validRefactoring.isEmpty()) {                    
-                   // Yes? Print the token output for output section2
+                ArrayList<CPPToken> validRefactoring = compareParameterOrder(ts1, ts2);             
+                if(!validRefactoring.isEmpty()) {                    
+                   
+                	//Print the token output for output section2
                    ArrayList<Lexeme> parameterizables = new ArrayList<Lexeme>();
                    for(CPPToken t : validRefactoring) {
                 	   if(!parameterizables.contains(t.getLexeme())) {
@@ -111,8 +111,7 @@ public class Refactoring implements Comparable<Refactoring>  {
                    s.setParameterizables(parameterizables);
                 }
             	sb.append("\t" + s.getParameterizables().stream().map(str -> str.toString()).collect(Collectors.joining(" ")) + "\n");      
-            }
-
+            }             
         }
         return sb.toString();
     }
@@ -141,13 +140,13 @@ public class Refactoring implements Comparable<Refactoring>  {
      */
     public ArrayList<CPPToken> compareParameterOrder(TokenSequence sequence1, TokenSequence sequence2) {
         if (sequence1.getParameterOrder().equals(sequence2.getParameterOrder())){ /// check for nearly duplicate through Parameters
-        	if (sequence1.getLexemeMap() == sequence2.getLexemeMap()) {
-                return sequence1.getTokens();
+        	if (sequence1.getLexemeMap().equals(sequence2.getLexemeMap())) {
+        		return sequence1.getTokens();
             }
             return sequence1.getTokens();
         } 
         else { /// if not duplicate, return an empty array
-            ArrayList<CPPToken> returnTokenArray = new ArrayList<CPPToken>();
+        	ArrayList<CPPToken> returnTokenArray = new ArrayList<CPPToken>();
             return returnTokenArray;
         }
     }
