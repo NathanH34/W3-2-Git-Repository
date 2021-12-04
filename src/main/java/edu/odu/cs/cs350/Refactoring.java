@@ -81,14 +81,20 @@ public class Refactoring implements Comparable<Refactoring>  {
         sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
             for(Integer i : sequenceStartLocations.get(s)) {
-                //TokenSequence tokenSeq = generateTokenSequence(i);
+                // change looping to something
+                // for(int i=0; sequenceStartLocations.get(s) - 1 > i; i++)
+                // TokenSequence tokenSeq1 = generateTokenSequence(i);
+                // TokenSequence tokenSeq2 = generateTokenSequence(i+1);
 
                 CPPToken token = s.getTokenAt(i);
                 sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
 
-                // Is refactoring valid?
-                // Yes? Print it
-                // No? skip
+                // ArrayList<CPPToken> validRefactoring = compareParameterOrder(tokenSeq1, tokenSeq2);
+                // if(!validRefactoring.isEmpty()) {
+                //     // Yes? Print the token output for output section2
+                //     //sb.append()
+                // }
+                // If invalid it skips over
             }
         }
 
@@ -117,8 +123,19 @@ public class Refactoring implements Comparable<Refactoring>  {
         return tokenSeq;
     }
 
-    public void compareParameterOrder() {
-        /// Compare parameterOrder of current token sequence
-        /// Compare it to next oken sequence
+    /**
+     * Compare the token sequence to the next token sequence for duplicity
+     */
+    public ArrayList<CPPToken> compareParameterOrder(TokenSequence sequence1, TokenSequence sequence2) {
+        if (sequence1.getParameterOrder() == sequence2.getParameterOrder()){ /// check for nearly duplicate through Parameters
+            if (sequence1.getLexemeMap() == sequence2.getLexemeMap()) {
+                return sequence1.getTokens();
+            }
+            return sequence1.getTokens();
+        } 
+        else { /// if not duplicate, return a default array with negative starting location
+            ArrayList<CPPToken> returnTokenArray = new ArrayList<CPPToken>();
+            return returnTokenArray;
+        }
     }
 }
