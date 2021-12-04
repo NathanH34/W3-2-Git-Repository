@@ -2,7 +2,6 @@ package edu.odu.cs.cs350;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat; 
 import static org.hamcrest.Matchers.*;
@@ -70,7 +69,22 @@ public class TestRefactoring {
 
     @Test
     public void testCompareParameterOrder() {
-        Refactoring r1 = new Refactoring();
-        Refactoring r2 = new Refactoring();
+        TokenSequence TS1 = new TokenSequence();
+        TokenSequence TS2 = new TokenSequence();
+
+        ArrayList<Integer> intAL1 = new ArrayList<Integer>();
+        assert(intAL1.isEmpty()); // new, should be empty
+        ArrayList<Integer> intAL2 = new ArrayList<Integer>();
+        assert(intAL2.isEmpty()); // new, should be empty
+        for (int i = 0; i < 4; i++){
+            intAL1.add(i);
+            intAL2.add(i);
+        }
+        TS1.setParameterOrder(intAL1);
+        TS2.setParameterOrder(intAL2);
+        assertEquals(TS1.getParameterOrder(), TS2.getParameterOrder());
+
+        intAL1.set(0, 5);
+        assertNotEquals(TS1.getParameterOrder(), TS2.getParameterOrder());
     }
 }

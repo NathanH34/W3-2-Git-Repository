@@ -81,20 +81,22 @@ public class Refactoring implements Comparable<Refactoring>  {
         sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
             for(Integer i : sequenceStartLocations.get(s)) {
+                /*
                 // change looping to something
                 // for(int i=0; sequenceStartLocations.get(s) - 1 > i; i++)
-                // TokenSequence tokenSeq1 = generateTokenSequence(i);
-                // TokenSequence tokenSeq2 = generateTokenSequence(i+1);
-
+                 TokenSequence tokenSeq1 = generateTokenSequence(i);
+                 TokenSequence tokenSeq2 = generateTokenSequence(i+1);
+                */
                 CPPToken token = s.getTokenAt(i);
                 sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
-
-                // ArrayList<CPPToken> validRefactoring = compareParameterOrder(tokenSeq1, tokenSeq2);
-                // if(!validRefactoring.isEmpty()) {
-                //     // Yes? Print the token output for output section2
-                //     //sb.append()
-                // }
-                // If invalid it skips over
+                /*
+                 ArrayList<CPPToken> validRefactoring = compareParameterOrder(tokenSeq1, tokenSeq2);
+                 if(!validRefactoring.isEmpty()) {
+                    // Yes? Print the token output for output section2
+                     sb.append(validRefactoring + "\n");
+                 }
+                 //If invalid it skips over
+                 */
             }
         }
 
@@ -133,7 +135,7 @@ public class Refactoring implements Comparable<Refactoring>  {
             }
             return sequence1.getTokens();
         } 
-        else { /// if not duplicate, return a default array with negative starting location
+        else { /// if not duplicate, return an empty array
             ArrayList<CPPToken> returnTokenArray = new ArrayList<CPPToken>();
             return returnTokenArray;
         }

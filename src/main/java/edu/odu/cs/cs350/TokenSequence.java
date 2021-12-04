@@ -44,10 +44,15 @@ public class TokenSequence {
 	public int getStartingLocation() {
 		return startingLocation;
 	}
+
     public void setTokens(ArrayList<CPPToken> newTokens) {
     	tokens = newTokens;
     }
     
+	public void setParameterOrder(ArrayList<Integer> newParam) {
+    	parameterOrder = newParam;
+    }
+
     public ArrayList<CPPToken> getTokens() {
     	return tokens;
     }
