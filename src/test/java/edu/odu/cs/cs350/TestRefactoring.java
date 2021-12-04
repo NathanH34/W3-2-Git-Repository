@@ -62,9 +62,12 @@ public class TestRefactoring {
     }
 
     @Test
-    public void testGenerateTokenSequences() {
+    public void testGenerateTokenSequence() {
         Refactoring r1 = new Refactoring();
-        Refactoring r2 = new Refactoring();
+        //assertThat(r1.generateTokenSequence(1), isEqual());
+
+        // Setup a TokenSequence to compare is Equal
+        // Setup a TokenSequence to compare that it is false / different
     }
 
     @Test
