@@ -68,4 +68,9 @@ public class TestRefactoring {
         Refactoring r2 = new Refactoring();
     }
 
+    @Test
+    public void testCompareParameterOrder() {
+        Refactoring r1 = new Refactoring();
+        Refactoring r2 = new Refactoring();
+    }
 }
