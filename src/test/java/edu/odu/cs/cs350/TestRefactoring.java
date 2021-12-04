@@ -62,4 +62,10 @@ public class TestRefactoring {
         assert(r1.compareTo(r2) < 0);
     }
 
+    @Test
+    public void testGenerateTokenSequences() {
+        Refactoring r1 = new Refactoring();
+        Refactoring r2 = new Refactoring();
+    }
+
 }
