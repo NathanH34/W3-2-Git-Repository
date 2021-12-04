@@ -1,5 +1,6 @@
 package edu.odu.cs.cs350;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Set;
 import java.lang.StringBuilder;
@@ -19,10 +20,10 @@ public class TokenSequence {
 		startingLocation = 0;
     }
 
-	public TokenSequence(ArrayList<CPPToken> argTokenSequence, SourceCodeFile argSourceCode, int argStartingLocation) {
+	public TokenSequence(List<CPPToken> argTokenSequence, SourceCodeFile argSourceCode, int argStartingLocation) {
 		parameterOrder = new ArrayList<Integer>();
         lexemeMap = new LinkedHashMap<Lexeme, Integer>();
-        tokens = argTokenSequence;
+        tokens = new ArrayList<CPPToken>(argTokenSequence);
 		sourceCode = argSourceCode;
 		startingLocation = argStartingLocation;
 		findLexemeMappings();

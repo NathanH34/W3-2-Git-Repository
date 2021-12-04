@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 
 import javax.print.attribute.SetOfIntegerSyntax;
+import javax.xml.transform.Source;
 
 public class Refactoring implements Comparable<Refactoring>  {
     private LinkedHashMap<SourceCodeFile, ArrayList<Integer>> sequenceStartLocations;
@@ -80,8 +81,14 @@ public class Refactoring implements Comparable<Refactoring>  {
         sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
             for(Integer i : sequenceStartLocations.get(s)) {
+                //TokenSequence tokenSeq = generateTokenSequence(i);
+
                 CPPToken token = s.getTokenAt(i);
                 sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
+
+                // Is refactoring valid?
+                // Yes? Print it
+                // No? skip
             }
         }
 
@@ -96,8 +103,22 @@ public class Refactoring implements Comparable<Refactoring>  {
        return opportunityValue - (r.getOpportunityValue());
     }
 
-    public void compareSequences(startLocation, sourceFile) {
-        /// compare startLocation and sourceFile from TokenSequence to startLocation and sourceFile from Refactoring
-        /// may need to return something other than void
+
+    /**
+     * Generate the token sequence for comparisons
+     */
+    public TokenSequence generateTokenSeqeunce(Integer i) {
+        SourceCodeFile tempSource = new SourceCodeFile();
+        ArrayList<CPPToken> tempTokenArrayList = new ArrayList<CPPToken>();
+        tempTokenArrayList = tempSource.makeTokenSequence(sequenceLength, i);
+
+        TokenSequence tokenSeq = new TokenSequence(tempTokenArrayList, tempSource, i);
+
+        return tokenSeq;
+    }
+
+    public void compareParameterOrder() {
+        /// Compare parameterOrder of current token sequence
+        /// Compare it to next oken sequence
     }
 }
