@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -191,8 +191,7 @@ implements java.lang.Comparable&lt;<a href="Refactoring.html" title="class in ed
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#compareSequences(int,edu.odu.cs.cs350.SourceCodeFile)">compareSequences</a></span>&#8203;(int&nbsp;startLocation,
-                <a href="SourceCodeFile.html" title="class in edu.odu.cs.cs350">SourceCodeFile</a>&nbsp;sourceFile)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#compareParameterOrder()">compareParameterOrder</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
@@ -203,31 +202,36 @@ implements java.lang.Comparable&lt;<a href="Refactoring.html" title="class in ed
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOpportunityValue()">getOpportunityValue</a></span>()</code></th>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#generateTokenSeqeunce()">generateTokenSeqeunce</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSequenceLength()">getSequenceLength</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOpportunityValue()">getOpportunityValue</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSequenceLength()">getSequenceLength</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.LinkedHashSet&lt;<a href="SourceCodeFile.html" title="class in edu.odu.cs.cs350">SourceCodeFile</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSourceCodeFiles()">getSourceCodeFiles</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOpportunityValue(int)">setOpportunityValue</a></span>&#8203;(int&nbsp;newOppValue)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSequenceLength(int)">setSequenceLength</a></span>&#8203;(int&nbsp;newLength)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -373,14 +377,22 @@ implements java.lang.Comparable&lt;<a href="Refactoring.html" title="class in ed
 </dl>
 </li>
 </ul>
-<a id="compareSequences(int,edu.odu.cs.cs350.SourceCodeFile)">
+<a id="generateTokenSeqeunce()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>generateTokenSeqeunce</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;generateTokenSeqeunce()</pre>
+</li>
+</ul>
+<a id="compareParameterOrder()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>compareSequences</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;compareSequences&#8203;(int&nbsp;startLocation,
-                             <a href="SourceCodeFile.html" title="class in edu.odu.cs.cs350">SourceCodeFile</a>&nbsp;sourceFile)</pre>
+<h4>compareParameterOrder</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;compareParameterOrder()</pre>
 </li>
 </ul>
 </li>
