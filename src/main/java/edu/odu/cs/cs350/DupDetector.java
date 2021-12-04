@@ -58,7 +58,7 @@ public class DupDetector {
 		System.out.print(fileCollection.toString());
 		System.out.println("\n");
 		//Print Section 2 of output
-		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(validMinSequenceLength);
+		ArrayList<Refactoring> refactorings = fileCollection.findRefactorings(nSuggestions);
 		for(Refactoring r: refactorings) {
 			System.out.print(r.toString());
 			System.out.println("\n");
