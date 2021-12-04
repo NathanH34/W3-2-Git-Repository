@@ -113,7 +113,7 @@ public class Refactoring implements Comparable<Refactoring>  {
     /**
      * Generate the token sequence for comparisons
      */
-    public TokenSequence generateTokenSeqeunce(Integer i) {
+    public TokenSequence generateTokenSequence(Integer i) {
         SourceCodeFile tempSource = new SourceCodeFile();
         ArrayList<CPPToken> tempTokenArrayList = new ArrayList<CPPToken>();
         tempTokenArrayList = tempSource.makeTokenSequence(sequenceLength, i);
