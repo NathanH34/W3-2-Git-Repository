@@ -6,7 +6,7 @@ import java.util.Set;
 import java.lang.StringBuilder;
 
 public class TokenSequence {
-    private ArrayList<Integer> parameterOrder;
+	private ArrayList<Integer> parameterOrder;
     private LinkedHashMap<Lexeme, Integer> lexemeMap;
     private ArrayList<CPPToken> tokens;
 	private SourceCodeFile sourceCode;
@@ -29,11 +29,7 @@ public class TokenSequence {
 		findLexemeMappings();
 	}
 
-    public ArrayList<Integer> getParameterOrder() {
-    	return parameterOrder;
-    }
-    
-    public LinkedHashMap<Lexeme, Integer> getLexemeMap() {
+	public LinkedHashMap<Lexeme, Integer> getLexemeMap() {
     	return lexemeMap;
     }
     
@@ -52,6 +48,10 @@ public class TokenSequence {
 	public void setParameterOrder(ArrayList<Integer> newParam) {
     	parameterOrder = newParam;
     }
+	
+	public ArrayList<Integer> getParameterOrder() {
+		return parameterOrder;
+	}
 
     public ArrayList<CPPToken> getTokens() {
     	return tokens;
@@ -64,7 +64,7 @@ public class TokenSequence {
 					parameterOrder.add(lexemeMap.get(token.getLexeme()));
 				}
 				else { //the lexeme is not in the lexeme map
-					lexemeMap.put(token.getLexeme(),lexemeMap.size());
+					lexemeMap.put(token.getLexeme(), lexemeMap.size());
 					parameterOrder.add(lexemeMap.get(token.getLexeme()));
 				}
 			}

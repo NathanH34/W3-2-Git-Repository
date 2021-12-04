@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.print.attribute.SetOfIntegerSyntax;
 import javax.xml.transform.Source;
@@ -67,6 +69,10 @@ public class Refactoring implements Comparable<Refactoring>  {
     	return sourceFiles;
     }
     
+    public ArrayList<Integer> getStartingLocation(SourceCodeFile file) {
+    	return sequenceStartLocations.get(file);
+    }
+    
     private void updateOpportunityValue() {
         int numInstances = 0;
         for(SourceCodeFile s: sourceFiles) {
@@ -89,6 +95,7 @@ public class Refactoring implements Comparable<Refactoring>  {
                 */
                 CPPToken token = s.getTokenAt(i);
                 sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");
+                
                 /*
                  ArrayList<CPPToken> validRefactoring = compareParameterOrder(tokenSeq1, tokenSeq2);
                  if(!validRefactoring.isEmpty()) {
@@ -98,8 +105,12 @@ public class Refactoring implements Comparable<Refactoring>  {
                  //If invalid it skips over
                  */
             }
+            ArrayList<Lexeme> parameterizables = new ArrayList<Lexeme>();
+            for(CPPToken token : s.getParameterizables()) {
+            	parameterizables.add(token.getLexeme());
+            }
+            sb.append("\t" + parameterizables.stream().map(i -> i.toString()).collect(Collectors.joining(" ")) + "\n");
         }
-
         return sb.toString();
     }
 
@@ -130,7 +141,7 @@ public class Refactoring implements Comparable<Refactoring>  {
      */
     public ArrayList<CPPToken> compareParameterOrder(TokenSequence sequence1, TokenSequence sequence2) {
         if (sequence1.getParameterOrder() == sequence2.getParameterOrder()){ /// check for nearly duplicate through Parameters
-            if (sequence1.getLexemeMap() == sequence2.getLexemeMap()) {
+        	if (sequence1.getLexemeMap() == sequence2.getLexemeMap()) {
                 return sequence1.getTokens();
             }
             return sequence1.getTokens();

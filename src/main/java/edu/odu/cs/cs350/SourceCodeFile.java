@@ -4,7 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
+
 import edu.odu.cs.cs350.sharedphrases.*;
 
 import javax.annotation.processing.Filer;
@@ -14,8 +17,9 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
     private File path;
     private int numTokens;
     private ArrayList<CPPToken> tokens;
-    
-    /**
+    private ArrayList<CPPToken> parameterizables;
+
+	/**
      * Default constructor. 
      * path is set to empty string, must be set before calling tokenize()
      */
@@ -23,6 +27,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
         path = new File("");
         numTokens = 0;
         tokens = new ArrayList<CPPToken>();
+        parameterizables = new ArrayList<CPPToken>();
     }
 
     /**
@@ -33,6 +38,7 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
     public SourceCodeFile(String filePath) {
         path = new File(filePath);
         tokens = new ArrayList<CPPToken>();
+        parameterizables = new ArrayList<CPPToken>();
         tokenize();
     }
 
@@ -54,6 +60,14 @@ public class SourceCodeFile implements Comparable<SourceCodeFile>, Iterable<CPPT
     public int getNumTokens() {
         return numTokens;
     }
+    
+    public ArrayList<CPPToken> getParameterizables() {
+		return parameterizables;
+	}
+
+	public void setParameterizables(ArrayList<CPPToken> paramTokens) {
+		this.parameterizables = paramTokens;
+	}
     
     /**
      * Use the current value of path member to read the file and populate tokens and numTokens.
