@@ -117,8 +117,19 @@ public class Refactoring implements Comparable<Refactoring>  {
         return tokenSeq;
     }
 
-    public void compareParameterOrder() {
-        /// Compare parameterOrder of current token sequence
-        /// Compare it to next oken sequence
+    /**
+     * Compare the token sequence to the next token sequence for duplicity
+     */
+    public ArrayList<CPPToken> compareParameterOrder(TokenSequence sequence1, TokenSequence sequence2) {
+        if (sequence1.getParameterOrder() == sequence2.getParameterOrder()){ /// check for nearly duplicate through Parameters
+            if (sequence1.getLexemeMap() == sequence2.getLexemeMap()) {
+                return sequence1.getTokens();
+            }
+            return sequence1.getTokens();
+        } 
+        else { /// if not duplicate, return a default array with negative starting location
+            ArrayList<CPPToken> returnTokenArray = new ArrayList<CPPToken>();
+            return returnTokenArray;
+        }
     }
 }
