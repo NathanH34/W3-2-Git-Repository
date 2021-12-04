@@ -104,5 +104,10 @@ public class TestRefactoring {
 
         intAL1.set(0, 5);
         assertNotEquals(TS1.getParameterOrder(), TS2.getParameterOrder());
+        ArrayList<CPPToken> tokenAL = new ArrayList<CPPToken>();
+        
+        Refactoring refact = new Refactoring();
+        tokenAL = refact.compareParameterOrder(TS1, TS2); // should return empty array list
+        assert(tokenAL.isEmpty());
     }
 }
