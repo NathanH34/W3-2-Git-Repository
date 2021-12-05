@@ -127,7 +127,7 @@ public class TestRefactoring {
     	refactoring3.addSource(srcFile4, locs);
     	locs.addAll(refactoring3.getStartingLocation(srcFile3));
     	locs.addAll(refactoring3.getStartingLocation(srcFile4));
-    	String expected3 = "Opportunity 0, 15 tokens\n";
+    	String expected3 = "Opportunity " + refactoring3.getOpportunityValue() + ", 15 tokens\n";
     	for(SourceCodeFile file : refactoring3.getSourceCodeFiles()) {
 	    	for(int i=0; i<locs.size()-1; i++) {
 	            TokenSequence ts1 = refactoring3.generateTokenSequence(file.getTokens(), file, i);
