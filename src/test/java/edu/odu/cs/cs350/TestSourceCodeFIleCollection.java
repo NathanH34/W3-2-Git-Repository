@@ -79,7 +79,7 @@ public class TestSourceCodeFIleCollection {
         assertThat(ref.getSequenceLength(), equalTo(srcFile4.getNumTokens()));
         assertThat(ref.getOpportunityValue(), equalTo(srcFile4.getNumTokens()));
         assertTrue(ref.toString().contains(srcFile4.getPath() + ":" + 1 + ":" + 1));
-        assertTrue(ref.toString().contains(srcFile3.getPath() + ":" + 5 + ":" + 1));
+        assertTrue(ref.toString().contains(srcFile3.getPath() + ":" + 1 + ":" + 1));
 
 
 
