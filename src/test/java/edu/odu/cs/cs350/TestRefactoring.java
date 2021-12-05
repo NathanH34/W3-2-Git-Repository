@@ -12,7 +12,7 @@ public class TestRefactoring {
     SourceCodeFile srcFile1 = new SourceCodeFile("src/test/data/TestFile1.cpp");
     SourceCodeFile srcFile2 = new SourceCodeFile("src/test/data/TestFile2.cpp");
     SourceCodeFile srcFile3 = new SourceCodeFile("src/test/data/TestFile3.cpp");
-    SourceCodeFile srcFile4 = new SourceCodeFile("src/test/data/TestFile3.cpp");
+    SourceCodeFile srcFile4 = new SourceCodeFile("src/test/data/TestFile4.cpp");
     ArrayList<Integer> locs = new ArrayList<Integer>();
 
     @Test
