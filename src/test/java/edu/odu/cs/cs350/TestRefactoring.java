@@ -1,11 +1,10 @@
 package edu.odu.cs.cs350;
 import java.util.ArrayList;
-
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat; 
 import static org.hamcrest.Matchers.*;
-
 
 public class TestRefactoring {
     
@@ -13,6 +12,7 @@ public class TestRefactoring {
     SourceCodeFile srcFile1 = new SourceCodeFile("src/test/data/TestFile1.cpp");
     SourceCodeFile srcFile2 = new SourceCodeFile("src/test/data/TestFile2.cpp");
     SourceCodeFile srcFile3 = new SourceCodeFile("src/test/data/TestFile3.cpp");
+    SourceCodeFile srcFile4 = new SourceCodeFile("src/test/data/TestFile3.cpp");
     ArrayList<Integer> locs = new ArrayList<Integer>();
 
     @Test
@@ -109,5 +109,42 @@ public class TestRefactoring {
         Refactoring refact = new Refactoring();
         tokenAL = refact.compareParameterOrder(TS1, TS2); // should return empty array list
         assert(tokenAL.isEmpty());
+    }
+    
+    @Test
+    public void testToString() {
+    	Refactoring refactoring = new Refactoring();
+    	String expected = "Opportunity " + refactoring.getOpportunityValue() + ", " + refactoring.getSequenceLength() + " tokens\n";
+    	assertEquals(refactoring.toString(), expected);
+    	
+    	Refactoring refactoring2 = new Refactoring(10);
+    	String expected2 = "Opportunity " + refactoring.getOpportunityValue() + ", 10 tokens\n";
+    	assertEquals(refactoring2.toString(), expected2);
+    	
+    	Refactoring refactoring3 = new Refactoring(15);
+    	refactoring3.setOpportunityValue(20);
+    	refactoring3.addSource(srcFile3, locs);
+    	refactoring3.addSource(srcFile4, locs);
+    	locs.addAll(refactoring3.getStartingLocation(srcFile3));
+    	locs.addAll(refactoring3.getStartingLocation(srcFile4));
+    	String expected3 = "Opportunity 0, 15 tokens\n";
+    	for(SourceCodeFile file : refactoring3.getSourceCodeFiles()) {
+	    	for(int i=0; i<locs.size()-1; i++) {
+	            TokenSequence ts1 = refactoring3.generateTokenSequence(file.getTokens(), file, i);
+	            TokenSequence ts2 = refactoring3.generateTokenSequence(file.getTokens(), file, i+1);
+	            ArrayList<CPPToken> testRefactorings = refactoring3.compareParameterOrder(ts1, ts2);
+	            if(!testRefactorings.isEmpty()) {
+	                ArrayList<Lexeme> testParams = new ArrayList<Lexeme>();
+	                for(CPPToken token : testRefactorings) {
+	                    if(!testParams.contains(token.getLexeme())) {
+	                        testParams.add(token.getLexeme());
+	                    }
+	                }
+	                file.setParameterizables(testParams);
+	            }
+	            expected3 += file.getPath() + ":" + file.getTokenAt(i) + ":" + file.getTokenAt(i).getColumn() + "\n";
+	    	    assertEquals(refactoring3.toString(), expected3); 
+	    	}
+    	}
     }
 }

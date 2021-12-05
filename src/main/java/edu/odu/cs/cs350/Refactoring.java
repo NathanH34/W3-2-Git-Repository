@@ -100,8 +100,7 @@ public class Refactoring implements Comparable<Refactoring>  {
             	TokenSequence ts2 = generateTokenSequence(s.getTokens(), s, i+1); 
                 ArrayList<CPPToken> validRefactoring = compareParameterOrder(ts1, ts2);             
                 if(!validRefactoring.isEmpty()) {                    
-                   
-                	//Print the token output for output section2
+                   //Print the token output for output section2
                    ArrayList<Lexeme> parameterizables = new ArrayList<Lexeme>();
                    for(CPPToken t : validRefactoring) {
                 	   if(!parameterizables.contains(t.getLexeme())) {
@@ -124,14 +123,12 @@ public class Refactoring implements Comparable<Refactoring>  {
        return opportunityValue - (r.getOpportunityValue());
     }
 
-
     /**
      * Generate the token sequence for comparisons
      */
     public TokenSequence generateTokenSequence(List<CPPToken> tokens, SourceCodeFile srcFile, Integer i) {
         tokens = srcFile.makeTokenSequence(sequenceLength, i);
         TokenSequence tokenSeq = new TokenSequence(tokens, srcFile, i);
-
         return tokenSeq;
     }
 
@@ -139,8 +136,8 @@ public class Refactoring implements Comparable<Refactoring>  {
      * Compare the token sequence to the next token sequence for duplicity
      */
     public ArrayList<CPPToken> compareParameterOrder(TokenSequence sequence1, TokenSequence sequence2) {
-        if (sequence1.getParameterOrder().equals(sequence2.getParameterOrder())){ /// check for nearly duplicate through Parameters
-        	if (sequence1.getLexemeMap().equals(sequence2.getLexemeMap())) {
+        if(sequence1.getParameterOrder().equals(sequence2.getParameterOrder())){ //check for nearly duplicate through Parameters
+        	if(sequence1.getLexemeMap().equals(sequence2.getLexemeMap())) {
         		return sequence1.getTokens();
             }
             return sequence1.getTokens();
