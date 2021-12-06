@@ -1,6 +1,9 @@
 package edu.odu.cs.cs350;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import javax.xml.namespace.QName;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat; 
@@ -63,26 +66,33 @@ public class TestRefactoring {
 
     @Test
     public void testGenerateTokenSequence() {
-        Refactoring r1 = new Refactoring();
-        Refactoring r2 = new Refactoring();
+        Refactoring refactoring1 = new Refactoring();
+        Refactoring refactoring2 = new Refactoring();
 
-        /// Ensure the parameters are correct
-        assertThat(r1.getSequenceLength(), is(0));
-        assertThat(r2.getSequenceLength(), is(0));
-        
-        /// Correct the tests to pass the correct parameters for the generateTokenSequence
-        r1.setSequenceLength(20);
-        r1.addSource(srcFile1, locs);
+        // Set the parameters to generateTokenSequences
+        refactoring1.addSource(srcFile1, locs);
+        refactoring1.addSource(srcFile2, locs);
+        locs.addAll(refactoring1.getStartingLocation(srcFile1));
+    	locs.addAll(refactoring1.getStartingLocation(srcFile2));
 
-        r2.setSequenceLength(20);
-        r2.addSource(srcFile2, locs);
+        for(SourceCodeFile file : refactoring1.getSourceCodeFiles()) {
+	        TokenSequence ts1 = refactoring1.generateTokenSequence(file.getTokens(), file, 0);
+	        TokenSequence ts2 = refactoring1.generateTokenSequence(file.getTokens(), file, 1);
+            assertFalse(ts1.equals(ts2));
+        }
 
-        // Set up the method call to be able to compare
-        // r1.generateTokenSequence(0);
-        // assertThat(r1.generateTokenSequence(1), is(r2));
+        refactoring2.addSource(srcFile3, locs);
+        refactoring2.addSource(srcFile4, locs);
+    	locs.addAll(refactoring2.getStartingLocation(srcFile3));
+    	locs.addAll(refactoring2.getStartingLocation(srcFile4));
 
-        // Setup a TokenSequence to compare is Equal
-        // Setup a TokenSequence to compare that it is false / different
+        for(SourceCodeFile file : refactoring2.getSourceCodeFiles()) {
+	        TokenSequence ts1 = refactoring2.generateTokenSequence(file.getTokens(), file, 0);
+	        TokenSequence ts2 = refactoring2.generateTokenSequence(file.getTokens(), file, 1);
+            assertFalse(ts1.equals(ts2));
+        }
+
+
     }
 
     @Test
