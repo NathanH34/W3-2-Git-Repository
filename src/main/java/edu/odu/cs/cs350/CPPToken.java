@@ -5,7 +5,6 @@ public class CPPToken implements Token{
     private TokenKinds name;
     //The lexeme associated with the token(if the token has one)
     private Lexeme lex;
-
     //Line and column where the token was found
     private int line;
     private int column;
@@ -16,12 +15,14 @@ public class CPPToken implements Token{
      * @param theLine the line the token starts at
      * @param theColumn the column the token starts at
      */
+    
     public CPPToken(TokenKinds theName, int theLine, int theColumn) {
         name = theName;
         lex = new Lexeme();
         line = theLine;
         column = theColumn;
     }
+    
     /**
      *  Constructor with lexeme
      * @param theName the type of TokenKinds the token is
@@ -29,6 +30,7 @@ public class CPPToken implements Token{
      * @param theLine the line the token starts at
      * @param theColumn the column the token starts at
      */
+    
     public CPPToken(TokenKinds theName, String theLex, int theLine, int theColumn) {
         name = theName;
         lex = new Lexeme(theLex);
@@ -100,6 +102,7 @@ public class CPPToken implements Token{
      * equality comparator
      * @return checks if rhs is a CPPToken, and if its Name and Lexeme are equal to lhs Name and Lexeme
      */
+    
     @Override
     public boolean equals(Object obj) {
         return (obj instanceof CPPToken) && (this.name == ((CPPToken) obj).getName()) && (this.lex.equals(((CPPToken) obj).getLexeme()));
