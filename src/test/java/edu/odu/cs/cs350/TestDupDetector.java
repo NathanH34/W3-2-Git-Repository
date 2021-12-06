@@ -130,5 +130,10 @@ public class TestDupDetector {
     	assertThat(validExtensions.size(), is(2));
     }
 
+    @Test
+    public void testForOutput() {
 
+
+    	
+    }
 }
