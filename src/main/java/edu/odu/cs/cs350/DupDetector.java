@@ -65,7 +65,10 @@ public class DupDetector {
 			
 		}
 	    
-
+		int kSuggestions;
+		kSuggestions = refactorings.size(); 
+		System.out.println("Printed " + nSuggestions + " of " + kSuggestions + " suggestions");
+	    	System.out.println("\n");
 
 	
     }
