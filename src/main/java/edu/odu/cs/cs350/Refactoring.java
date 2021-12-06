@@ -87,19 +87,14 @@ public class Refactoring implements Comparable<Refactoring>  {
         sb.append("Opportunity " + opportunityValue + ", " + sequenceLength + " tokens\n");
         for(SourceCodeFile s: sourceFiles) {
             for(int i=0; i<sequenceStartLocations.size()-1; i++) {
-            	/*
-                // change looping to something
-                // for(int i=0; sequenceStartLocations.get(s) - 1 > i; i++)
-                 TokenSequence tokenSeq1 = generateTokenSequence(i);
-                 TokenSequence tokenSeq2 = generateTokenSequence(i+1);
-                */         	            	
                 CPPToken token = s.getTokenAt(i);
                 sb.append("\t" + s.getPath() + ":" + token.getLine() + ":" + token.getColumn() + "\n");  
                 
+                // Initialize token sequences for comparison, check if output is needed
                 TokenSequence ts1 = generateTokenSequence(s.getTokens(), s, i);
-            	TokenSequence ts2 = generateTokenSequence(s.getTokens(), s, i+1); 
-                ArrayList<CPPToken> validRefactoring = compareParameterOrder(ts1, ts2);             
-                if(!validRefactoring.isEmpty()) {                    
+            	TokenSequence ts2 = generateTokenSequence(s.getTokens(), s, i+1);
+                ArrayList<CPPToken> validRefactoring = compareParameterOrder(ts1, ts2);
+                if(!validRefactoring.isEmpty()) {
                    //Print the token output for output section2
                    ArrayList<Lexeme> parameterizables = new ArrayList<Lexeme>();
                    for(CPPToken t : validRefactoring) {
@@ -109,8 +104,8 @@ public class Refactoring implements Comparable<Refactoring>  {
                    }
                    s.setParameterizables(parameterizables);
                 }
-            	sb.append("\t" + s.getParameterizables().stream().map(str -> str.toString()).collect(Collectors.joining(" ")) + "\n");      
-            }             
+            	sb.append("\t" + s.getParameterizables().stream().map(str -> str.toString()).collect(Collectors.joining(" ")) + "\n");
+            }
         }
         return sb.toString();
     }
