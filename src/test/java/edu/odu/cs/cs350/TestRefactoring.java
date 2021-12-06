@@ -68,6 +68,7 @@ public class TestRefactoring {
     public void testGenerateTokenSequence() {
         Refactoring refactoring1 = new Refactoring();
         Refactoring refactoring2 = new Refactoring();
+        Refactoring refactoring3 = new Refactoring();
 
         // Set the parameters to generateTokenSequences
         refactoring1.addSource(srcFile1, locs);
@@ -78,6 +79,8 @@ public class TestRefactoring {
         for(SourceCodeFile file : refactoring1.getSourceCodeFiles()) {
 	        TokenSequence ts1 = refactoring1.generateTokenSequence(file.getTokens(), file, 0);
 	        TokenSequence ts2 = refactoring1.generateTokenSequence(file.getTokens(), file, 1);
+            assertThat(ts1.getStartingLocation(), is(0));
+            assertThat(ts2.getStartingLocation(), is(1));
             assertFalse(ts1.equals(ts2));
         }
 
@@ -89,10 +92,23 @@ public class TestRefactoring {
         for(SourceCodeFile file : refactoring2.getSourceCodeFiles()) {
 	        TokenSequence ts1 = refactoring2.generateTokenSequence(file.getTokens(), file, 0);
 	        TokenSequence ts2 = refactoring2.generateTokenSequence(file.getTokens(), file, 1);
+            assertThat(ts1.getStartingLocation(), is(0));
+            assertThat(ts2.getStartingLocation(), is(1));
             assertFalse(ts1.equals(ts2));
         }
 
+        refactoring3.addSource(srcFile4, locs);
+        locs.addAll(refactoring3.getStartingLocation(srcFile4));
 
+        for(SourceCodeFile file : refactoring3.getSourceCodeFiles()) {
+            TokenSequence ts1 = refactoring3.generateTokenSequence(file.getTokens(), file, 0);
+            
+            assert(ts1.getParameterOrder().isEmpty());
+            assert(ts1.getLexemeMap().isEmpty());
+            assert(ts1.getTokens().isEmpty());
+            assert(ts1.getSourceCode() == file);
+            assertThat(ts1.getStartingLocation(), is(0));
+        }
     }
 
     @Test
