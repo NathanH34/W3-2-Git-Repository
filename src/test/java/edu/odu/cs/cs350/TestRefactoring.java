@@ -110,12 +110,15 @@ public class TestRefactoring {
         }
         TS1.setParameterOrder(intAL1);
         TS2.setParameterOrder(intAL2);
-        assertEquals(TS1.getParameterOrder(), TS2.getParameterOrder());
+        ///assertEquals(TS1.getParameterOrder(), TS2.getParameterOrder());
+        assert(TS1.getParameterOrder().equals(TS2.getParameterOrder()));
 
         intAL1.set(0, 5);
-        assertNotEquals(TS1.getParameterOrder(), TS2.getParameterOrder());
+        TS1.setParameterOrder(intAL1);
+        ///assertNotEquals(TS1.getParameterOrder(), TS2.getParameterOrder());
+        assert(!TS1.getParameterOrder().equals(TS2.getParameterOrder()));
+
         ArrayList<CPPToken> tokenAL = new ArrayList<CPPToken>();
-        
         Refactoring refact = new Refactoring();
         tokenAL = refact.compareParameterOrder(TS1, TS2); // should return empty array list
         assert(tokenAL.isEmpty());

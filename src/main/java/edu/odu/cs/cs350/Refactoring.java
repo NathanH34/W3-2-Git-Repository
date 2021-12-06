@@ -135,11 +135,9 @@ public class Refactoring implements Comparable<Refactoring>  {
         	if(sequence1.getLexemeMap().equals(sequence2.getLexemeMap())) {
         		return sequence1.getTokens();
             }
-            return sequence1.getTokens();
         } 
-        else { /// if not duplicate, return an empty array
-        	ArrayList<CPPToken> returnTokenArray = new ArrayList<CPPToken>();
-            return returnTokenArray;
-        }
+        /// if not duplicate, return an empty array
+        ArrayList<CPPToken> returnTokenArray = new ArrayList<CPPToken>();
+        return returnTokenArray;
     }
 }
