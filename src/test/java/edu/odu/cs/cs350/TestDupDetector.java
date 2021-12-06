@@ -20,6 +20,8 @@ public class TestDupDetector {
     File defaultDirectory = new File("src/test/data");
     String propertiesFilePath = "src/test/data/properties.ini";
     String wrongPropertiesFilePath = "src/test/data/wrongProperties.ini";
+    String testOutputPath = "src/test/data/";
+    File testOutput = new File("src/test/data");
 
     int validMinSequenceLength;
     int validMaxSubstitutions;
