@@ -152,14 +152,17 @@ public class TestRefactoring {
     	
     	Refactoring refactoring3 = new Refactoring(15);
     	refactoring3.setOpportunityValue(20);
-    	refactoring3.addSource(srcFile3, locs);
+    	//add source files to the refactoring
+    	refactoring3.addSource(srcFile3, locs); 
     	refactoring3.addSource(srcFile4, locs);
-    	locs.addAll(refactoring3.getStartingLocation(srcFile3));
+    	locs.addAll(refactoring3.getStartingLocation(srcFile3)); 
     	locs.addAll(refactoring3.getStartingLocation(srcFile4));
     	String expected3 = "Opportunity " + refactoring3.getOpportunityValue() + ", 15 tokens\n";
     	for(SourceCodeFile file : refactoring3.getSourceCodeFiles()) {
-	    	for(int i=0; i<locs.size()-1; i++) {
-	            TokenSequence ts1 = refactoring3.generateTokenSequence(file.getTokens(), file, i);
+    		//go through all starting locations in the refactoring files
+    		for(int i=0; i<locs.size()-1; i++) { 
+	            //find parameterizable lexemes in the files 
+    			TokenSequence ts1 = refactoring3.generateTokenSequence(file.getTokens(), file, i);
 	            TokenSequence ts2 = refactoring3.generateTokenSequence(file.getTokens(), file, i+1);
 	            ArrayList<CPPToken> testRefactorings = refactoring3.compareParameterOrder(ts1, ts2);
 	            if(!testRefactorings.isEmpty()) {
@@ -171,8 +174,10 @@ public class TestRefactoring {
 	                }
 	                file.setParameterizables(testParams);
 	            }
-	            expected3 += file.getPath() + ":" + file.getTokenAt(i) + ":" + file.getTokenAt(i).getColumn() + "\n";
-	    	    assertEquals(refactoring3.toString(), expected3); 
+	            //set up expected lexeme output
+	            expected3 += file.getPath() + ":" + file.getTokenAt(i) + ":" + file.getTokenAt(i).getColumn() + "\n"
+	            + "\t" + file.getParameterizables().stream().map(str -> str.toString()).collect(Collectors.joining(" ")) + "\n";
+	            assertEquals(refactoring3.toString(), expected3); 
 	    	}
     	}
     }
