@@ -26,6 +26,8 @@ public class TestDupDetector {
     int validMinSequenceLength;
     int validMaxSubstitutions;
     int numOfSuggestions;
+    private ArrayList<String> arrayList;
+
 
     /**
     * @throws java.lang.Exception
