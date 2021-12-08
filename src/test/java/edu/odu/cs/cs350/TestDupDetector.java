@@ -135,9 +135,15 @@ public class TestDupDetector {
 
     @Test
     public void testForOutput() {
-    arrayList = new ArrayList<String>(numOfSuggestions);
-            assertThat(numOfSuggestions, is(0));
+    extracted();
+    assertThat(numOfSuggestions, is(0));
+ 
+
 
     	
+    }
+
+    private void extracted() {
+        arrayList = new ArrayList<String>(numOfSuggestions);
     }
 }
