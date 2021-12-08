@@ -139,10 +139,9 @@ public class TestDupDetector {
     public void testForOutput() {
     extracted();
     assertThat(numOfSuggestions, is(0));
+    assertThat(numOfSuggestions, is(1));
+
  
-
-
-    	
     }
 
     private void extracted() {
