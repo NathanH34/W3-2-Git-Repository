@@ -25,6 +25,7 @@ public class TestDupDetector {
 
     int validMinSequenceLength;
     int validMaxSubstitutions;
+    int numOfSuggestions;
 
     /**
     * @throws java.lang.Exception
